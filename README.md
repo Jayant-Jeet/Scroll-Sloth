@@ -265,7 +265,7 @@ Each period screen shows a short verdict on the last completed day, week or mont
 
 ## Build and test
 
-**Requirements:** JDK 17 or newer (Android Studio's bundled JBR works), and the Android SDK with platform 37 and build-tools 36.0.0. Point `local.properties` (`sdk.dir=...`) or `ANDROID_HOME` at the SDK.
+**Requirements:** JDK 17 or newer (Android Studio's bundled JBR works), and the Android SDK with platform 37.0 (`platforms;android-37.0`) and build-tools 36.0.0. Point `local.properties` (`sdk.dir=...`) or `ANDROID_HOME` at the SDK.
 
 ```shell
 ./gradlew testDebugUnitTest assembleDebug     # all unit + Compose UI tests, then the debug APK
