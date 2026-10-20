@@ -24,7 +24,7 @@ and rates the user's laziness and unproductivity. Built for the DEV Hacktoberfes
 - Every non-UI class gets unit tests. Keep the build green after every change.
 
 ## Package layout
-com.reelsloth
+com.halfbloodcoder.scrollsloth
   detect/    ReelAccessibilityService, RuleEngine, ReelStateMachine, DetectionRules (data classes)
   data/      Room: ReelEventEntity, ReelDao, AppDatabase, CommentaryEntity; SettingsStore (DataStore)
   stats/     StatsEngine, PeriodStats

@@ -8,15 +8,15 @@ Scroll Sloth is an Android-only, on-device app for counting short-form video ses
 ## Architecture overview
 
 - `app`: the only Android application module, written in Kotlin with Jetpack Compose and Material 3.
-- `com.reelsloth.AppContainer`: hand-written dependency container created by `ScrollSlothApplication` and shared by the activity and the accessibility service (one DataStore instance per process).
-- `com.reelsloth.detect`: supported platforms, the detection-rules schema, loader and repository, `RulesUpdater`/`HttpRulesFetcher` (rules fetch), `AppStatuses` (per-app status), `RuleEngine` (node tree → `DetectorEvent`), the pure-Kotlin `ReelStateMachine` (dwell, dedupe, resets), `ReelDetector` (glue), `ReelAccessibilityService`, and the enabled-service check.
-- `com.reelsloth.data`: Room entities and DAO, the Room database, `ReelEventWriter` (a Channel drained by one writer coroutine), Preferences DataStore settings (onboarding, Inspector mode, tracking pause, week start, scoring config), `CsvExporter`, and `UserData` (export and delete-all).
-- `com.reelsloth.debug`: the Rule Inspector — node snapshot serialiser, event ring buffer, capture storage, the floating Capture overlay, capture sharing, and the captures screen.
-- `com.reelsloth.stats`: `PeriodCalendar` (day/week/month ranges in local time), the pure `StatsCalculator` (sessions, late night, baseline), `StatsEngine` (Flows for today, this week, this month and previous periods, refreshed at local midnight), and `PeriodCharts` (week bars, month heat map, best/worst day, chart descriptions for screen readers).
-- `com.reelsloth.score`: `ScoreConfig` and `ScoreBands`, the deterministic `ScoreEngine`, `ScoreExplainer` (the "why this score" lines), and `ScoreConfigInput` (Settings form validation).
-- `com.reelsloth.ai`: on-device commentary — `CommentaryEngine`, `StatsFacts`, `PromptBuilder`, `NumberGuard`, `TemplateCommentaryEngine` (fallback), `GemmaCommentaryEngine` (guard + one retry + fallback) over a `LanguageModel` seam implemented by `LiteRtLanguageModel`, `ModelDownloader`/`ModelFiles` (download and SHA-256 marker), and `CommentaryRepository` (facts for completed periods, cache, catch-up).
-- `com.reelsloth.ui`: onboarding, the Today/Week/Month screens, Settings, shared components (score card with "why this score", commentary card with source badge, per-app split, banners, empty states), and light/dark theme. See [Screens](#screens).
-- `com.reelsloth.work`: `NightlySchedule` (next 00:30 local, DST-safe), `NightlyCommentaryWorker`, and `RulesUpdateWorker`.
+- `com.halfbloodcoder.scrollsloth.AppContainer`: hand-written dependency container created by `ScrollSlothApplication` and shared by the activity and the accessibility service (one DataStore instance per process).
+- `com.halfbloodcoder.scrollsloth.detect`: supported platforms, the detection-rules schema, loader and repository, `RulesUpdater`/`HttpRulesFetcher` (rules fetch), `AppStatuses` (per-app status), `RuleEngine` (node tree → `DetectorEvent`), the pure-Kotlin `ReelStateMachine` (dwell, dedupe, resets), `ReelDetector` (glue), `ReelAccessibilityService`, and the enabled-service check.
+- `com.halfbloodcoder.scrollsloth.data`: Room entities and DAO, the Room database, `ReelEventWriter` (a Channel drained by one writer coroutine), Preferences DataStore settings (onboarding, Inspector mode, tracking pause, week start, scoring config), `CsvExporter`, and `UserData` (export and delete-all).
+- `com.halfbloodcoder.scrollsloth.debug`: the Rule Inspector — node snapshot serialiser, event ring buffer, capture storage, the floating Capture overlay, capture sharing, and the captures screen.
+- `com.halfbloodcoder.scrollsloth.stats`: `PeriodCalendar` (day/week/month ranges in local time), the pure `StatsCalculator` (sessions, late night, baseline), `StatsEngine` (Flows for today, this week, this month and previous periods, refreshed at local midnight), and `PeriodCharts` (week bars, month heat map, best/worst day, chart descriptions for screen readers).
+- `com.halfbloodcoder.scrollsloth.score`: `ScoreConfig` and `ScoreBands`, the deterministic `ScoreEngine`, `ScoreExplainer` (the "why this score" lines), and `ScoreConfigInput` (Settings form validation).
+- `com.halfbloodcoder.scrollsloth.ai`: on-device commentary — `CommentaryEngine`, `StatsFacts`, `PromptBuilder`, `NumberGuard`, `TemplateCommentaryEngine` (fallback), `GemmaCommentaryEngine` (guard + one retry + fallback) over a `LanguageModel` seam implemented by `LiteRtLanguageModel`, `ModelDownloader`/`ModelFiles` (download and SHA-256 marker), and `CommentaryRepository` (facts for completed periods, cache, catch-up).
+- `com.halfbloodcoder.scrollsloth.ui`: onboarding, the Today/Week/Month screens, Settings, shared components (score card with "why this score", commentary card with source badge, per-app split, banners, empty states), and light/dark theme. See [Screens](#screens).
+- `com.halfbloodcoder.scrollsloth.work`: `NightlySchedule` (next 00:30 local, DST-safe), `NightlyCommentaryWorker`, and `RulesUpdateWorker`.
 
 Room stores only event timestamps, platform identifiers, and dwell durations, plus a commentary cache (period key, tone, text, source, retries, created time).
 
@@ -129,7 +129,7 @@ The bundled `app/src/main/assets/detection-rules.json` contains only `"TODO_FROM
 Calibrated values are derived from Rule Inspector captures (`captures/<date>-<device>/`, currently one Samsung S24 Ultra on Android 16) and live in [`site/detection-rules.json`](site/detection-rules.json), which is also the published file. The rules unit tests replay those captures, so a rule change that stops matching them fails the build. To use them, either:
 
 - open **Settings > Advanced > Import detection rules** and pick the file, or
-- with a debug build: `adb push site/detection-rules.json /data/local/tmp/` then `adb shell "run-as com.reelsloth sh -c 'cat /data/local/tmp/detection-rules.json > files/detection-rules.json'"`.
+- with a debug build: `adb push site/detection-rules.json /data/local/tmp/` then `adb shell "run-as com.halfbloodcoder.scrollsloth sh -c 'cat /data/local/tmp/detection-rules.json > files/detection-rules.json'"`.
 
 The imported file overrides the bundled one until you choose **Use bundled rules**. Settings > Advanced also shows a live detector readout to check a rule while using an app. **Use bundled rules** also forgets downloaded rules.
 
@@ -197,7 +197,7 @@ Use only values you can see in the captures. Never guess IDs.
 **5. Check it locally and on a phone.**
 
 ```shell
-./gradlew testDebugUnitTest --tests "com.reelsloth.detect.*"
+./gradlew testDebugUnitTest --tests "com.halfbloodcoder.scrollsloth.detect.*"
 ```
 
 - Import the file with **Settings > Advanced > Import detection rules**.
@@ -261,7 +261,7 @@ Each period screen shows a short verdict on the last completed day, week or mont
 - **NumberGuard.** Every number in the reply (digits, decimals, percentages, and number words up to twenty, plus tens) must be in an allow-list built from the facts and simple derived values (rounded percentage change, late-night share, hours from minutes). Empty text, text over 300 characters, banned phrases, and letters from non-Latin scripts (a sign of garbled output; emoji, accents and a renamed band label pass) are rejected. On failure the model gets one retry naming the rejected numbers; a second failure falls back to the template engine. The cache records `source` (GEMMA or TEMPLATE) and `retries`, and the card says "Written by Gemma on your phone" or "Template".
 - **Templates.** `TemplateCommentaryEngine` has 5 to 8 deterministic templates per band and tone. It is always available and is used before the model is downloaded.
 - **Nightly job.** `NightlyCommentaryWorker` runs at about 00:30 local time while charging and idle. It writes any missing verdict for the latest completed day, week and month, so the weekly verdict appears on the week-start day, the monthly one on the 1st, and missed nights catch up. A template verdict is rewritten once the model is ready, and every verdict is rewritten when the tone changes. It is a one-time job that re-arms itself for the next 00:30 (periodic work drifts under charging/idle constraints). Settings > Advanced > **Write commentary now** runs it immediately without constraints.
-- **Download.** Settings > On-device writer. Uses Android `DownloadManager` (resumable, survives app restarts), Wi-Fi only unless "Allow mobile data" is on, into the app-specific external files dir (`Android/data/com.reelsloth/files/models`). The URL is pinned to a Hugging Face revision, and the file must match the pinned size and SHA-256. A marker file records the verified size and modification time; on every start the app checks the file against the marker and deletes and re-downloads it if they do not match. Needs the model size plus 200 MB free.
+- **Download.** Settings > On-device writer. Uses Android `DownloadManager` (resumable, survives app restarts), Wi-Fi only unless "Allow mobile data" is on, into the app-specific external files dir (`Android/data/com.halfbloodcoder.scrollsloth/files/models`). The URL is pinned to a Hugging Face revision, and the file must match the pinned size and SHA-256. A marker file records the verified size and modification time; on every start the app checks the file against the marker and deletes and re-downloads it if they do not match. Needs the model size plus 200 MB free.
 
 ## Build and test
 

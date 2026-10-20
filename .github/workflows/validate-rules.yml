@@ -3,7 +3,7 @@ name: Validate rules
 # Fails if site/detection-rules.json would not be accepted by the app, or has a publishing
 # mistake the app would silently tolerate (misspelt key, unknown app, broken rule, version not
 # above the bundled rules). Uses the app's own parser, so the schema has a single definition.
-# See app/src/test/java/com/reelsloth/detect/PublishedRulesCheck.kt.
+# See app/src/test/java/com/halfbloodcoder/scrollsloth/detect/PublishedRulesCheck.kt.
 
 on:
   pull_request:
@@ -22,4 +22,4 @@ jobs:
       - name: Set up Android build
         uses: ./.github/actions/android-setup
       - name: Check site/detection-rules.json
-        run: ./gradlew testDebugUnitTest --tests "com.reelsloth.detect.PublishedRules*"
+        run: ./gradlew testDebugUnitTest --tests "com.halfbloodcoder.scrollsloth.detect.PublishedRules*"

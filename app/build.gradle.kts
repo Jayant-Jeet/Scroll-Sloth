@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.reelsloth"
+    namespace = "com.halfbloodcoder.scrollsloth"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.reelsloth"
+        applicationId = "com.halfbloodcoder.scrollsloth"
         minSdk = 26
         targetSdk = 37
         // The release workflow passes these from the git tag (v1.2.3 -> 1.2.3 / 10203).
@@ -85,3 +85,4 @@ dependencies {
     testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.compose.ui.test.junit4)
 }
+
