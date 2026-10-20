@@ -13,15 +13,38 @@ android {
         applicationId = "com.reelsloth"
         minSdk = 26
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        // The release workflow passes these from the git tag (v1.2.3 -> 1.2.3 / 10203).
+        versionCode = (project.findProperty("versionCode") as String?)?.toInt() ?: 1
+        versionName = (project.findProperty("versionName") as String?) ?: "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // HTTPS URL of the published detection-rules.json. Empty disables the rules fetch.
-        // PLACEHOLDER until the rules file is published; set with -PrulesUrl=https://...
-        val rulesUrl = (project.findProperty("rulesUrl") as String?).orEmpty()
+        // Default HTTPS address of the published detection-rules.json (GitHub Pages, from site/).
+        // Override with -PrulesUrl=https://... or -PrulesUrl= (empty) to build without updates.
+        // Users can also change it in Settings > Advanced.
+        val rulesUrl = (project.findProperty("rulesUrl") as String?)
+            ?: "https://jayant-jeet.github.io/Scroll-Sloth/detection-rules.json"
         buildConfigField("String", "RULES_URL", "\"$rulesUrl\"")
+    }
+
+    // Release signing comes from the environment (see .github/workflows/release.yml). Without
+    // RELEASE_KEYSTORE_FILE, assembleRelease still works and produces an unsigned APK.
+    val releaseKeystore = System.getenv("RELEASE_KEYSTORE_FILE")?.takeIf { it.isNotBlank() }
+    signingConfigs {
+        if (releaseKeystore != null) {
+            create("release") {
+                storeFile = file(releaseKeystore)
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (releaseKeystore != null) signingConfig = signingConfigs.getByName("release")
+        }
     }
 
     buildFeatures {

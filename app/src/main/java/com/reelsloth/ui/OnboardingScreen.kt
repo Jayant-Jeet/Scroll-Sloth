@@ -35,13 +35,13 @@ fun OnboardingScreen(
         ) {
             Text("A gentler look at your scrolling", style = MaterialTheme.typography.headlineMedium)
             Text(
-                "Scroll Sloth will count short-form video sessions in Instagram, YouTube Shorts, and Facebook Reels.",
+                "Scroll Sloth counts the reels you watch in Instagram, YouTube Shorts, and Facebook Reels.",
                 style = MaterialTheme.typography.bodyLarge,
             )
 
             InfoCard(
                 title = "What is counted",
-                body = "Only a session timestamp, the app (platform), and how long that session lasted. Detection is not active yet in this first version.",
+                body = "For each reel you watch for at least 2 seconds: when it started, which app it was in, and how long it stayed on screen. Nothing else.",
             )
             InfoCard(
                 title = "What is not stored",

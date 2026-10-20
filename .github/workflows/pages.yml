@@ -1,0 +1,56 @@
+name: Deploy site
+
+# Publishes site/ to GitHub Pages: the landing page and detection-rules.json.
+# Repository Settings > Pages > Source must be "GitHub Actions".
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validate-rules:
+    uses: ./.github/workflows/validate-rules.yml
+
+  build:
+    needs: validate-rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Assemble site
+        run: |
+          mkdir -p _site/docs
+          cp -R site/. _site/
+          # Builds before v1 fetch the rules from /docs/; keep that address working.
+          cp site/detection-rules.json _site/docs/detection-rules.json
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

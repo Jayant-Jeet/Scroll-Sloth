@@ -45,6 +45,20 @@ class SettingsStoreTest {
     }
 
     @Test
+    fun rulesUrlFallsBackToTheBuildDefaultAndCanBeTurnedOff() = runTest {
+        val settingsStore = SettingsStore(InMemoryPreferencesDataStore())
+        val default = "https://example.com/default.json"
+
+        assertEquals(default, settingsStore.rulesUrl(default).first())
+        settingsStore.setRulesUrlOverride("  https://example.com/mine.json ")
+        assertEquals("https://example.com/mine.json", settingsStore.rulesUrl(default).first())
+        settingsStore.setRulesUrlOverride("")
+        assertEquals("", settingsStore.rulesUrl(default).first())
+        settingsStore.setRulesUrlOverride(null)
+        assertEquals(default, settingsStore.rulesUrl(default).first())
+    }
+
+    @Test
     fun trackingPauseAndRulesCheckTimeAreStored() = runTest {
         val settingsStore = SettingsStore(InMemoryPreferencesDataStore())
 

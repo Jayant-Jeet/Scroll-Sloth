@@ -23,11 +23,13 @@ class UserDataTest {
     private val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).allowMainThreadQueries().build()
     private val exports = File(context.cacheDir, "exports-test").apply { deleteRecursively() }
     private var capturesDeleted = 0
+    private var calibrationDeleted = 0
     private val userData = UserData(
         reelDao = database.reelDao(),
         commentaryDao = database.commentaryDao(),
         exportDirectory = exports,
         deleteCaptures = { capturesDeleted++ },
+        deleteCalibration = { calibrationDeleted++ },
         clock = { 1_792_454_400_000 },
         zone = { ZoneId.of("UTC") },
     )
@@ -70,6 +72,7 @@ class UserDataTest {
         assertTrue(database.reelDao().allEvents().isEmpty())
         assertNull(database.commentaryDao().get("DAY:2026-10-19"))
         assertEquals(1, capturesDeleted)
+        assertEquals(1, calibrationDeleted)
         assertFalse(export.exists())
     }
 }

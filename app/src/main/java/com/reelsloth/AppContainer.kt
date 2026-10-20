@@ -16,6 +16,8 @@ import com.reelsloth.data.AppDatabase
 import com.reelsloth.data.ReelEventWriter
 import com.reelsloth.data.SettingsStore
 import com.reelsloth.data.UserData
+import com.reelsloth.debug.CalibrationLog
+import com.reelsloth.debug.CalibrationSession
 import com.reelsloth.debug.CaptureRepository
 import com.reelsloth.debug.RuleInspector
 import com.reelsloth.debug.SnapshotSerializer
@@ -24,11 +26,15 @@ import com.reelsloth.detect.HttpRulesFetcher
 import com.reelsloth.detect.ReelDetector
 import com.reelsloth.detect.RulesRepository
 import com.reelsloth.detect.RulesUpdater
+import com.reelsloth.detect.targetAppInfo
 import com.reelsloth.stats.StatsEngine
 import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 
 // One DataStore per file per process: shared by the activity and the accessibility service.
 private val Context.settingsDataStore by preferencesDataStore(name = "settings")
@@ -65,9 +71,12 @@ class AppContainer(context: Context) {
         )
     }
 
+    /** Where rule updates come from: Settings, else the build default. Blank turns updates off. */
+    val rulesUrl: Flow<String> get() = settingsStore.rulesUrl(BuildConfig.RULES_URL)
+
     val rulesUpdater by lazy {
         RulesUpdater(
-            url = BuildConfig.RULES_URL,
+            url = { rulesUrl.first() },
             fetcher = HttpRulesFetcher(),
             repository = rulesRepository,
             onServerAnswered = settingsStore::setRulesLastCheckedMs,
@@ -81,19 +90,37 @@ class AppContainer(context: Context) {
             commentaryDao = database.commentaryDao(),
             exportDirectory = File(appContext.cacheDir, UserData.EXPORT_DIRECTORY),
             deleteCaptures = { captureRepository.deleteAll() },
+            deleteCalibration = { calibrationLog.delete() },
             clock = Clock.System,
         )
     }
 
     val reelEventWriter by lazy { ReelEventWriter(database.reelDao(), appScope) }
 
-    val reelDetector by lazy {
+    val reelDetector: ReelDetector by lazy {
         ReelDetector(
             rules = { rulesRepository.rules.value },
             clock = Clock.System,
-            sink = { reelEventWriter.submit(it) },
+            sink = { event ->
+                reelEventWriter.submit(event)
+                calibrationSession.onReelViewed(event)
+            },
         )
     }
+
+    val calibrationSession: CalibrationSession by lazy {
+        CalibrationSession(
+            clock = Clock.System,
+            // As if the user left the app: the open reel is counted now, on the detector's thread.
+            flushDetector = { withContext(detectionDispatcher) { reelDetector.onOtherAppInForeground() } },
+            rulesVersion = { rulesRepository.rules.value.rules.rulesVersion },
+            appVersionName = { platform -> appContext.packageManager.targetAppInfo(platform.packageName).versionName },
+        )
+    }
+
+    val calibrationLog = CalibrationLog(
+        File(File(appContext.filesDir, CalibrationLog.DIRECTORY), CalibrationLog.FILE_NAME),
+    )
 
     val statsEngine by lazy {
         StatsEngine(dao = database.reelDao(), clock = Clock.System, weekStart = settingsStore.weekStart)

@@ -28,10 +28,16 @@ class RulesFormatException(message: String, cause: Throwable? = null) : Exceptio
 object DetectionRulesLoader {
     val json = Json { ignoreUnknownKeys = true }
 
-    /** Parses and sanity-checks rules. Throws [RulesFormatException] for anything unusable. */
-    fun parse(text: String): DetectionRules {
+    /** For publishing checks: a misspelt key would otherwise be silently dropped. */
+    private val strictJson = Json { ignoreUnknownKeys = false }
+
+    /**
+     * Parses and sanity-checks rules. Throws [RulesFormatException] for anything unusable.
+     * The app reads leniently so newer files with extra fields still load; [strict] rejects them.
+     */
+    fun parse(text: String, strict: Boolean = false): DetectionRules {
         val rules = try {
-            json.decodeFromString(DetectionRules.serializer(), text)
+            (if (strict) strictJson else json).decodeFromString(DetectionRules.serializer(), text)
         } catch (e: SerializationException) {
             throw RulesFormatException("Not a valid rules file: ${e.message}", e)
         } catch (e: IllegalArgumentException) {

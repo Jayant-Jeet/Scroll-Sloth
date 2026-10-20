@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -25,6 +26,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -38,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.work.WorkInfo
 import com.reelsloth.ai.ModelSpec
@@ -47,6 +50,7 @@ import com.reelsloth.detect.AppStatus
 import com.reelsloth.detect.DetectorEvent
 import com.reelsloth.detect.LoadedRules
 import com.reelsloth.detect.Platform
+import com.reelsloth.detect.RulesAddress
 import com.reelsloth.detect.RulesSource
 import com.reelsloth.score.ScoreConfig
 import java.time.DayOfWeek
@@ -67,7 +71,9 @@ data class SettingsUiState(
     val modelState: ModelState,
     val modelAllowMetered: Boolean,
     val rules: LoadedRules,
-    val rulesServerConfigured: Boolean,
+    /** Address rule updates come from; blank means updates are off. */
+    val rulesUrl: String,
+    val rulesUrlIsDefault: Boolean,
     val rulesLastCheckedMs: Long?,
     val rulesChecking: Boolean,
     val rulesMessage: String?,
@@ -98,6 +104,9 @@ data class SettingsActions(
     val onOpenCaptures: () -> Unit,
     val onImportRules: () -> Unit,
     val onResetRules: () -> Unit,
+    /** Null means "use the build default". */
+    val onSaveRulesUrl: (String?) -> Unit,
+    val onOpenCalibration: () -> Unit,
 )
 
 @Composable
@@ -158,6 +167,12 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, modifier: M
                 onCheckedChange = actions.onInspectorEnabledChange,
             )
             ClickRow("Rule Inspector captures", "Share or delete saved captures", actions.onOpenCaptures)
+            ClickRow(
+                "Calibration",
+                "Count reels by hand next to the detector and see how far apart you are",
+                actions.onOpenCalibration,
+            )
+            RulesAddressEditor(url = state.rulesUrl, isDefault = state.rulesUrlIsDefault, onSave = actions.onSaveRulesUrl)
             ClickRow("Import detection rules", "Load a calibrated detection-rules.json from your files", actions.onImportRules)
             if (state.rules.source != RulesSource.BUNDLED) {
                 ClickRow("Use bundled rules", "Forget the imported or downloaded rules file", actions.onResetRules)
@@ -175,7 +190,7 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, modifier: M
             title = { Text("Delete all data?") },
             text = {
                 Text(
-                    "This removes every counted reel, all commentary and any Inspector captures from this phone. " +
+                    "This removes every counted reel, all commentary, Inspector captures and calibration runs from this phone. " +
                         "Your settings, rules and the downloaded model stay. This cannot be undone.",
                 )
             },
@@ -285,7 +300,7 @@ private fun RulesCard(state: SettingsUiState, onCheckRules: () -> Unit) {
                 },
                 style = MaterialTheme.typography.bodyMedium,
             )
-            if (state.rulesServerConfigured) {
+            if (state.rulesUrl.isNotBlank()) {
                 Text(
                     state.rulesLastCheckedMs?.let { "Last checked ${formatDateTime(it)}." } ?: "Not checked yet.",
                     style = MaterialTheme.typography.bodySmall,
@@ -299,7 +314,7 @@ private fun RulesCard(state: SettingsUiState, onCheckRules: () -> Unit) {
                 }
             } else {
                 Text(
-                    "This build has no rules server set, so updates come only from imported files.",
+                    "Rule updates are off, so new rules come only from imported files. Set an address under Advanced.",
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
@@ -351,6 +366,43 @@ private fun ClickRow(title: String, body: String, onClick: () -> Unit) {
         supportingContent = { Text(body) },
         modifier = Modifier.clickable(role = Role.Button, onClick = onClick),
     )
+}
+
+/** Where rule updates come from. Validated as https before it is saved; blank turns updates off. */
+@Composable
+private fun RulesAddressEditor(url: String, isDefault: Boolean, onSave: (String?) -> Unit) {
+    var text by rememberSaveable(url) { mutableStateOf(url) }
+    val problem = RulesAddress.problem(text)
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Text("Rules update address", style = MaterialTheme.typography.titleSmall)
+        OutlinedTextField(
+            value = text,
+            onValueChange = { text = it },
+            singleLine = true,
+            isError = problem != null,
+            label = { Text("https:// address of detection-rules.json") },
+            supportingText = {
+                Text(
+                    problem ?: when {
+                        text.isBlank() -> "Empty turns weekly updates off."
+                        isDefault && text == url -> "The default address."
+                        else -> "Checked weekly, and when you tap Check now."
+                    },
+                )
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            OutlinedButton(onClick = { onSave(text.trim()) }, enabled = problem == null && text.trim() != url) {
+                Text("Save address")
+            }
+            if (!isDefault) TextButton(onClick = { onSave(null) }) { Text("Use default") }
+        }
+    }
 }
 
 private fun formatDateTime(ms: Long): String =

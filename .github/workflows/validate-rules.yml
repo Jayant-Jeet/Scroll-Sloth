@@ -1,0 +1,25 @@
+name: Validate rules
+
+# Fails if site/detection-rules.json would not be accepted by the app, or has a publishing
+# mistake the app would silently tolerate (misspelt key, unknown app, broken rule, version not
+# above the bundled rules). Uses the app's own parser, so the schema has a single definition.
+# See app/src/test/java/com/reelsloth/detect/PublishedRulesCheck.kt.
+
+on:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-rules:
+    name: Validate rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Set up Android build
+        uses: ./.github/actions/android-setup
+      - name: Check site/detection-rules.json
+        run: ./gradlew testDebugUnitTest --tests "com.reelsloth.detect.PublishedRules*"

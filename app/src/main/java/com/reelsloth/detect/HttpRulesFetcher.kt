@@ -8,7 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Plain HTTPS GET with no cookies, no custom headers beyond Accept, and no request body.
+ * Plain GET with a fixed header set ([REQUEST_HEADERS]), no cookies, no cache, and no request body.
+ * The User-Agent is overridden because the platform default names the phone model and Android build.
+ * Redirects are not followed, so the request never goes anywhere but the configured address.
  * Refuses responses over [maxBytes] so a wrong URL cannot fill memory.
  */
 class HttpRulesFetcher(private val maxBytes: Int = MAX_BYTES) : RulesFetcher {
@@ -18,7 +20,8 @@ class HttpRulesFetcher(private val maxBytes: Int = MAX_BYTES) : RulesFetcher {
             connection.connectTimeout = TIMEOUT_MS
             connection.readTimeout = TIMEOUT_MS
             connection.useCaches = false
-            connection.setRequestProperty("Accept", "application/json")
+            connection.instanceFollowRedirects = false
+            REQUEST_HEADERS.forEach { (name, value) -> connection.setRequestProperty(name, value) }
             val code = connection.responseCode
             if (code != HttpURLConnection.HTTP_OK) throw IOException("HTTP $code")
             if (connection.contentLengthLong > maxBytes) throw IOException("Rules file too large")
@@ -38,8 +41,13 @@ class HttpRulesFetcher(private val maxBytes: Int = MAX_BYTES) : RulesFetcher {
         }
     }
 
-    private companion object {
-        const val TIMEOUT_MS = 15_000
-        const val MAX_BYTES = 256 * 1024
+    companion object {
+        /** Identical for every install, so a request says nothing about who or what sent it. */
+        val REQUEST_HEADERS = mapOf(
+            "Accept" to "application/json",
+            "User-Agent" to "ScrollSloth-rules",
+        )
+        private const val TIMEOUT_MS = 15_000
+        private const val MAX_BYTES = 256 * 1024
     }
 }

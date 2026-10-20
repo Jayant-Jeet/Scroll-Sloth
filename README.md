@@ -2,6 +2,9 @@
 
 Scroll Sloth is an Android-only, on-device app for counting short-form video sessions in Instagram, YouTube Shorts, and Facebook Reels. The current build includes onboarding, rule-driven reel detection, daily/weekly/monthly statistics with laziness and unproductivity scores (with a "why this score" breakdown), on-device commentary (Gemma or templates), and the debug **Rule Inspector** used to collect the real UI structure that detection rules are built from.
 
+- **Website and install guide:** https://jayant-jeet.github.io/Scroll-Sloth/
+- **Download:** [latest release](https://github.com/Jayant-Jeet/Scroll-Sloth/releases/latest) (signed APK and its SHA-256 checksum)
+
 ## Architecture overview
 
 - `app`: the only Android application module, written in Kotlin with Jetpack Compose and Material 3.
@@ -16,6 +19,39 @@ Scroll Sloth is an Android-only, on-device app for counting short-form video ses
 - `com.reelsloth.work`: `NightlySchedule` (next 00:30 local, DST-safe), `NightlyCommentaryWorker`, and `RulesUpdateWorker`.
 
 Room stores only event timestamps, platform identifiers, and dwell durations, plus a commentary cache (period key, tone, text, source, retries, created time).
+
+### Diagram
+
+Solid arrows stay on the phone. Dotted arrows are the only two network requests, and both are plain downloads of public files.
+
+```mermaid
+flowchart LR
+    subgraph phone["On the phone"]
+        apps["Instagram / YouTube / Facebook"] -- "accessibility events and node tree" --> svc["ReelAccessibilityService"]
+        rules[("detection-rules.json")] --> engine
+        svc --> engine["RuleEngine"]
+        engine -- "DetectorEvent" --> sm["ReelStateMachine"]
+        sm -- "ReelViewed" --> writer["ReelEventWriter"]
+        writer --> db[("Room: timestamp, platform, dwell")]
+        db --> stats["StatsEngine"]
+        stats --> score["ScoreEngine"]
+        stats --> ui["Compose UI"]
+        score --> ui
+        nightly["NightlyCommentaryWorker"] --> repo["CommentaryRepository"]
+        stats --> repo
+        score --> repo
+        repo --> gemma["GemmaCommentaryEngine + NumberGuard"]
+        repo --> templates["TemplateCommentaryEngine"]
+        repo --> cache[("Commentary cache")]
+        cache --> ui
+        updater["RulesUpdateWorker"] --> rules
+        downloader["ModelDownloader"] --> gemma
+    end
+    pages["GitHub Pages: site/detection-rules.json"] -. "weekly GET, no user data" .-> updater
+    hf["Hugging Face: Gemma model file"] -. "one-time download" .-> downloader
+```
+
+The language model only writes words. Every number comes from `StatsEngine` and `ScoreEngine`, and `NumberGuard` rejects any sentence with a number that isn't in the facts.
 
 ## Privacy statement
 
@@ -90,18 +126,92 @@ A matcher can use `viewIdContains`, `classNameEquals`, `scrollable`, `minWidthFr
 
 The bundled `app/src/main/assets/detection-rules.json` contains only `"TODO_FROM_INSPECTOR"` values. Any rule containing a TODO, or a matcher with no conditions, is disabled, and Settings shows that app as **Needs calibration**. Nothing is counted for it.
 
-Calibrated values are derived from Rule Inspector captures (`captures/<date>-<device>/`, currently one Samsung S24 Ultra on Android 16) and live in [`rules/detection-rules.json`](rules/detection-rules.json). The rules unit tests replay those captures, so a rule change that stops matching them fails the build. To use them, either:
+Calibrated values are derived from Rule Inspector captures (`captures/<date>-<device>/`, currently one Samsung S24 Ultra on Android 16) and live in [`site/detection-rules.json`](site/detection-rules.json), which is also the published file. The rules unit tests replay those captures, so a rule change that stops matching them fails the build. To use them, either:
 
 - open **Settings > Advanced > Import detection rules** and pick the file, or
-- with a debug build: `adb push rules/detection-rules.json /data/local/tmp/` then `adb shell "run-as com.reelsloth sh -c 'cat /data/local/tmp/detection-rules.json > files/detection-rules.json'"`.
+- with a debug build: `adb push site/detection-rules.json /data/local/tmp/` then `adb shell "run-as com.reelsloth sh -c 'cat /data/local/tmp/detection-rules.json > files/detection-rules.json'"`.
 
 The imported file overrides the bundled one until you choose **Use bundled rules**. Settings > Advanced also shows a live detector readout to check a rule while using an app. **Use bundled rules** also forgets downloaded rules.
 
 ### Rules updates
 
-`RulesUpdateWorker` fetches `detection-rules.json` once every 7 days when a network is available, and **Settings > Detection rules > Check now** runs the same check on demand. The request is a plain HTTPS GET of a public file: no query parameters, identifiers or user data, no caching, 15 s timeouts, 256 KB limit. The downloaded file is validated like an imported one and is only kept if its `rulesVersion` is higher than the current rules. Settings shows the version, its source (bundled, imported or downloaded) and when the server last answered.
+`RulesUpdateWorker` fetches `detection-rules.json` once every 7 days when a network is available, and **Settings > Detection rules > Check now** runs the same check on demand. The request is a plain HTTPS GET of a public file. It sends only two fixed headers (`Accept: application/json`, `User-Agent: ScrollSloth-rules`) and no query parameters, cookies, identifiers or user data. It uses no cache, 15 s timeouts and a 256 KB limit, and does not follow redirects.
 
-The address is a build setting and is **empty by default**, which turns the fetch off (no worker is scheduled and Settings says so). To enable it, publish [`rules/detection-rules.json`](rules/detection-rules.json) at an `https://` address and build with `./gradlew assembleDebug -PrulesUrl=https://example.com/detection-rules.json`.
+A downloaded file is kept only if all of these hold:
+
+- it parses against the schema (`schemaVersion` 1, all fields present and well typed, valid dwell limits);
+- its `rulesVersion` is higher than the current rules;
+- at least one app in it is calibrated. An app whose rule still has a `TODO_FROM_INSPECTOR` value is only disabled.
+
+It is written atomically: a temporary file is synced, then moved over the old one. The rules it replaces are kept as a last-good copy. If the current file is ever unreadable, the app falls back to the last-good copy and then to the bundled rules. Any network or validation error leaves the current rules untouched. Settings shows the version, its source (bundled, imported or downloaded) and when the server last answered.
+
+The default address is `https://jayant-jeet.github.io/Scroll-Sloth/detection-rules.json`. The `pages.yml` workflow publishes [`site/detection-rules.json`](site/detection-rules.json) there, and also at the older `/docs/detection-rules.json` address used by builds from before the first release. To ship new rules, update that file and raise its `rulesVersion` (see [Contributing detection rules](#contributing-detection-rules)).
+
+- **Settings > Advanced > Rules update address** changes the address. It must be `https://` with no user name or password. Leave it empty to turn updates off, or tap **Use default** to restore the build default. The weekly worker is scheduled or cancelled to match.
+- **At build time**, `-PrulesUrl=https://...` changes the default, and `-PrulesUrl=` builds with updates off.
+
+## Calibration
+
+**Settings > Advanced > Calibration** measures how well the detector matches what you actually watched:
+
+1. Pick Instagram, YouTube or Facebook and tap **Start**. Start is disabled while counting is paused, the accessibility permission is off, or the app still needs calibration.
+2. Watch reels in that app. Tap the floating purple **+1** button (left edge, away from the like and comment buttons) once for each reel you really watched. Don't tap for reels you flicked past. You can drag the button anywhere.
+3. Come back and tap **Stop**. The screen shows the detector's count next to yours, the absolute error, and the percentage error relative to your count.
+
+The detector's count stays hidden while a run is going, so it can't sway you. Any reel already open at Start is excluded, and the reel open at Stop is included. **Discard** throws a run away.
+
+Each run appends one row to `calibration.csv` in app storage with these columns: `started_at,platform,auto,manual,duration_sec,rules_version,app_version_name`. `app_version_name` is the version of the app being calibrated, so a rule regression can be tied to an app update. **Export calibration CSV** shares the file. **Delete all data** erases it.
+
+## Contributing detection rules
+
+Instagram, YouTube and Facebook change their screens without notice. When an update renames or restructures the reel viewer, counting for that app stops or drifts. Fixing it means capturing the new structure and publishing new rules, with no app release needed.
+
+**1. Confirm the breakage.** You may see any of these:
+
+- The day's count stops rising for one app.
+- **Settings > Advanced > Live detector** says "not on a reel screen" while a reel is playing.
+- A **Calibration** run shows a large error.
+
+Note the app's version (Android **App info**). Captures record it too.
+
+**2. Capture the new structure** with the [Rule Inspector](#rule-inspector):
+
+- Turn on **Inspector mode**.
+- In the updated app, capture the home feed (a non-reel screen), a reel, and the next reel after one swipe. For Facebook, also capture one reel both playing and paused.
+- Share the captures from **Rule Inspector captures**. They hold structure only: view IDs, classes, bounds, and whether text exists, never the text itself.
+
+**3. Find what changed.** Diff `viewIds` and the flattened trees between the feed and reel captures (see [Reading which nodes differ](#reading-which-nodes-differ)). You are looking for:
+
+- a node that exists only on the reel screen and fills the screen (for `reelScreenMatchers`), and
+- the pager, whose page `collectionItemInfo.rowIndex` changes when you swipe (`ITEM_CHANGED`).
+- If there is no usable index, use stable labels on the page instead (`KEY_CHANGED` with `keyFields`/`keyMatchers`).
+
+Use only values you can see in the captures. Never guess IDs.
+
+**4. Update the rules and their tests.**
+
+- Edit [`site/detection-rules.json`](site/detection-rules.json) and raise `rulesVersion`. The convention is `YYYYMMDDNN`, for example `2026102101`. Phones ignore a file whose version isn't higher than the one they have.
+- Add the captures under `captures/<date>-<device>/`.
+- Point [`RuleEngineCaptureTest`](app/src/test/java/com/reelsloth/detect/RuleEngineCaptureTest.kt) at them: the feed must not be a reel screen, and consecutive reels must give different indices or keys. The rules describe the current app version, so replace tests for old captures that no longer apply.
+
+**5. Check it locally and on a phone.**
+
+```shell
+./gradlew testDebugUnitTest --tests "com.reelsloth.detect.*"
+```
+
+- Import the file with **Settings > Advanced > Import detection rules**.
+- Do a **Calibration** run of 10 or more reels. Put the exported CSV row (auto, manual, `app_version_name`) in the pull request.
+
+**6. Open a pull request.** The **Validate rules** check runs the published-rules check in [`PublishedRulesCheck`](app/src/test/java/com/reelsloth/detect/PublishedRulesCheck.kt) through the app's own parser. It fails when:
+
+- the schema is wrong, or a key is misspelt or unknown;
+- an app isn't one of the three supported packages;
+- a non-placeholder rule is broken;
+- no app is calibrated;
+- `rulesVersion` isn't above the bundled rules.
+
+After merging, `pages.yml` validates again, then deploys. Phones pick the file up within a week, or straight away with **Settings > Detection rules > Check now**.
 
 ## Statistics and scores
 
@@ -155,10 +265,52 @@ Each period screen shows a short verdict on the last completed day, week or mont
 
 ## Build and test
 
-Run the requested verification from the project root:
+**Requirements:** JDK 17 or newer (Android Studio's bundled JBR works), and the Android SDK with platform 37 and build-tools 36.0.0. Point `local.properties` (`sdk.dir=...`) or `ANDROID_HOME` at the SDK.
 
 ```shell
-./gradlew testDebugUnitTest assembleDebug
+./gradlew testDebugUnitTest assembleDebug     # all unit + Compose UI tests, then the debug APK
+./gradlew installDebug                        # install on a connected phone (adb)
 ```
 
-Compose UI tests (for example `TodayScreenTest`: no permission, no data, normal, model downloading) run under Robolectric as part of `testDebugUnitTest`, so CI needs no emulator.
+The debug APK is `app/build/outputs/apk/debug/app-debug.apk`. Compose UI tests (for example `TodayScreenTest`: no permission, no data, normal, model downloading) run under Robolectric as part of `testDebugUnitTest`, so no emulator is needed.
+
+Build options (Gradle properties):
+
+- `-PrulesUrl=https://...` sets the default rules address. `-PrulesUrl=` builds with rule updates off.
+- `-PversionName=1.2.3 -PversionCode=10203` set the version. The release workflow derives both from the tag.
+
+**Signed release builds.** `assembleRelease` signs only when `RELEASE_KEYSTORE_FILE` is set, together with `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`. Without it, the output is `app-release-unsigned.apk`.
+
+### Continuous integration and publishing
+
+| Workflow | When | What it does |
+| --- | --- | --- |
+| [`ci.yml`](.github/workflows/ci.yml) | every pull request | `./gradlew testDebugUnitTest assembleDebug` |
+| [`validate-rules.yml`](.github/workflows/validate-rules.yml) (**Validate rules**) | every pull request; called by `pages.yml` | Checks that `site/detection-rules.json` matches the schema and is publishable |
+| [`release.yml`](.github/workflows/release.yml) | a pushed tag `v*` | Runs the tests, builds a signed release APK, and creates a GitHub Release with generated notes, the APK and its `.sha256`. A tag like `v1.2.3-beta.1` makes a pre-release. |
+| [`pages.yml`](.github/workflows/pages.yml) | a push to `main` that touches `site/`, or by hand | Validates the rules, then deploys `site/` (landing page and `detection-rules.json`) to GitHub Pages |
+
+One-time setup:
+
+- **Release secrets** (Settings > Secrets and variables > Actions):
+  - `KEYSTORE_BASE64`: the keystore, base64-encoded. On Linux or macOS: `base64 -w0 release.jks`. In PowerShell: `[Convert]::ToBase64String([IO.File]::ReadAllBytes('release.jks'))`.
+  - `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`.
+  - Keep the keystore safe: Android only installs updates signed with the same key.
+- **Pages:** Settings > Pages > Source must be **GitHub Actions**.
+
+To publish a release: `git tag v1.0.0 && git push origin v1.0.0`.
+
+## Limitations
+
+- **Android only.** iOS has no equivalent of the accessibility service, so it cannot observe other apps.
+- **It depends on third-party UI.**
+  - Detection reads the screen structure of Instagram, YouTube and Facebook, which they can change in any update.
+  - When that happens, counting for that app stops or drifts until someone publishes new rules (see [Contributing detection rules](#contributing-detection-rules)).
+  - The rules were calibrated on one phone (Galaxy S24 Ultra, Android 16). Other screen sizes, app versions, A/B tests or languages may differ.
+- **Three apps only.** TikTok, Snapchat and others are not supported. The service is restricted to these three packages on purpose.
+- **Close, not exact.**
+  - A reel counts after 2 s of dwell; looping reels are capped at 120 s.
+  - A reel seen again within 60 s isn't recounted.
+  - Picture-in-picture, split-screen, and reels inside other surfaces (such as DMs or Stories) may be missed.
+- **Sideloaded only for now.** On Android 13+ you must allow restricted settings before enabling the service.
+- **The on-device writer needs a capable GPU** and about 2 GB of storage. Without it, commentary comes from templates.

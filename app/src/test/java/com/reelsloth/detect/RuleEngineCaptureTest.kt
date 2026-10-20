@@ -14,7 +14,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 /**
- * Runs the calibrated rules in `rules/detection-rules.json` over the real Rule Inspector captures
+ * Runs the calibrated rules in `site/detection-rules.json` over the real Rule Inspector captures
  * they were derived from. Captures hold no text, so key fields are replaced by placeholders of
  * the recorded length; that is enough to check a key can be built.
  */
@@ -35,7 +35,7 @@ class RuleEngineCaptureTest {
     }
 
     private val engine = RuleEngine(
-        DetectionRulesLoader.load(File("../rules/detection-rules.json").readText(), RulesSource.OVERRIDE),
+        DetectionRulesLoader.load(File("../site/detection-rules.json").readText(), RulesSource.OVERRIDE),
     )
 
     private fun evaluate(fileName: String): DetectorEvent {

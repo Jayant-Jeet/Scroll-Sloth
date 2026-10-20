@@ -17,6 +17,7 @@ class UserData(
     private val commentaryDao: CommentaryDao,
     private val exportDirectory: File,
     private val deleteCaptures: suspend () -> Unit,
+    private val deleteCalibration: suspend () -> Unit = {},
     private val clock: Clock,
     private val zone: () -> ZoneId = ZoneId::systemDefault,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -34,11 +35,12 @@ class UserData(
         }
     }
 
-    /** Deletes reel events, cached commentary, Rule Inspector captures and old exports. */
+    /** Deletes reel events, cached commentary, Rule Inspector captures, the calibration log and old exports. */
     suspend fun eraseAll() {
         reelDao.deleteAll()
         commentaryDao.deleteAll()
         deleteCaptures()
+        deleteCalibration()
         withContext(ioDispatcher) { clearExports() }
     }
 

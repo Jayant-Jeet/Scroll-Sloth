@@ -1,7 +1,9 @@
 package com.reelsloth.detect
 
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.file.AtomicMoveNotSupportedException
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,9 +14,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 
 /**
- * Holds the active detection rules: [overrideFile] when present and valid (imported calibrated
- * rules, or a downloaded update), otherwise the bundled asset. Never touches the network itself;
- * [RulesUpdater] hands it downloaded text.
+ * Holds the active detection rules. In order of preference: [overrideFile] (imported calibrated
+ * rules, or a downloaded update), the last-good copy of the override it replaced, then the bundled
+ * asset. Files are only ever replaced by a write-to-temp-then-rename, and only with text that has
+ * already passed validation. Never touches the network itself; [RulesUpdater] hands it downloaded text.
  */
 class RulesRepository(
     private val bundledRules: () -> String,
@@ -35,6 +38,10 @@ class RulesRepository(
     /** Present next to [overrideFile] when it came from the rules server rather than an import. */
     private val downloadedMarker = File(overrideFile.parentFile, "${overrideFile.name}.downloaded")
 
+    /** The previous override, kept when a new one is saved, in case the new file is damaged on disk. */
+    private val lastGoodFile = File(overrideFile.parentFile, "${overrideFile.name}.lastgood")
+    private val lastGoodDownloadedMarker = File(overrideFile.parentFile, "${lastGoodFile.name}.downloaded")
+
     private val state = MutableStateFlow(loadNow())
     val rules: StateFlow<LoadedRules> = state.asStateFlow()
 
@@ -48,8 +55,7 @@ class RulesRepository(
             return@withContext ImportResult.Rejected(e.message ?: "Not a valid rules file.")
         }
         try {
-            writeAtomically(text)
-            downloadedMarker.delete()
+            replaceOverride(text, downloaded = false)
         } catch (e: IOException) {
             return@withContext ImportResult.Rejected("Could not save the rules: ${e.message}")
         }
@@ -58,8 +64,8 @@ class RulesRepository(
     }
 
     /**
-     * Saves downloaded rules only when they parse and are newer than the active ones, so an older
-     * server file never replaces rules the user imported.
+     * Saves downloaded rules only when they parse, enable at least one app, and are newer than the
+     * active ones, so an older or placeholder server file never replaces working rules.
      */
     suspend fun applyDownloaded(text: String): UpdateResult = withContext(ioDispatcher) {
         val loaded = try {
@@ -69,9 +75,11 @@ class RulesRepository(
         }
         val current = state.value.rules.rulesVersion
         if (loaded.rules.rulesVersion <= current) return@withContext UpdateResult.UpToDate(current)
+        if (loaded.enabledApps.isEmpty()) {
+            return@withContext UpdateResult.Rejected("No app in them is calibrated yet.")
+        }
         try {
-            writeAtomically(text)
-            downloadedMarker.createNewFile()
+            replaceOverride(text, downloaded = true)
         } catch (e: IOException) {
             return@withContext UpdateResult.Rejected("Could not save the rules: ${e.message}")
         }
@@ -80,31 +88,68 @@ class RulesRepository(
     }
 
     suspend fun resetToBundled(): LoadedRules = withContext(ioDispatcher) {
-        overrideFile.delete()
-        downloadedMarker.delete()
+        listOf(overrideFile, downloadedMarker, lastGoodFile, lastGoodDownloadedMarker).forEach { it.delete() }
         loadNow()
     }.also { state.value = it }
 
     private fun loadNow(): LoadedRules {
         var warning: String? = null
         if (overrideFile.exists()) {
-            try {
-                val source = if (downloadedMarker.exists()) RulesSource.DOWNLOADED else RulesSource.OVERRIDE
-                return DetectionRulesLoader.load(overrideFile.readText(), source)
-            } catch (e: RulesFormatException) {
-                warning = "Imported rules were ignored: ${e.message}"
-            } catch (e: IOException) {
-                warning = "Imported rules could not be read: ${e.message}"
+            when (val result = tryLoad(overrideFile, downloadedMarker)) {
+                is Attempt.Loaded -> return result.rules
+                is Attempt.Failed -> warning = "Saved rules were ignored: ${result.reason}"
+            }
+            if (lastGoodFile.exists()) {
+                val lastGood = tryLoad(lastGoodFile, lastGoodDownloadedMarker)
+                if (lastGood is Attempt.Loaded) {
+                    return lastGood.rules.copy(warning = "$warning Using the previous good rules.")
+                }
             }
         }
         return DetectionRulesLoader.load(bundledRules(), RulesSource.BUNDLED).copy(warning = warning)
     }
 
-    private fun writeAtomically(text: String) {
+    private sealed interface Attempt {
+        data class Loaded(val rules: LoadedRules) : Attempt
+        data class Failed(val reason: String?) : Attempt
+    }
+
+    private fun tryLoad(file: File, marker: File): Attempt = try {
+        val source = if (marker.exists()) RulesSource.DOWNLOADED else RulesSource.OVERRIDE
+        Attempt.Loaded(DetectionRulesLoader.load(file.readText(), source))
+    } catch (e: RulesFormatException) {
+        Attempt.Failed(e.message)
+    } catch (e: IOException) {
+        Attempt.Failed("could not be read (${e.message})")
+    }
+
+    /** Keeps the current override (if it still loads) as last-good, then swaps in [text]. */
+    private fun replaceOverride(text: String, downloaded: Boolean) {
         overrideFile.parentFile?.mkdirs()
-        val temp = File(overrideFile.parentFile, "${overrideFile.name}.tmp")
-        temp.writeText(text)
-        Files.move(temp.toPath(), overrideFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
+        if (overrideFile.exists() && tryLoad(overrideFile, downloadedMarker) is Attempt.Loaded) {
+            writeAtomically(lastGoodFile, overrideFile.readText())
+            setMarker(lastGoodDownloadedMarker, downloadedMarker.exists())
+        }
+        writeAtomically(overrideFile, text)
+        setMarker(downloadedMarker, downloaded)
+    }
+
+    private fun setMarker(marker: File, present: Boolean) {
+        if (present) marker.createNewFile() else marker.delete()
+    }
+
+    /** Writes and syncs a temp file, then renames it over [target], so readers see old or new, never half. */
+    private fun writeAtomically(target: File, text: String) {
+        val temp = File(target.parentFile, "${target.name}.tmp")
+        FileOutputStream(temp).use { out ->
+            out.write(text.toByteArray(Charsets.UTF_8))
+            out.fd.sync()
+        }
+        try {
+            Files.move(temp.toPath(), target.toPath(), StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
+        } catch (_: AtomicMoveNotSupportedException) {
+            Files.move(temp.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+        }
     }
 
     companion object {

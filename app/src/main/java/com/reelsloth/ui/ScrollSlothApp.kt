@@ -35,6 +35,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import com.reelsloth.AppContainer
+import com.reelsloth.BuildConfig
+import com.reelsloth.data.UserData
+import com.reelsloth.debug.CalibrationActions
+import com.reelsloth.debug.CalibrationScreen
+import com.reelsloth.debug.CalibrationState
+import com.reelsloth.debug.CalibrationUiState
+import com.reelsloth.detect.Platform
 import com.reelsloth.ai.Tone
 import com.reelsloth.debug.CaptureSharer
 import com.reelsloth.debug.CaptureSummary
@@ -57,6 +64,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+private enum class SettingsPage { MAIN, CAPTURES, CALIBRATION }
+
 private enum class Destination(val label: String, val icon: ImageVector) {
     TODAY("Today", Icons.Filled.Home),
     WEEK("Week", BarsIcon),
@@ -72,7 +81,7 @@ fun ScrollSlothApp(
     onShareCaptures: (List<CaptureSummary>) -> Unit,
 ) {
     var selectedDestination by rememberSaveable { mutableStateOf(Destination.TODAY) }
-    var showCaptures by rememberSaveable { mutableStateOf(false) }
+    var settingsPage by rememberSaveable { mutableStateOf(SettingsPage.MAIN) }
 
     Scaffold(
         bottomBar = {
@@ -82,7 +91,7 @@ fun ScrollSlothApp(
                         selected = selectedDestination == destination,
                         onClick = {
                             selectedDestination = destination
-                            showCaptures = false
+                            settingsPage = SettingsPage.MAIN
                         },
                         icon = { Icon(destination.icon, contentDescription = null) },
                         label = { Text(destination.label) },
@@ -96,14 +105,17 @@ fun ScrollSlothApp(
             Destination.TODAY -> TodayRoute(container, accessibilityServiceEnabled, onOpenAccessibilitySettings, modifier)
             Destination.WEEK -> WeekRoute(container, accessibilityServiceEnabled, onOpenAccessibilitySettings, modifier)
             Destination.MONTH -> MonthRoute(container, accessibilityServiceEnabled, onOpenAccessibilitySettings, modifier)
-            Destination.SETTINGS -> if (showCaptures) {
-                CapturesRoute(container, onBack = { showCaptures = false }, onShare = onShareCaptures, modifier = modifier)
-            } else {
-                SettingsRoute(
+            Destination.SETTINGS -> when (settingsPage) {
+                SettingsPage.CAPTURES ->
+                    CapturesRoute(container, onBack = { settingsPage = SettingsPage.MAIN }, onShare = onShareCaptures, modifier = modifier)
+                SettingsPage.CALIBRATION ->
+                    CalibrationRoute(container, accessibilityServiceEnabled, onBack = { settingsPage = SettingsPage.MAIN }, modifier = modifier)
+                SettingsPage.MAIN -> SettingsRoute(
                     container = container,
                     accessibilityServiceEnabled = accessibilityServiceEnabled,
                     onOpenAccessibilitySettings = onOpenAccessibilitySettings,
-                    onOpenCaptures = { showCaptures = true },
+                    onOpenCaptures = { settingsPage = SettingsPage.CAPTURES },
+                    onOpenCalibration = { settingsPage = SettingsPage.CALIBRATION },
                     modifier = modifier,
                 )
             }
@@ -202,9 +214,12 @@ private fun SettingsRoute(
     accessibilityServiceEnabled: Boolean,
     onOpenAccessibilitySettings: () -> Unit,
     onOpenCaptures: () -> Unit,
+    onOpenCalibration: () -> Unit,
     modifier: Modifier,
 ) {
     val context = LocalContext.current
+    val rulesUrl by container.rulesUrl.collectAsState(initial = BuildConfig.RULES_URL)
+    val rulesUrlOverride by container.settingsStore.rulesUrlOverride.collectAsState(initial = null)
     val scope = rememberCoroutineScope()
     val settings = container.settingsStore
     val repository = container.rulesRepository
@@ -262,7 +277,8 @@ private fun SettingsRoute(
             modelState = modelState,
             modelAllowMetered = allowMetered,
             rules = rules,
-            rulesServerConfigured = container.rulesUpdater.isConfigured,
+            rulesUrl = rulesUrl,
+            rulesUrlIsDefault = rulesUrlOverride == null,
             rulesLastCheckedMs = rulesLastChecked,
             rulesChecking = rulesChecking,
             rulesMessage = rulesMessage,
@@ -294,7 +310,7 @@ private fun SettingsRoute(
                 dataBusy = true
                 scope.launch {
                     dataMessage = try {
-                        shareCsv(context, container.userData.exportCsv())
+                        shareCsv(context, container.userData.exportCsv(), "Export reels")
                         null
                     } catch (_: IOException) {
                         "Could not write the export. Is the phone out of space?"
@@ -322,20 +338,31 @@ private fun SettingsRoute(
                     rulesMessage = "Back to the bundled rules."
                 }
             },
+            onSaveRulesUrl = { url ->
+                scope.launch {
+                    settings.setRulesUrlOverride(url)
+                    rulesMessage = when {
+                        url == null -> "Using the default rules address."
+                        url.isBlank() -> "Rule updates are off."
+                        else -> "Rules address saved."
+                    }
+                }
+            },
+            onOpenCalibration = onOpenCalibration,
         ),
         modifier = modifier,
     )
 }
 
 private fun RulesUpdater.CheckResult.message(): String = when (this) {
-    RulesUpdater.CheckResult.NotConfigured -> "This build has no rules server set."
+    RulesUpdater.CheckResult.NotConfigured -> "Rule updates are off."
     is RulesUpdater.CheckResult.UpToDate -> "Already up to date (version $version)."
     is RulesUpdater.CheckResult.Updated -> "Updated to rules version $version."
     is RulesUpdater.CheckResult.Failed -> reason
 }
 
 /** Hands the CSV to the share sheet. Nothing leaves the phone unless the user picks a target. */
-private fun shareCsv(context: Context, file: File) {
+private fun shareCsv(context: Context, file: File, title: String) {
     val uri = FileProvider.getUriForFile(context, CaptureSharer.authority(context), file)
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/csv"
@@ -343,7 +370,7 @@ private fun shareCsv(context: Context, file: File) {
         clipData = ClipData.newRawUri(null, uri)
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    context.startActivity(Intent.createChooser(intent, "Export reels"))
+    context.startActivity(Intent.createChooser(intent, title))
 }
 
 /** Three rising bars, for the Week tab. */
@@ -390,6 +417,93 @@ private fun CapturesRoute(
         onShare = onShare,
         onDelete = { capture -> scope.launch { repository.delete(capture.fileName) } },
         onDeleteAll = { scope.launch { repository.deleteAll() } },
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun CalibrationRoute(
+    container: AppContainer,
+    accessibilityServiceEnabled: Boolean,
+    onBack: () -> Unit,
+    modifier: Modifier,
+) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val session = container.calibrationSession
+    val log = container.calibrationLog
+    val sessionState by session.state.collectAsState()
+    val rules by container.rulesRepository.rules.collectAsState()
+    val paused by container.settingsStore.trackingPaused.collectAsState(initial = false)
+    var selected by rememberSaveable {
+        mutableStateOf((sessionState as? CalibrationState.Running)?.platform ?: Platform.INSTAGRAM)
+    }
+    var loggedRuns by remember { mutableStateOf(0) }
+    var busy by remember { mutableStateOf(false) }
+    var message by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(log) { loggedRuns = log.count() }
+    BackHandler(onBack = onBack)
+
+    CalibrationScreen(
+        state = CalibrationUiState(
+            selectedPlatform = selected,
+            session = sessionState,
+            appStatuses = AppStatuses.of(rules, accessibilityServiceEnabled),
+            trackingPaused = paused,
+            loggedRuns = loggedRuns,
+            busy = busy,
+            message = message,
+        ),
+        actions = CalibrationActions(
+            onBack = onBack,
+            onSelectPlatform = { selected = it },
+            onStart = {
+                busy = true
+                message = null
+                scope.launch {
+                    session.start(selected)
+                    busy = false
+                }
+            },
+            onPlusOne = session::plusOne,
+            onMinusOne = session::minusOne,
+            onStop = {
+                busy = true
+                scope.launch {
+                    // App scope: the row must be written even if the user leaves this screen.
+                    message = container.appScope.async {
+                        val result = session.stop() ?: return@async null
+                        try {
+                            log.append(result)
+                            null
+                        } catch (_: IOException) {
+                            "Could not save this run to the log."
+                        }
+                    }.await()
+                    loggedRuns = log.count()
+                    busy = false
+                }
+            },
+            onCancel = {
+                session.cancel()
+                message = "Run discarded."
+            },
+            onExport = {
+                busy = true
+                scope.launch {
+                    message = try {
+                        val file = log.exportTo(File(context.cacheDir, UserData.EXPORT_DIRECTORY))
+                        if (file == null) "Nothing logged yet." else {
+                            shareCsv(context, file, "Export calibration")
+                            null
+                        }
+                    } catch (_: IOException) {
+                        "Could not write the export. Is the phone out of space?"
+                    }
+                    busy = false
+                }
+            },
+        ),
         modifier = modifier,
     )
 }

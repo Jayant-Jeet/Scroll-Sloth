@@ -12,7 +12,10 @@ import com.reelsloth.ScrollSlothApplication
 import com.reelsloth.detect.RulesUpdater
 import java.util.concurrent.TimeUnit
 
-/** Checks the rules server about once a week, on any network. Does nothing in builds without a rules URL. */
+/**
+ * Checks the rules server about once a week, on any network. Any failure leaves the current rules
+ * in place and retries with WorkManager's backoff. Not scheduled while the rules address is blank.
+ */
 class RulesUpdateWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         val updater = (applicationContext as ScrollSlothApplication).container.rulesUpdater
@@ -26,7 +29,7 @@ class RulesUpdateWorker(context: Context, params: WorkerParameters) : CoroutineW
         private const val WORK_NAME = "rules-update"
         private const val INTERVAL_DAYS = 7L
 
-        /** Queues the weekly check if this build has a rules URL; cancels it otherwise. */
+        /** Queues the weekly check when a rules address is set; cancels it otherwise. */
         fun ensureScheduled(context: Context, configured: Boolean) {
             val workManager = WorkManager.getInstance(context)
             if (!configured) {

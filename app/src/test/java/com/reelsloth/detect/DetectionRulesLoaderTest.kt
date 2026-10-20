@@ -40,7 +40,7 @@ class DetectionRulesLoaderTest {
 
     @Test
     fun calibratedRulesEnableAllThreeApps() {
-        val loaded = DetectionRulesLoader.load(File("../rules/detection-rules.json").readText(), RulesSource.OVERRIDE)
+        val loaded = DetectionRulesLoader.load(File("../site/detection-rules.json").readText(), RulesSource.OVERRIDE)
 
         assertTrue(loaded.statuses.values.all { it.state == RuleState.READY })
         assertEquals(Platform.entries.map { it.packageName }.toSet(), loaded.enabledApps.keys)

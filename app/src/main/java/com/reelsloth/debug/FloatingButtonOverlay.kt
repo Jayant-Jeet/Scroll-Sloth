@@ -16,12 +16,20 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /**
- * Floating, draggable "Capture" button drawn as an accessibility overlay. It must be created
- * with the AccessibilityService context; TYPE_ACCESSIBILITY_OVERLAY needs no extra permission.
+ * Floating, draggable button drawn as an accessibility overlay: the Inspector's "Capture" and the
+ * calibration "+1". It must be created with the AccessibilityService context;
+ * TYPE_ACCESSIBILITY_OVERLAY needs no extra permission.
  */
-class CaptureOverlay(
+class FloatingButtonOverlay(
     private val context: Context,
-    private val onCapture: () -> Unit,
+    private val label: String,
+    private val description: String,
+    private val color: Int,
+    private val topOffsetDp: Int,
+    private val debounceMs: Long,
+    /** Left edge instead of right; reel apps keep their like / comment column on the right. */
+    private val alignStart: Boolean = false,
+    private val onClick: () -> Unit,
 ) {
     private val windowManager = context.getSystemService(WindowManager::class.java)
     private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
@@ -35,28 +43,31 @@ class CaptureOverlay(
         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
         PixelFormat.TRANSLUCENT,
     ).apply {
-        gravity = Gravity.TOP or Gravity.END
+        gravity = Gravity.TOP or (if (alignStart) Gravity.START else Gravity.END)
         x = dp(12)
-        y = dp(180)
+        y = dp(topOffsetDp)
     }
 
     fun show() {
         if (button != null) return
         val view = TextView(context).apply {
-            text = IDLE_LABEL
-            contentDescription = "Capture inspector snapshot"
+            text = label
+            contentDescription = description
             setTextColor(Color.WHITE)
-            textSize = 14f
+            textSize = 16f
+            minWidth = dp(48)
+            minHeight = dp(48)
+            gravity = Gravity.CENTER
             setPadding(dp(18), dp(10), dp(18), dp(10))
             background = GradientDrawable().apply {
                 cornerRadius = dp(24).toFloat()
-                setColor(0xE6386A55.toInt())
+                setColor(this@FloatingButtonOverlay.color)
             }
             setOnClickListener {
                 val now = SystemClock.uptimeMillis()
-                if (now - lastClickUptimeMs >= CLICK_DEBOUNCE_MS) {
+                if (now - lastClickUptimeMs >= debounceMs) {
                     lastClickUptimeMs = now
-                    onCapture()
+                    onClick()
                 }
             }
             setOnTouchListener(DragListener())
@@ -70,11 +81,17 @@ class CaptureOverlay(
         button = null
     }
 
-    fun setBusy(busy: Boolean) {
+    val isShowing: Boolean get() = button != null
+
+    fun setText(text: String) {
+        button?.text = text
+    }
+
+    fun setBusy(busy: Boolean, busyText: String) {
         button?.apply {
             isEnabled = !busy
             alpha = if (busy) 0.5f else 1f
-            text = if (busy) "Capturing…" else IDLE_LABEL
+            text = if (busy) busyText else label
         }
     }
 
@@ -103,7 +120,8 @@ class CaptureOverlay(
                     if (!dragging && (abs(dx) > touchSlop || abs(dy) > touchSlop)) dragging = true
                     if (dragging) {
                         // With Gravity.END, x is measured from the right edge.
-                        layoutParams.x = (startX - dx).roundToInt().coerceAtLeast(0)
+                        val newX = if (alignStart) startX + dx else startX - dx
+                        layoutParams.x = newX.roundToInt().coerceAtLeast(0)
                         layoutParams.y = (startY + dy).roundToInt().coerceAtLeast(0)
                         windowManager.updateViewLayout(view, layoutParams)
                     }
@@ -112,10 +130,5 @@ class CaptureOverlay(
             }
             return true
         }
-    }
-
-    private companion object {
-        const val IDLE_LABEL = "Capture"
-        const val CLICK_DEBOUNCE_MS = 1_000L
     }
 }

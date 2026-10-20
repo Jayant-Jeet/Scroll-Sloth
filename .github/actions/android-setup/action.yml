@@ -1,0 +1,19 @@
+name: Set up Android build
+description: JDK 17, the Android SDK packages this project compiles against, and an executable Gradle wrapper.
+runs:
+  using: composite
+  steps:
+    - name: Set up Java
+      uses: actions/setup-java@v6
+      with:
+        distribution: temurin
+        java-version: "17"
+        cache: gradle
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v4
+    - name: Install Android SDK packages
+      shell: bash
+      run: sdkmanager "platforms;android-37" "build-tools;36.0.0"
+    - name: Make Gradle wrapper executable
+      shell: bash
+      run: chmod +x gradlew

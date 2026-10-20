@@ -52,6 +52,19 @@ class SettingsStore(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { preferences -> preferences[RULES_LAST_CHECKED] = timeMs }
     }
 
+    /** Rules server address the user set, or null for the build default. An empty string turns updates off. */
+    val rulesUrlOverride: Flow<String?> = dataStore.data.map { it[RULES_URL] }.distinctUntilChanged()
+
+    /** The address to fetch rules from: the user's, or [default]. */
+    fun rulesUrl(default: String): Flow<String> = rulesUrlOverride.map { it ?: default }.distinctUntilChanged()
+
+    /** Pass null to go back to the build default. */
+    suspend fun setRulesUrlOverride(url: String?) {
+        dataStore.edit { preferences ->
+            if (url == null) preferences.remove(RULES_URL) else preferences[RULES_URL] = url.trim()
+        }
+    }
+
     /** True once the user asked for the language model, until they delete it. */
     val modelWanted: Flow<Boolean> = dataStore.data.map { it[MODEL_WANTED] ?: false }.distinctUntilChanged()
 
@@ -140,6 +153,7 @@ class SettingsStore(private val dataStore: DataStore<Preferences>) {
         val MODEL_ALLOW_METERED = booleanPreferencesKey("model_allow_metered")
         val TRACKING_PAUSED = booleanPreferencesKey("tracking_paused")
         val RULES_LAST_CHECKED = longPreferencesKey("rules_last_checked_ms")
+        val RULES_URL = stringPreferencesKey("rules_url")
         val BAND_LABELS = (0 until ScoreBands.COUNT).map { stringPreferencesKey("score_band_label_$it") }
     }
 }

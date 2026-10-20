@@ -1,0 +1,104 @@
+name: Release
+
+# On a tag like v1.2.3 (or v1.2.3-beta.1, published as a pre-release): run the unit tests, build
+# a signed release APK, and attach it with its SHA-256 checksum to a GitHub Release with
+# auto-generated notes.
+#
+# Secrets: KEYSTORE_BASE64 (base64 of the .jks), KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Work out version from tag
+        id: version
+        run: |
+          tag="$GITHUB_REF_NAME"
+          if [[ ! "$tag" =~ ^v([0-9]+)\.([0-9]{1,2})\.([0-9]{1,2})(-[0-9A-Za-z.]+)?$ ]]; then
+            echo "::error::Tag '$tag' is not vMAJOR.MINOR.PATCH (minor and patch below 100), optionally with -suffix."
+            exit 1
+          fi
+          major=${BASH_REMATCH[1]} minor=${BASH_REMATCH[2]} patch=${BASH_REMATCH[3]}
+          echo "name=${tag#v}" >> "$GITHUB_OUTPUT"
+          echo "code=$(( 10#$major * 10000 + 10#$minor * 100 + 10#$patch ))" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$([[ -n "${BASH_REMATCH[4]}" ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Android build
+        uses: ./.github/actions/android-setup
+
+      - name: Decode signing keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [ -z "${!name}" ]; then echo "::error::Repository secret $name is not set."; exit 1; fi
+          done
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          echo "RELEASE_KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      - name: Test and build signed release APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          VERSION_NAME: ${{ steps.version.outputs.name }}
+          VERSION_CODE: ${{ steps.version.outputs.code }}
+        run: ./gradlew testDebugUnitTest assembleRelease "-PversionName=$VERSION_NAME" "-PversionCode=$VERSION_CODE"
+
+      - name: Verify signature and write checksum
+        id: apk
+        run: |
+          apk=app/build/outputs/apk/release/app-release.apk
+          if [ ! -f "$apk" ]; then
+            echo "::error::No signed APK was produced."; ls -l app/build/outputs/apk/release; exit 1
+          fi
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "$apk"
+          name="scroll-sloth-$GITHUB_REF_NAME.apk"
+          mkdir -p dist
+          cp "$apk" "dist/$name"
+          (cd dist && sha256sum "$name" > "$name.sha256")
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "sha256=$(cut -d ' ' -f 1 "dist/$name.sha256")" >> "$GITHUB_OUTPUT"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APK_NAME: ${{ steps.apk.outputs.name }}
+          APK_SHA256: ${{ steps.apk.outputs.sha256 }}
+          PRERELEASE: ${{ steps.version.outputs.prerelease }}
+        run: |
+          {
+            echo "**SHA-256** of \`$APK_NAME\`:"
+            echo
+            echo "\`\`\`"
+            echo "$APK_SHA256"
+            echo "\`\`\`"
+            echo
+            echo "Check it after downloading both files: \`sha256sum -c $APK_NAME.sha256\`"
+            echo "(Windows: \`Get-FileHash $APK_NAME\`)."
+          } > "$RUNNER_TEMP/notes.md"
+          flags=()
+          if [ "$PRERELEASE" = "true" ]; then flags+=(--prerelease); fi
+          gh release create "$GITHUB_REF_NAME" "dist/$APK_NAME" "dist/$APK_NAME.sha256" \
+            --verify-tag --generate-notes --notes-file "$RUNNER_TEMP/notes.md" "${flags[@]}"
+
+      - name: Remove keystore
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.jks"

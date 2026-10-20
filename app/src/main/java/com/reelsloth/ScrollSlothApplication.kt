@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.work.Configuration
 import com.reelsloth.work.NightlyCommentaryWorker
 import com.reelsloth.work.RulesUpdateWorker
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 /** Initialises WorkManager on demand (the default startup initializer is removed in the manifest). */
@@ -19,6 +21,10 @@ class ScrollSlothApplication : Application(), Configuration.Provider {
         container = AppContainer(this)
         container.appScope.launch { container.modelDownloader.checkOnStartup() }
         NightlyCommentaryWorker.ensureScheduled(this)
-        RulesUpdateWorker.ensureScheduled(this, container.rulesUpdater.isConfigured)
+        container.appScope.launch {
+            container.rulesUrl.map { it.isNotBlank() }.distinctUntilChanged().collect { configured ->
+                RulesUpdateWorker.ensureScheduled(this@ScrollSlothApplication, configured)
+            }
+        }
     }
 }

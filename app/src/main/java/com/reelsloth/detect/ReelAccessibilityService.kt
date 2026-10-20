@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.SystemClock
 import android.util.DisplayMetrics
@@ -14,15 +13,14 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.pm.PackageInfoCompat
 import com.reelsloth.ScrollSlothApplication
 import com.reelsloth.debug.AccessibilityNodeAdapter
 import com.reelsloth.debug.CaptureOutcome
-import com.reelsloth.debug.CaptureOverlay
+import com.reelsloth.debug.CalibrationState
+import com.reelsloth.debug.FloatingButtonOverlay
 import com.reelsloth.debug.DeviceInfo
 import com.reelsloth.debug.EventRecord
 import com.reelsloth.debug.InspectorClock
-import com.reelsloth.debug.TargetAppInfo
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +34,8 @@ import kotlinx.coroutines.launch
 class ReelAccessibilityService : AccessibilityService() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val container by lazy { (application as ScrollSlothApplication).container }
-    private var overlay: CaptureOverlay? = null
+    private var overlay: FloatingButtonOverlay? = null
+    private var calibrationOverlay: FloatingButtonOverlay? = null
     private var capturing = false
 
     // Detection state below is only touched on container.detectionDispatcher.
@@ -59,8 +58,38 @@ class ReelAccessibilityService : AccessibilityService() {
             IntentFilter(Intent.ACTION_SCREEN_OFF),
             ContextCompat.RECEIVER_NOT_EXPORTED,
         )
-        val captureOverlay = CaptureOverlay(this, ::captureNow)
+        val captureOverlay = FloatingButtonOverlay(
+            context = this,
+            label = CAPTURE_LABEL,
+            description = "Capture inspector snapshot",
+            color = 0xE6386A55.toInt(),
+            topOffsetDp = 180,
+            debounceMs = 1_000,
+            onClick = ::captureNow,
+        )
         overlay = captureOverlay
+        val plusOneOverlay = FloatingButtonOverlay(
+            context = this,
+            label = "+1",
+            description = "Count one reel by hand",
+            color = 0xE65A3E8C.toInt(),
+            topOffsetDp = 320,
+            // Short, so honest fast taps all count, but a double-tap bounce does not.
+            debounceMs = 250,
+            alignStart = true,
+            onClick = { container.calibrationSession.plusOne() },
+        )
+        calibrationOverlay = plusOneOverlay
+        scope.launch {
+            container.calibrationSession.state.collect { state ->
+                if (state is CalibrationState.Running) {
+                    plusOneOverlay.show()
+                    plusOneOverlay.setText("+1  ·  ${state.manualCount}")
+                } else {
+                    plusOneOverlay.hide()
+                }
+            }
+        }
         scope.launch {
             container.settingsStore.inspectorMode.collect { enabled ->
                 container.ruleInspector.setEnabled(enabled)
@@ -90,6 +119,8 @@ class ReelAccessibilityService : AccessibilityService() {
     override fun onDestroy() {
         overlay?.hide()
         overlay = null
+        calibrationOverlay?.hide()
+        calibrationOverlay = null
         container.ruleInspector.setEnabled(false)
         runCatching { unregisterReceiver(screenOffReceiver) }
         detectionScope.cancel()
@@ -157,14 +188,14 @@ class ReelAccessibilityService : AccessibilityService() {
     private fun captureNow() {
         if (capturing) return
         capturing = true
-        overlay?.setBusy(true)
+        overlay?.setBusy(true, "Capturing…")
         scope.launch {
             try {
                 val root = findSupportedRoot()
                 val outcome = container.ruleInspector.capture(
                     root = root?.let(::AccessibilityNodeAdapter),
                     packageName = root?.packageName?.toString(),
-                    appInfo = ::targetAppInfo,
+                    appInfo = packageManager::targetAppInfo,
                     device = deviceInfo(),
                     clock = InspectorClock(System::currentTimeMillis, SystemClock::uptimeMillis),
                 )
@@ -175,7 +206,7 @@ class ReelAccessibilityService : AccessibilityService() {
                 toast("Capture failed. Try again once the screen settles.")
             } finally {
                 capturing = false
-                overlay?.setBusy(false)
+                overlay?.setBusy(false, CAPTURE_LABEL)
             }
         }
     }
@@ -191,18 +222,6 @@ class ReelAccessibilityService : AccessibilityService() {
             .mapNotNull { it.root }
             .firstOrNull { Platform.fromPackageName(it.packageName?.toString()) != null }
             ?: active
-    }
-
-    private fun targetAppInfo(packageName: String): TargetAppInfo = try {
-        val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
-        } else {
-            @Suppress("DEPRECATION")
-            packageManager.getPackageInfo(packageName, 0)
-        }
-        TargetAppInfo(packageName, info.versionName, PackageInfoCompat.getLongVersionCode(info))
-    } catch (_: PackageManager.NameNotFoundException) {
-        TargetAppInfo(packageName)
     }
 
     private fun deviceInfo(): DeviceInfo {
@@ -229,6 +248,7 @@ class ReelAccessibilityService : AccessibilityService() {
     }
 }
 
+private const val CAPTURE_LABEL = "Capture"
 private const val EVALUATION_DELAY_MS = 250L
 private const val PRESENCE_CHECK_MS = 1_000L
 

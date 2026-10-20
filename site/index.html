@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scroll Sloth: count the reels you actually watch</title>
+  <meta name="description" content="Scroll Sloth is a private, on-device Android app that counts the reels you watch in Instagram, YouTube Shorts and Facebook Reels.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦥</text></svg>">
+  <style>
+    :root {
+      --bg: #fbf8f3; --fg: #1f1b16; --muted: #5d564c; --card: #ffffff; --line: #e6dfd3;
+      --accent: #386a55; --accent-fg: #ffffff; --chip: #e7f1ea;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #15130f; --fg: #ece6dc; --muted: #b5ad9f; --card: #1f1c17; --line: #36312a;
+        --accent: #8fd3b2; --accent-fg: #0d2a1e; --chip: #23362d;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 32px 20px 48px; }
+    header { text-align: center; padding: 24px 0 8px; }
+    .sloth { font-size: 64px; line-height: 1; }
+    h1 { font-size: 2.2rem; margin: 12px 0 4px; }
+    h2 { font-size: 1.35rem; margin: 40px 0 12px; }
+    h3 { font-size: 1.05rem; margin: 0 0 4px; }
+    p, li { color: var(--fg); }
+    .lead { font-size: 1.15rem; color: var(--muted); margin: 0 auto 24px; max-width: 34em; }
+    .button {
+      display: inline-block; min-height: 48px; padding: 12px 24px; border-radius: 24px;
+      background: var(--accent); color: var(--accent-fg); font-weight: 600; text-decoration: none;
+    }
+    .button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .sub { font-size: .9rem; color: var(--muted); margin-top: 10px; }
+    a { color: var(--accent); }
+    .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+    ol.steps { padding-left: 1.4em; }
+    ol.steps li { margin-bottom: 10px; }
+    .note { background: var(--chip); border-radius: 16px; padding: 14px 18px; margin: 16px 0; }
+    .note strong { display: block; margin-bottom: 4px; }
+    code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .9em; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="sloth" aria-hidden="true">🦥</div>
+    <h1>Scroll Sloth</h1>
+    <p class="lead">Counts the reels you actually watch in Instagram, YouTube Shorts and Facebook Reels, then tells you, gently or not, how slothful your day was. Everything stays on your phone.</p>
+    <a class="button" href="https://github.com/Jayant-Jeet/Scroll-Sloth/releases/latest">Download the latest release</a>
+    <p class="sub">Android 8.0 or newer. Free and open source.</p>
+  </header>
+
+  <h2 id="what">What it does</h2>
+  <div class="grid">
+    <div class="card"><h3>Counts real views</h3><p>A reel counts once you have watched it for 2 seconds and moved on. Fast flicks don't count, scrolling back doesn't count twice, and loops are capped.</p></div>
+    <div class="card"><h3>Day, week, month</h3><p>Reels and minutes per day, a week chart, a month heat map, best and worst days, and late-night scrolling.</p></div>
+    <div class="card"><h3>Laziness score</h3><p>Two scores from 0 to 100, from "Fully awake" to "Fossilised", each with a "why this score" breakdown. Plain arithmetic, no guessing.</p></div>
+    <div class="card"><h3>A nightly verdict</h3><p>A two-sentence comment, gentle or roast, written by a small Gemma model on your phone, or by templates if you skip the download.</p></div>
+  </div>
+
+  <h2 id="privacy">Privacy</h2>
+  <p>Scroll Sloth has no account, no server and no analytics or crash-reporting code. For each reel it stores three things: when it started, which app it was in, and how long it stayed on screen. It never stores captions, usernames, links, screen text or anything about what the reel was.</p>
+  <p>The accessibility service is limited by Android to exactly three apps: Instagram, YouTube and Facebook. It cannot see any other app. The app makes only two kinds of network request, and neither sends anything about you:</p>
+  <ul>
+    <li>an optional one-time download of the on-device language model, and</li>
+    <li>a weekly fetch of the public <a href="detection-rules.json">detection rules</a> file, which tells it how to recognise a reel screen.</li>
+  </ul>
+  <p>Your data never leaves the phone unless you export it yourself. <strong>Delete all data</strong> in Settings removes it.</p>
+
+  <h2 id="install">Install</h2>
+  <ol class="steps">
+    <li>On your phone, open the <a href="https://github.com/Jayant-Jeet/Scroll-Sloth/releases/latest">latest release</a> and download <code>scroll-sloth-v….apk</code>. Each release lists the file's SHA-256 checksum if you want to check it.</li>
+    <li>Open the downloaded file. If Android asks, allow your browser or Files app to <em>install unknown apps</em>, then tap <strong>Install</strong>.</li>
+    <li>Open Scroll Sloth. The welcome screen explains what is counted and what isn't.</li>
+  </ol>
+
+  <div class="note" id="restricted-settings">
+    <strong>Android 13 and newer: allow restricted settings first</strong>
+    Android blocks accessibility access for apps installed outside the Play Store until you allow it. Open <strong>Settings › Apps › Scroll Sloth</strong> (App info), tap the <strong>⋮</strong> menu in the top corner, choose <strong>Allow restricted settings</strong>, and confirm with your PIN or fingerprint. If the option isn't there yet, first try step 4 once; Android only offers it after the service has been blocked.
+  </div>
+
+  <ol class="steps" start="4">
+    <li>In Scroll Sloth, tap <strong>Open accessibility settings</strong>.</li>
+    <li>Find <strong>Scroll Sloth</strong> under <em>Installed apps</em> or <em>Downloaded apps</em>, open it, switch the service on, and accept Android's prompt.</li>
+    <li>Go back to Scroll Sloth. <strong>Settings</strong> shows each app as <em>Working</em>. Then just watch reels as usual.</li>
+  </ol>
+  <p class="sub">The optional on-device writer (about 1.9 GB, Wi-Fi only by default) is under Settings › On-device writer.</p>
+
+  <h2 id="limits">Good to know</h2>
+  <ul>
+    <li>Android only. There is no iPhone version, because iOS doesn't let apps observe other apps this way.</li>
+    <li>Detection reads the layout of Instagram, YouTube and Facebook. When one of them redesigns its reel screen, counting for that app can stop until the <a href="detection-rules.json">rules</a> are updated. Settings will say so.</li>
+    <li>Counts are close, not perfect. Settings › Advanced › Calibration lets you compare the detector with your own count.</li>
+  </ul>
+
+  <footer>
+    <p><a href="https://github.com/Jayant-Jeet/Scroll-Sloth">Source code on GitHub</a> · <a href="https://github.com/Jayant-Jeet/Scroll-Sloth#contributing-detection-rules">Help fix detection rules</a> · <a href="detection-rules.json">detection-rules.json</a></p>
+    <p>This page sets no cookies and loads nothing from other sites.</p>
+  </footer>
+</main>
+</body>
+</html>
