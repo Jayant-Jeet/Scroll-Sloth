@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "com.halfbloodcoder.scrollsloth"
     compileSdk = 37
+    compileSdkMinor = 0
 
     defaultConfig {
         applicationId = "com.halfbloodcoder.scrollsloth"
