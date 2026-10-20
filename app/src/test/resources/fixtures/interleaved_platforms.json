@@ -1,0 +1,356 @@
+{
+ "description": "Facebook and YouTube interleaved: each keeps its own history; a Facebook reel seen 3 s ago is not recounted.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000000308,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000000584,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000000855,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000001172,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000001491,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000001751,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000002047,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000002366,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000002649,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003316,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003669,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003957,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000004344,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000004725,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000005121,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000005497,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000005830,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000006000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000006321,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000006585,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000006881,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000007239,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000007507,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000007825,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000008079,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000008351,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000008667,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000008938,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 42
+  },
+  {
+   "timeMs": 1760000009000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000009267,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000009584,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000009865,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000010231,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000010483,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000010819,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000011210,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000011566,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000011884,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 43
+  },
+  {
+   "timeMs": 1760000012000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012261,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012645,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012956,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000013234,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000013525,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000013842,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000014104,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000014400,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000014701,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000015030,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000015358,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000015500,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000015802,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000016126,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": false
+  }
+ ],
+ "expected": [
+  {
+   "platform": "FACEBOOK",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000003000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "FACEBOOK",
+   "timestampMs": 1760000009000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000012000,
+   "dwellMs": 3500
+  }
+ ]
+}

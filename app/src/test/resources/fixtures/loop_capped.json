@@ -1,0 +1,994 @@
+{
+ "description": "Facebook: a reel left looping for 5 minutes is counted once with dwell capped at 120 s.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000001976,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000004075,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000006520,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000008484,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000010354,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000012160,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000013914,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000016227,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000017911,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000020126,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000022424,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000024173,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000025756,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000027844,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000029651,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000031688,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000033694,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000036090,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000037941,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000040187,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000042146,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000043940,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000046063,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000047637,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000049257,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000051281,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000053209,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000054877,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000057152,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000059002,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000060657,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000063112,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000065112,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000067043,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000068583,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000071068,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000073252,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000074831,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000077113,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000079184,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000081270,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000083578,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000085974,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000088311,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000090132,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000091980,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000094191,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000096049,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000098157,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000100165,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000102258,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000104574,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000106541,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000108111,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000110471,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000112066,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000114533,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000116309,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000118294,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000120507,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000122687,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000124253,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000125815,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000128063,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000130281,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000132098,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000134260,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000136351,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000138548,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000140889,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000142845,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000144636,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000146869,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000148764,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000151172,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000153356,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000155211,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000156734,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000159197,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000161169,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000163032,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000164704,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000166829,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000168448,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000170453,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000172013,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000173736,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000176022,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000177816,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000179448,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000181704,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000183457,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000185364,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000187264,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000189702,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000192094,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000194102,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000195684,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000197354,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000199313,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000201224,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000203286,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000205070,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000207474,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000209114,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000211452,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000213392,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000215776,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000217839,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000219624,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000221847,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000223772,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000225639,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000227838,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000230243,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000232132,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000234612,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000236348,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000238002,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000239586,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000241266,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000242920,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000244657,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000246831,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000248569,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000250081,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000252077,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000254428,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000256531,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000258217,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000259986,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000261774,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000263278,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000264927,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000266856,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000268903,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000270781,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000272905,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000274984,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000276810,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000279285,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000280913,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000283120,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000285499,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000287526,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000289999,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000292131,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000294301,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000296493,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000298750,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1001
+  },
+  {
+   "timeMs": 1760000300000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000300366,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000300759,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000301109,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000301460,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000301812,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000302162,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000302438,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000302811,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 1002
+  },
+  {
+   "timeMs": 1760000303000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000303265,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000303563,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": false
+  }
+ ],
+ "expected": [
+  {
+   "platform": "FACEBOOK",
+   "timestampMs": 1760000000000,
+   "dwellMs": 120000
+  },
+  {
+   "platform": "FACEBOOK",
+   "timestampMs": 1760000300000,
+   "dwellMs": 3000
+  }
+ ]
+}

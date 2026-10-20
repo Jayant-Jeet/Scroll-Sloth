@@ -1,0 +1,261 @@
+{
+ "description": "YouTube Shorts: three views of 3 s or more are counted, a 1999 ms flick is not.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000391,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000749,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001014,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001408,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001689,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001996,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002395,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002660,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003399,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003750,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004012,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004318,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004579,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004971,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005255,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005579,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005936,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000006000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000006388,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000006668,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000007064,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000007392,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000007785,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000008081,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000008357,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000008755,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000009151,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000009449,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000009500,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000009774,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000010164,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000010430,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000010824,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000011089,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000011391,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000011499,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000011885,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000012244,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": false
+  }
+ ],
+ "expected": [
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000003000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000006000,
+   "dwellMs": 3500
+  }
+ ]
+}

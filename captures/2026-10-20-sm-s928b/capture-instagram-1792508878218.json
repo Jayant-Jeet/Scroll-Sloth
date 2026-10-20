@@ -1,0 +1,2354 @@
+{
+    "schemaVersion": 1,
+    "capturedAtEpochMs": 1792508878218,
+    "capturedAtUptimeMs": 27114840,
+    "platform": "INSTAGRAM",
+    "app": {
+        "packageName": "com.instagram.android",
+        "versionName": "451.0.0.53.80",
+        "versionCode": 385810205
+    },
+    "device": {
+        "sdkInt": 36,
+        "screenWidthPx": 1440,
+        "screenHeightPx": 3120
+    },
+    "nodeCount": 109,
+    "truncated": false,
+    "viewIds": [
+        "android:id/list",
+        "android:id/text1",
+        "com.instagram.android:id/action_bar_left_button",
+        "com.instagram.android:id/action_bar_tab_layout",
+        "com.instagram.android:id/action_bar_title_view",
+        "com.instagram.android:id/avatar_image_view",
+        "com.instagram.android:id/clips_author_info_component",
+        "com.instagram.android:id/clips_author_profile_pic",
+        "com.instagram.android:id/clips_author_username",
+        "com.instagram.android:id/clips_bottom_legibility_gradient_component",
+        "com.instagram.android:id/clips_caption_component",
+        "com.instagram.android:id/clips_expanded_touch_view",
+        "com.instagram.android:id/clips_item_overlay_component",
+        "com.instagram.android:id/clips_media_component",
+        "com.instagram.android:id/clips_media_info_component",
+        "com.instagram.android:id/clips_single_media_component",
+        "com.instagram.android:id/clips_tab",
+        "com.instagram.android:id/clips_touchable_background",
+        "com.instagram.android:id/clips_ufi_component",
+        "com.instagram.android:id/clips_ufi_more_button_component",
+        "com.instagram.android:id/clips_video_container",
+        "com.instagram.android:id/clips_viewer_view_pager",
+        "com.instagram.android:id/comment_button",
+        "com.instagram.android:id/comment_count",
+        "com.instagram.android:id/direct_share_button",
+        "com.instagram.android:id/direct_tab",
+        "com.instagram.android:id/feed_tab",
+        "com.instagram.android:id/friendly_bubbles_component",
+        "com.instagram.android:id/gesture_manager",
+        "com.instagram.android:id/inline_follow_button",
+        "com.instagram.android:id/like_button",
+        "com.instagram.android:id/like_count",
+        "com.instagram.android:id/media_group",
+        "com.instagram.android:id/media_option_button",
+        "com.instagram.android:id/notification",
+        "com.instagram.android:id/outer_container",
+        "com.instagram.android:id/profile_tab",
+        "com.instagram.android:id/repost_count",
+        "com.instagram.android:id/row_feed_photo_profile_imageview",
+        "com.instagram.android:id/row_feed_photo_profile_name",
+        "com.instagram.android:id/row_feed_profile_header",
+        "com.instagram.android:id/save_button",
+        "com.instagram.android:id/save_count",
+        "com.instagram.android:id/scrubber",
+        "com.instagram.android:id/search_tab",
+        "com.instagram.android:id/secondary_label",
+        "com.instagram.android:id/swipeable_tab_view_pager",
+        "com.instagram.android:id/title_logo",
+        "com.instagram.android:id/ufi_text_component",
+        "com.instagram.android:id/video_container"
+    ],
+    "recentEvents": [
+        {
+            "eventTimeMs": 27112915,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27112944,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113016,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113048,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113116,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113216,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113246,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113317,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113349,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113418,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113450,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113532,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113566,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113649,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113667,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113750,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113781,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27113852,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113953,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27113982,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27114065,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27114083,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27114166,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27114197,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27114283,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27114398,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27114399,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27114498,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        },
+        {
+            "eventTimeMs": 27114513,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.widget.SeekBar",
+            "itemCount": 17901
+        },
+        {
+            "eventTimeMs": 27114613,
+            "type": "TYPE_WINDOW_CONTENT_CHANGED",
+            "packageName": "com.instagram.android",
+            "className": "android.view.ViewGroup"
+        }
+    ],
+    "root": {
+        "path": "0",
+        "className": "android.widget.FrameLayout",
+        "hasContentDescription": false,
+        "contentDescriptionLength": 0,
+        "hasText": false,
+        "textLength": 0,
+        "scrollable": false,
+        "bounds": {
+            "left": 0,
+            "top": 0,
+            "right": 1440,
+            "bottom": 3120
+        },
+        "childCount": 7,
+        "children": [
+            {
+                "path": "0.0",
+                "className": "androidx.viewpager.widget.ViewPager",
+                "viewId": "com.instagram.android:id/swipeable_tab_view_pager",
+                "hasContentDescription": false,
+                "contentDescriptionLength": 0,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 0,
+                    "top": 129,
+                    "right": 1440,
+                    "bottom": 2760
+                },
+                "collectionInfo": {
+                    "rowCount": 1,
+                    "columnCount": 5,
+                    "hierarchical": false
+                },
+                "childCount": 5,
+                "children": [
+                    {
+                        "path": "0.0.0",
+                        "className": "android.widget.FrameLayout",
+                        "hasContentDescription": false,
+                        "contentDescriptionLength": 0,
+                        "hasText": false,
+                        "textLength": 0,
+                        "scrollable": false,
+                        "bounds": {
+                            "left": 0,
+                            "top": 129,
+                            "right": 0,
+                            "bottom": 2760
+                        },
+                        "collectionItemInfo": {
+                            "rowIndex": 0,
+                            "rowSpan": 1,
+                            "columnIndex": 0,
+                            "columnSpan": 1,
+                            "selected": false
+                        },
+                        "childCount": 4,
+                        "children": [
+                            {
+                                "path": "0.0.0.0",
+                                "className": "androidx.recyclerview.widget.RecyclerView",
+                                "viewId": "android:id/list",
+                                "hasContentDescription": false,
+                                "contentDescriptionLength": 0,
+                                "hasText": false,
+                                "textLength": 0,
+                                "scrollable": true,
+                                "bounds": {
+                                    "left": 0,
+                                    "top": 129,
+                                    "right": 0,
+                                    "bottom": 2760
+                                },
+                                "collectionInfo": {
+                                    "rowCount": 34,
+                                    "columnCount": 1,
+                                    "hierarchical": false
+                                },
+                                "childCount": 3,
+                                "children": [
+                                    {
+                                        "path": "0.0.0.0.0",
+                                        "className": "android.widget.LinearLayout",
+                                        "hasContentDescription": false,
+                                        "contentDescriptionLength": 0,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": false,
+                                        "bounds": {
+                                            "left": 0,
+                                            "top": 468,
+                                            "right": 0,
+                                            "bottom": 978
+                                        },
+                                        "collectionItemInfo": {
+                                            "rowIndex": 1,
+                                            "rowSpan": 1,
+                                            "columnIndex": 0,
+                                            "columnSpan": 1,
+                                            "selected": false
+                                        },
+                                        "childCount": 1,
+                                        "children": [
+                                            {
+                                                "path": "0.0.0.0.0.0",
+                                                "className": "androidx.recyclerview.widget.RecyclerView",
+                                                "hasContentDescription": true,
+                                                "contentDescriptionLength": 20,
+                                                "hasText": false,
+                                                "textLength": 0,
+                                                "scrollable": true,
+                                                "bounds": {
+                                                    "left": 0,
+                                                    "top": 468,
+                                                    "right": 0,
+                                                    "bottom": 978
+                                                },
+                                                "collectionInfo": {
+                                                    "rowCount": 1,
+                                                    "columnCount": 27,
+                                                    "hierarchical": false
+                                                },
+                                                "childCount": 4,
+                                                "children": [
+                                                    {
+                                                        "path": "0.0.0.0.0.0.0",
+                                                        "className": "android.widget.LinearLayout",
+                                                        "viewId": "com.instagram.android:id/outer_container",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 468,
+                                                            "right": -1047,
+                                                            "bottom": 978
+                                                        },
+                                                        "collectionItemInfo": {
+                                                            "rowIndex": 0,
+                                                            "rowSpan": 1,
+                                                            "columnIndex": 0,
+                                                            "columnSpan": 1,
+                                                            "selected": false
+                                                        },
+                                                        "childCount": 1,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.0.0.0.0.0.0",
+                                                                "className": "android.widget.Button",
+                                                                "hasContentDescription": true,
+                                                                "contentDescriptionLength": 33,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 513,
+                                                                    "right": -1047,
+                                                                    "bottom": 891
+                                                                },
+                                                                "childCount": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.0.0.0.0.0.0.0",
+                                                                        "className": "android.widget.ImageView",
+                                                                        "viewId": "com.instagram.android:id/avatar_image_view",
+                                                                        "hasContentDescription": true,
+                                                                        "contentDescriptionLength": 33,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 564,
+                                                                            "right": -1098,
+                                                                            "bottom": 855
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.0.0.1",
+                                                        "className": "android.widget.LinearLayout",
+                                                        "viewId": "com.instagram.android:id/outer_container",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 468,
+                                                            "right": -654,
+                                                            "bottom": 978
+                                                        },
+                                                        "collectionItemInfo": {
+                                                            "rowIndex": 0,
+                                                            "rowSpan": 1,
+                                                            "columnIndex": 1,
+                                                            "columnSpan": 1,
+                                                            "selected": false
+                                                        },
+                                                        "childCount": 1,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.0.0.0.0.1.0",
+                                                                "className": "android.widget.Button",
+                                                                "hasContentDescription": true,
+                                                                "contentDescriptionLength": 45,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 513,
+                                                                    "right": -654,
+                                                                    "bottom": 891
+                                                                },
+                                                                "childCount": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.0.0.0.0.1.0.0",
+                                                                        "className": "android.widget.ImageView",
+                                                                        "viewId": "com.instagram.android:id/avatar_image_view",
+                                                                        "hasContentDescription": true,
+                                                                        "contentDescriptionLength": 45,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 564,
+                                                                            "right": -705,
+                                                                            "bottom": 855
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.0.0.2",
+                                                        "className": "android.widget.LinearLayout",
+                                                        "viewId": "com.instagram.android:id/outer_container",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 468,
+                                                            "right": -261,
+                                                            "bottom": 978
+                                                        },
+                                                        "collectionItemInfo": {
+                                                            "rowIndex": 0,
+                                                            "rowSpan": 1,
+                                                            "columnIndex": 2,
+                                                            "columnSpan": 1,
+                                                            "selected": false
+                                                        },
+                                                        "childCount": 1,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.0.0.0.0.2.0",
+                                                                "className": "android.widget.Button",
+                                                                "hasContentDescription": true,
+                                                                "contentDescriptionLength": 44,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 513,
+                                                                    "right": -261,
+                                                                    "bottom": 891
+                                                                },
+                                                                "childCount": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.0.0.0.0.2.0.0",
+                                                                        "className": "android.widget.ImageView",
+                                                                        "viewId": "com.instagram.android:id/avatar_image_view",
+                                                                        "hasContentDescription": true,
+                                                                        "contentDescriptionLength": 44,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 564,
+                                                                            "right": -312,
+                                                                            "bottom": 855
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.0.0.3",
+                                                        "className": "android.widget.LinearLayout",
+                                                        "viewId": "com.instagram.android:id/outer_container",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 468,
+                                                            "right": 0,
+                                                            "bottom": 978
+                                                        },
+                                                        "collectionItemInfo": {
+                                                            "rowIndex": 0,
+                                                            "rowSpan": 1,
+                                                            "columnIndex": 3,
+                                                            "columnSpan": 1,
+                                                            "selected": false
+                                                        },
+                                                        "childCount": 1,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.0.0.0.0.3.0",
+                                                                "className": "android.widget.Button",
+                                                                "hasContentDescription": true,
+                                                                "contentDescriptionLength": 40,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 513,
+                                                                    "right": 0,
+                                                                    "bottom": 891
+                                                                },
+                                                                "childCount": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.0.0.0.0.3.0.0",
+                                                                        "className": "android.widget.ImageView",
+                                                                        "viewId": "com.instagram.android:id/avatar_image_view",
+                                                                        "hasContentDescription": true,
+                                                                        "contentDescriptionLength": 40,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 564,
+                                                                            "right": 0,
+                                                                            "bottom": 855
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "path": "0.0.0.0.1",
+                                        "className": "android.view.ViewGroup",
+                                        "hasContentDescription": false,
+                                        "contentDescriptionLength": 0,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": false,
+                                        "bounds": {
+                                            "left": 0,
+                                            "top": 978,
+                                            "right": 0,
+                                            "bottom": 1173
+                                        },
+                                        "childCount": 1,
+                                        "children": [
+                                            {
+                                                "path": "0.0.0.0.1.0",
+                                                "className": "android.view.ViewGroup",
+                                                "viewId": "com.instagram.android:id/row_feed_profile_header",
+                                                "hasContentDescription": true,
+                                                "contentDescriptionLength": 41,
+                                                "hasText": false,
+                                                "textLength": 0,
+                                                "scrollable": false,
+                                                "bounds": {
+                                                    "left": 0,
+                                                    "top": 978,
+                                                    "right": 0,
+                                                    "bottom": 1173
+                                                },
+                                                "childCount": 4,
+                                                "children": [
+                                                    {
+                                                        "path": "0.0.0.0.1.0.0",
+                                                        "className": "android.widget.Button",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 978,
+                                                            "right": -1257,
+                                                            "bottom": 1173
+                                                        },
+                                                        "childCount": 1,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.0.0.1.0.0.0",
+                                                                "className": "android.widget.ImageView",
+                                                                "viewId": "com.instagram.android:id/row_feed_photo_profile_imageview",
+                                                                "hasContentDescription": true,
+                                                                "contentDescriptionLength": 32,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 1019,
+                                                                    "right": -1271,
+                                                                    "bottom": 1132
+                                                                },
+                                                                "childCount": 0,
+                                                                "children": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.1.0.1",
+                                                        "className": "android.widget.Button",
+                                                        "viewId": "com.instagram.android:id/row_feed_photo_profile_name",
+                                                        "hasContentDescription": true,
+                                                        "contentDescriptionLength": 13,
+                                                        "hasText": true,
+                                                        "textLength": 13,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 978,
+                                                            "right": -166,
+                                                            "bottom": 1073
+                                                        },
+                                                        "childCount": 0,
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.1.0.2",
+                                                        "className": "android.widget.Button",
+                                                        "viewId": "com.instagram.android:id/secondary_label",
+                                                        "hasContentDescription": true,
+                                                        "contentDescriptionLength": 31,
+                                                        "hasText": true,
+                                                        "textLength": 31,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 1072,
+                                                            "right": -166,
+                                                            "bottom": 1173
+                                                        },
+                                                        "childCount": 0,
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.1.0.3",
+                                                        "className": "android.widget.ImageView",
+                                                        "viewId": "com.instagram.android:id/media_option_button",
+                                                        "hasContentDescription": true,
+                                                        "contentDescriptionLength": 26,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 986,
+                                                            "right": 0,
+                                                            "bottom": 1166
+                                                        },
+                                                        "childCount": 0,
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "path": "0.0.0.0.2",
+                                        "className": "android.view.ViewGroup",
+                                        "hasContentDescription": false,
+                                        "contentDescriptionLength": 0,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": false,
+                                        "bounds": {
+                                            "left": 0,
+                                            "top": 1173,
+                                            "right": 0,
+                                            "bottom": 2760
+                                        },
+                                        "childCount": 1,
+                                        "children": [
+                                            {
+                                                "path": "0.0.0.0.2.0",
+                                                "className": "android.view.ViewGroup",
+                                                "viewId": "com.instagram.android:id/video_container",
+                                                "hasContentDescription": false,
+                                                "contentDescriptionLength": 0,
+                                                "hasText": false,
+                                                "textLength": 0,
+                                                "scrollable": false,
+                                                "bounds": {
+                                                    "left": 0,
+                                                    "top": 1173,
+                                                    "right": 0,
+                                                    "bottom": 2760
+                                                },
+                                                "childCount": 2,
+                                                "children": [
+                                                    {
+                                                        "path": "0.0.0.0.2.0.0",
+                                                        "className": "android.view.ViewGroup",
+                                                        "viewId": "com.instagram.android:id/video_container",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 1173,
+                                                            "right": 0,
+                                                            "bottom": 2760
+                                                        },
+                                                        "childCount": 1,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.0.0.2.0.0.0",
+                                                                "className": "android.view.ViewGroup",
+                                                                "hasContentDescription": false,
+                                                                "contentDescriptionLength": 0,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 1173,
+                                                                    "right": 0,
+                                                                    "bottom": 2760
+                                                                },
+                                                                "childCount": 3,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.0.0.2.0.0.0.0",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 2073,
+                                                                            "right": -720,
+                                                                            "bottom": 2073
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    },
+                                                                    {
+                                                                        "path": "0.0.0.0.2.0.0.0.1",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 2822,
+                                                                            "right": 0,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 1,
+                                                                        "children": [
+                                                                            {
+                                                                                "path": "0.0.0.0.2.0.0.0.1.0",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 2822,
+                                                                                    "right": 0,
+                                                                                    "bottom": 2760
+                                                                                },
+                                                                                "childCount": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "path": "0.0.0.0.2.0.0.0.1.0.0",
+                                                                                        "className": "android.widget.LinearLayout",
+                                                                                        "hasContentDescription": true,
+                                                                                        "contentDescriptionLength": 13,
+                                                                                        "hasText": false,
+                                                                                        "textLength": 0,
+                                                                                        "scrollable": false,
+                                                                                        "bounds": {
+                                                                                            "left": 0,
+                                                                                            "top": 2822,
+                                                                                            "right": -53,
+                                                                                            "bottom": 2760
+                                                                                        },
+                                                                                        "childCount": 0,
+                                                                                        "children": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "path": "0.0.0.0.2.0.0.0.2",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 2973,
+                                                                            "right": -203,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "path": "0.0.0.0.2.0.1",
+                                                        "className": "android.widget.FrameLayout",
+                                                        "viewId": "com.instagram.android:id/media_group",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 1173,
+                                                            "right": 0,
+                                                            "bottom": 2760
+                                                        },
+                                                        "childCount": 0,
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "path": "0.0.0.1",
+                                "className": "android.widget.ImageView",
+                                "viewId": "com.instagram.android:id/action_bar_left_button",
+                                "hasContentDescription": false,
+                                "contentDescriptionLength": 0,
+                                "hasText": false,
+                                "textLength": 0,
+                                "scrollable": false,
+                                "bounds": {
+                                    "left": 0,
+                                    "top": 258,
+                                    "right": -1260,
+                                    "bottom": 468
+                                },
+                                "childCount": 0,
+                                "children": []
+                            },
+                            {
+                                "path": "0.0.0.2",
+                                "className": "android.widget.ViewAnimator",
+                                "viewId": "com.instagram.android:id/action_bar_title_view",
+                                "hasContentDescription": false,
+                                "contentDescriptionLength": 0,
+                                "hasText": false,
+                                "textLength": 0,
+                                "scrollable": false,
+                                "bounds": {
+                                    "left": 0,
+                                    "top": 286,
+                                    "right": -180,
+                                    "bottom": 440
+                                },
+                                "childCount": 1,
+                                "children": [
+                                    {
+                                        "path": "0.0.0.2.0",
+                                        "className": "android.widget.ImageView",
+                                        "viewId": "com.instagram.android:id/title_logo",
+                                        "hasContentDescription": true,
+                                        "contentDescriptionLength": 19,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": false,
+                                        "bounds": {
+                                            "left": 0,
+                                            "top": 286,
+                                            "right": -502,
+                                            "bottom": 440
+                                        },
+                                        "childCount": 0,
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "path": "0.0.0.3",
+                                "className": "android.widget.FrameLayout",
+                                "viewId": "com.instagram.android:id/notification",
+                                "hasContentDescription": false,
+                                "contentDescriptionLength": 0,
+                                "hasText": false,
+                                "textLength": 0,
+                                "scrollable": false,
+                                "bounds": {
+                                    "left": 0,
+                                    "top": 258,
+                                    "right": 0,
+                                    "bottom": 468
+                                },
+                                "childCount": 0,
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "path": "0.0.1",
+                        "className": "android.widget.FrameLayout",
+                        "hasContentDescription": false,
+                        "contentDescriptionLength": 0,
+                        "hasText": false,
+                        "textLength": 0,
+                        "scrollable": false,
+                        "bounds": {
+                            "left": 0,
+                            "top": 129,
+                            "right": 1440,
+                            "bottom": 2760
+                        },
+                        "collectionItemInfo": {
+                            "rowIndex": 0,
+                            "rowSpan": 1,
+                            "columnIndex": 1,
+                            "columnSpan": 1,
+                            "selected": false
+                        },
+                        "childCount": 1,
+                        "children": [
+                            {
+                                "path": "0.0.1.0",
+                                "className": "android.widget.FrameLayout",
+                                "viewId": "com.instagram.android:id/gesture_manager",
+                                "hasContentDescription": false,
+                                "contentDescriptionLength": 0,
+                                "hasText": false,
+                                "textLength": 0,
+                                "scrollable": false,
+                                "bounds": {
+                                    "left": 0,
+                                    "top": 129,
+                                    "right": 1440,
+                                    "bottom": 2760
+                                },
+                                "childCount": 3,
+                                "children": [
+                                    {
+                                        "path": "0.0.1.0.0",
+                                        "className": "androidx.viewpager.widget.ViewPager",
+                                        "viewId": "com.instagram.android:id/clips_viewer_view_pager",
+                                        "hasContentDescription": false,
+                                        "contentDescriptionLength": 0,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": true,
+                                        "bounds": {
+                                            "left": 0,
+                                            "top": 129,
+                                            "right": 1440,
+                                            "bottom": 2760
+                                        },
+                                        "collectionInfo": {
+                                            "rowCount": 5,
+                                            "columnCount": 1,
+                                            "hierarchical": false
+                                        },
+                                        "childCount": 1,
+                                        "children": [
+                                            {
+                                                "path": "0.0.1.0.0.0",
+                                                "className": "android.widget.FrameLayout",
+                                                "hasContentDescription": false,
+                                                "contentDescriptionLength": 0,
+                                                "hasText": false,
+                                                "textLength": 0,
+                                                "scrollable": false,
+                                                "bounds": {
+                                                    "left": 0,
+                                                    "top": 129,
+                                                    "right": 1440,
+                                                    "bottom": 2760
+                                                },
+                                                "collectionItemInfo": {
+                                                    "rowIndex": 1,
+                                                    "rowSpan": 1,
+                                                    "columnIndex": 0,
+                                                    "columnSpan": 1,
+                                                    "selected": false
+                                                },
+                                                "childCount": 1,
+                                                "children": [
+                                                    {
+                                                        "path": "0.0.1.0.0.0.0",
+                                                        "className": "android.view.ViewGroup",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": false,
+                                                        "textLength": 0,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 0,
+                                                            "top": 129,
+                                                            "right": 1440,
+                                                            "bottom": 2760
+                                                        },
+                                                        "childCount": 2,
+                                                        "children": [
+                                                            {
+                                                                "path": "0.0.1.0.0.0.0.0",
+                                                                "className": "android.view.ViewGroup",
+                                                                "hasContentDescription": false,
+                                                                "contentDescriptionLength": 0,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 129,
+                                                                    "right": 1440,
+                                                                    "bottom": 2760
+                                                                },
+                                                                "childCount": 5,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.1.0.0.0.0.0.0",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "viewId": "com.instagram.android:id/clips_touchable_background",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 129,
+                                                                            "right": 1440,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 0,
+                                                                        "children": []
+                                                                    },
+                                                                    {
+                                                                        "path": "0.0.1.0.0.0.0.0.1",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "viewId": "com.instagram.android:id/clips_item_overlay_component",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 129,
+                                                                            "right": 1440,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 1,
+                                                                        "children": [
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.1.0",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 720,
+                                                                                    "top": 1445,
+                                                                                    "right": 720,
+                                                                                    "bottom": 1445
+                                                                                },
+                                                                                "childCount": 0,
+                                                                                "children": []
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "path": "0.0.1.0.0.0.0.0.2",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 129,
+                                                                            "right": 1440,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 4,
+                                                                        "children": [
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.2.0",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "viewId": "com.instagram.android:id/clips_media_info_component",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 2077,
+                                                                                    "right": 1245,
+                                                                                    "bottom": 2723
+                                                                                },
+                                                                                "childCount": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0",
+                                                                                        "className": "android.view.ViewGroup",
+                                                                                        "hasContentDescription": false,
+                                                                                        "contentDescriptionLength": 0,
+                                                                                        "hasText": false,
+                                                                                        "textLength": 0,
+                                                                                        "scrollable": false,
+                                                                                        "bounds": {
+                                                                                            "left": 0,
+                                                                                            "top": 2077,
+                                                                                            "right": 1245,
+                                                                                            "bottom": 2670
+                                                                                        },
+                                                                                        "childCount": 2,
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.0",
+                                                                                                "className": "android.view.ViewGroup",
+                                                                                                "hasContentDescription": false,
+                                                                                                "contentDescriptionLength": 0,
+                                                                                                "hasText": false,
+                                                                                                "textLength": 0,
+                                                                                                "scrollable": false,
+                                                                                                "bounds": {
+                                                                                                    "left": 0,
+                                                                                                    "top": 2077,
+                                                                                                    "right": 1245,
+                                                                                                    "bottom": 2362
+                                                                                                },
+                                                                                                "childCount": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.0.0",
+                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                        "viewId": "com.instagram.android:id/friendly_bubbles_component",
+                                                                                                        "hasContentDescription": false,
+                                                                                                        "contentDescriptionLength": 0,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 60,
+                                                                                                            "top": 2077,
+                                                                                                            "right": 293,
+                                                                                                            "bottom": 2302
+                                                                                                        },
+                                                                                                        "childCount": 1,
+                                                                                                        "children": [
+                                                                                                            {
+                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.0.0.0",
+                                                                                                                "className": "android.view.ViewGroup",
+                                                                                                                "hasContentDescription": true,
+                                                                                                                "contentDescriptionLength": 38,
+                                                                                                                "hasText": false,
+                                                                                                                "textLength": 0,
+                                                                                                                "scrollable": false,
+                                                                                                                "bounds": {
+                                                                                                                    "left": 63,
+                                                                                                                    "top": 2138,
+                                                                                                                    "right": 258,
+                                                                                                                    "bottom": 2302
+                                                                                                                },
+                                                                                                                "childCount": 0,
+                                                                                                                "children": []
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1",
+                                                                                                "className": "android.view.ViewGroup",
+                                                                                                "hasContentDescription": false,
+                                                                                                "contentDescriptionLength": 0,
+                                                                                                "hasText": false,
+                                                                                                "textLength": 0,
+                                                                                                "scrollable": false,
+                                                                                                "bounds": {
+                                                                                                    "left": 0,
+                                                                                                    "top": 2362,
+                                                                                                    "right": 1245,
+                                                                                                    "bottom": 2670
+                                                                                                },
+                                                                                                "childCount": 3,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.0",
+                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                        "hasContentDescription": false,
+                                                                                                        "contentDescriptionLength": 0,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 60,
+                                                                                                            "top": 2362,
+                                                                                                            "right": 1245,
+                                                                                                            "bottom": 2362
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.1",
+                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                        "hasContentDescription": false,
+                                                                                                        "contentDescriptionLength": 0,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 60,
+                                                                                                            "top": 2362,
+                                                                                                            "right": 1245,
+                                                                                                            "bottom": 2362
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.2",
+                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                        "hasContentDescription": false,
+                                                                                                        "contentDescriptionLength": 0,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 60,
+                                                                                                            "top": 2362,
+                                                                                                            "right": 1245,
+                                                                                                            "bottom": 2670
+                                                                                                        },
+                                                                                                        "childCount": 2,
+                                                                                                        "children": [
+                                                                                                            {
+                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0",
+                                                                                                                "className": "android.view.ViewGroup",
+                                                                                                                "hasContentDescription": false,
+                                                                                                                "contentDescriptionLength": 0,
+                                                                                                                "hasText": false,
+                                                                                                                "textLength": 0,
+                                                                                                                "scrollable": false,
+                                                                                                                "bounds": {
+                                                                                                                    "left": 60,
+                                                                                                                    "top": 2362,
+                                                                                                                    "right": 1245,
+                                                                                                                    "bottom": 2565
+                                                                                                                },
+                                                                                                                "childCount": 2,
+                                                                                                                "children": [
+                                                                                                                    {
+                                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.0",
+                                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                                        "viewId": "com.instagram.android:id/clips_author_info_component",
+                                                                                                                        "hasContentDescription": false,
+                                                                                                                        "contentDescriptionLength": 0,
+                                                                                                                        "hasText": false,
+                                                                                                                        "textLength": 0,
+                                                                                                                        "scrollable": false,
+                                                                                                                        "bounds": {
+                                                                                                                            "left": 60,
+                                                                                                                            "top": 2362,
+                                                                                                                            "right": 804,
+                                                                                                                            "bottom": 2565
+                                                                                                                        },
+                                                                                                                        "childCount": 3,
+                                                                                                                        "children": [
+                                                                                                                            {
+                                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.0.0",
+                                                                                                                                "className": "android.widget.Button",
+                                                                                                                                "viewId": "com.instagram.android:id/clips_author_profile_pic",
+                                                                                                                                "hasContentDescription": true,
+                                                                                                                                "contentDescriptionLength": 27,
+                                                                                                                                "hasText": false,
+                                                                                                                                "textLength": 0,
+                                                                                                                                "scrollable": false,
+                                                                                                                                "bounds": {
+                                                                                                                                    "left": 75,
+                                                                                                                                    "top": 2415,
+                                                                                                                                    "right": 210,
+                                                                                                                                    "bottom": 2550
+                                                                                                                                },
+                                                                                                                                "childCount": 0,
+                                                                                                                                "children": []
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.0.1",
+                                                                                                                                "className": "android.view.ViewGroup",
+                                                                                                                                "hasContentDescription": false,
+                                                                                                                                "contentDescriptionLength": 0,
+                                                                                                                                "hasText": false,
+                                                                                                                                "textLength": 0,
+                                                                                                                                "scrollable": false,
+                                                                                                                                "bounds": {
+                                                                                                                                    "left": 225,
+                                                                                                                                    "top": 2418,
+                                                                                                                                    "right": 583,
+                                                                                                                                    "bottom": 2486
+                                                                                                                                },
+                                                                                                                                "childCount": 1,
+                                                                                                                                "children": [
+                                                                                                                                    {
+                                                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.0.1.0",
+                                                                                                                                        "className": "android.widget.Button",
+                                                                                                                                        "viewId": "com.instagram.android:id/clips_author_username",
+                                                                                                                                        "hasContentDescription": true,
+                                                                                                                                        "contentDescriptionLength": 10,
+                                                                                                                                        "hasText": true,
+                                                                                                                                        "textLength": 10,
+                                                                                                                                        "scrollable": false,
+                                                                                                                                        "bounds": {
+                                                                                                                                            "left": 225,
+                                                                                                                                            "top": 2418,
+                                                                                                                                            "right": 583,
+                                                                                                                                            "bottom": 2486
+                                                                                                                                        },
+                                                                                                                                        "childCount": 0,
+                                                                                                                                        "children": []
+                                                                                                                                    }
+                                                                                                                                ]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.0.2",
+                                                                                                                                "className": "android.widget.Button",
+                                                                                                                                "hasContentDescription": true,
+                                                                                                                                "contentDescriptionLength": 74,
+                                                                                                                                "hasText": false,
+                                                                                                                                "textLength": 0,
+                                                                                                                                "scrollable": false,
+                                                                                                                                "bounds": {
+                                                                                                                                    "left": 225,
+                                                                                                                                    "top": 2494,
+                                                                                                                                    "right": 789,
+                                                                                                                                    "bottom": 2548
+                                                                                                                                },
+                                                                                                                                "childCount": 0,
+                                                                                                                                "children": []
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.1",
+                                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                                        "hasContentDescription": false,
+                                                                                                                        "contentDescriptionLength": 0,
+                                                                                                                        "hasText": false,
+                                                                                                                        "textLength": 0,
+                                                                                                                        "scrollable": false,
+                                                                                                                        "bounds": {
+                                                                                                                            "left": 804,
+                                                                                                                            "top": 2402,
+                                                                                                                            "right": 1135,
+                                                                                                                            "bottom": 2564
+                                                                                                                        },
+                                                                                                                        "childCount": 1,
+                                                                                                                        "children": [
+                                                                                                                            {
+                                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.0.1.0",
+                                                                                                                                "className": "android.widget.TextView",
+                                                                                                                                "viewId": "com.instagram.android:id/inline_follow_button",
+                                                                                                                                "hasContentDescription": true,
+                                                                                                                                "contentDescriptionLength": 18,
+                                                                                                                                "hasText": true,
+                                                                                                                                "textLength": 6,
+                                                                                                                                "scrollable": false,
+                                                                                                                                "bounds": {
+                                                                                                                                    "left": 827,
+                                                                                                                                    "top": 2432,
+                                                                                                                                    "right": 1082,
+                                                                                                                                    "bottom": 2541
+                                                                                                                                },
+                                                                                                                                "childCount": 0,
+                                                                                                                                "children": []
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.1",
+                                                                                                                "className": "android.view.ViewGroup",
+                                                                                                                "viewId": "com.instagram.android:id/clips_caption_component",
+                                                                                                                "hasContentDescription": false,
+                                                                                                                "contentDescriptionLength": 0,
+                                                                                                                "hasText": false,
+                                                                                                                "textLength": 0,
+                                                                                                                "scrollable": false,
+                                                                                                                "bounds": {
+                                                                                                                    "left": 60,
+                                                                                                                    "top": 2565,
+                                                                                                                    "right": 1245,
+                                                                                                                    "bottom": 2670
+                                                                                                                },
+                                                                                                                "childCount": 1,
+                                                                                                                "children": [
+                                                                                                                    {
+                                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.1.0",
+                                                                                                                        "className": "android.widget.ScrollView",
+                                                                                                                        "hasContentDescription": false,
+                                                                                                                        "contentDescriptionLength": 0,
+                                                                                                                        "hasText": false,
+                                                                                                                        "textLength": 0,
+                                                                                                                        "scrollable": false,
+                                                                                                                        "bounds": {
+                                                                                                                            "left": 60,
+                                                                                                                            "top": 2565,
+                                                                                                                            "right": 1245,
+                                                                                                                            "bottom": 2670
+                                                                                                                        },
+                                                                                                                        "childCount": 1,
+                                                                                                                        "children": [
+                                                                                                                            {
+                                                                                                                                "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.1.0.0",
+                                                                                                                                "className": "android.view.ViewGroup",
+                                                                                                                                "hasContentDescription": false,
+                                                                                                                                "contentDescriptionLength": 0,
+                                                                                                                                "hasText": false,
+                                                                                                                                "textLength": 0,
+                                                                                                                                "scrollable": false,
+                                                                                                                                "bounds": {
+                                                                                                                                    "left": 60,
+                                                                                                                                    "top": 2580,
+                                                                                                                                    "right": 1245,
+                                                                                                                                    "bottom": 2670
+                                                                                                                                },
+                                                                                                                                "childCount": 1,
+                                                                                                                                "children": [
+                                                                                                                                    {
+                                                                                                                                        "path": "0.0.1.0.0.0.0.0.2.0.0.1.2.1.0.0.0",
+                                                                                                                                        "className": "android.view.ViewGroup",
+                                                                                                                                        "hasContentDescription": true,
+                                                                                                                                        "contentDescriptionLength": 26,
+                                                                                                                                        "hasText": false,
+                                                                                                                                        "textLength": 0,
+                                                                                                                                        "scrollable": false,
+                                                                                                                                        "bounds": {
+                                                                                                                                            "left": 60,
+                                                                                                                                            "top": 2580,
+                                                                                                                                            "right": 1245,
+                                                                                                                                            "bottom": 2670
+                                                                                                                                        },
+                                                                                                                                        "childCount": 0,
+                                                                                                                                        "children": []
+                                                                                                                                    }
+                                                                                                                                ]
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.2.1",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "viewId": "com.instagram.android:id/clips_ufi_component",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 1245,
+                                                                                    "top": 1233,
+                                                                                    "right": 1440,
+                                                                                    "bottom": 2723
+                                                                                },
+                                                                                "childCount": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0",
+                                                                                        "className": "android.view.ViewGroup",
+                                                                                        "hasContentDescription": false,
+                                                                                        "contentDescriptionLength": 0,
+                                                                                        "hasText": false,
+                                                                                        "textLength": 0,
+                                                                                        "scrollable": false,
+                                                                                        "bounds": {
+                                                                                            "left": 1245,
+                                                                                            "top": 1233,
+                                                                                            "right": 1410,
+                                                                                            "bottom": 2663
+                                                                                        },
+                                                                                        "childCount": 1,
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "path": "0.0.1.0.0.0.0.0.2.1.0.0",
+                                                                                                "className": "android.view.ViewGroup",
+                                                                                                "hasContentDescription": false,
+                                                                                                "contentDescriptionLength": 0,
+                                                                                                "hasText": false,
+                                                                                                "textLength": 0,
+                                                                                                "scrollable": false,
+                                                                                                "bounds": {
+                                                                                                    "left": 1245,
+                                                                                                    "top": 1233,
+                                                                                                    "right": 1410,
+                                                                                                    "bottom": 2663
+                                                                                                },
+                                                                                                "childCount": 11,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.0",
+                                                                                                        "className": "android.widget.ImageView",
+                                                                                                        "viewId": "com.instagram.android:id/like_button",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 4,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1233,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 1398
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.1",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/like_count",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 10,
+                                                                                                        "hasText": true,
+                                                                                                        "textLength": 10,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1398,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 1486
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.2",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/comment_button",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 7,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1486,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 1651
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.3",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/comment_count",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 36,
+                                                                                                        "hasText": true,
+                                                                                                        "textLength": 36,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1651,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 1739
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.4",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 6,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1739,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 1904
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.5",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/repost_count",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 19,
+                                                                                                        "hasText": true,
+                                                                                                        "textLength": 19,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1904,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 1992
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.6",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/direct_share_button",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 5,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 1992,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 2157
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.7",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/ufi_text_component",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 23,
+                                                                                                        "hasText": true,
+                                                                                                        "textLength": 23,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 2157,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 2245
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.8",
+                                                                                                        "className": "android.widget.ImageView",
+                                                                                                        "viewId": "com.instagram.android:id/save_button",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 4,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 2245,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 2410
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.9",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/save_count",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 20,
+                                                                                                        "hasText": true,
+                                                                                                        "textLength": 20,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 2410,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 2498
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "path": "0.0.1.0.0.0.0.0.2.1.0.0.10",
+                                                                                                        "className": "android.widget.Button",
+                                                                                                        "viewId": "com.instagram.android:id/clips_ufi_more_button_component",
+                                                                                                        "hasContentDescription": true,
+                                                                                                        "contentDescriptionLength": 4,
+                                                                                                        "hasText": false,
+                                                                                                        "textLength": 0,
+                                                                                                        "scrollable": false,
+                                                                                                        "bounds": {
+                                                                                                            "left": 1245,
+                                                                                                            "top": 2498,
+                                                                                                            "right": 1410,
+                                                                                                            "bottom": 2663
+                                                                                                        },
+                                                                                                        "childCount": 0,
+                                                                                                        "children": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.2.2",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 2723,
+                                                                                    "right": 1440,
+                                                                                    "bottom": 2723
+                                                                                },
+                                                                                "childCount": 0,
+                                                                                "children": []
+                                                                            },
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.2.3",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 2723,
+                                                                                    "right": 1440,
+                                                                                    "bottom": 2760
+                                                                                },
+                                                                                "childCount": 0,
+                                                                                "children": []
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "path": "0.0.1.0.0.0.0.0.3",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "viewId": "com.instagram.android:id/clips_bottom_legibility_gradient_component",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 1598,
+                                                                            "right": 1440,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 1,
+                                                                        "children": [
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.3.0",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 1598,
+                                                                                    "right": 1440,
+                                                                                    "bottom": 2760
+                                                                                },
+                                                                                "childCount": 0,
+                                                                                "children": []
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "path": "0.0.1.0.0.0.0.0.4",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 2460,
+                                                                            "right": 1440,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 1,
+                                                                        "children": [
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.0.4.0",
+                                                                                "className": "android.widget.SeekBar",
+                                                                                "viewId": "com.instagram.android:id/scrubber",
+                                                                                "hasContentDescription": true,
+                                                                                "contentDescriptionLength": 7,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 2723,
+                                                                                    "right": 1440,
+                                                                                    "bottom": 2760
+                                                                                },
+                                                                                "rangeInfo": {
+                                                                                    "type": 0,
+                                                                                    "min": 0.0,
+                                                                                    "max": 17901.0,
+                                                                                    "current": 4190.0
+                                                                                },
+                                                                                "childCount": 0,
+                                                                                "children": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "path": "0.0.1.0.0.0.0.1",
+                                                                "className": "android.view.ViewGroup",
+                                                                "viewId": "com.instagram.android:id/clips_media_component",
+                                                                "hasContentDescription": true,
+                                                                "contentDescriptionLength": 46,
+                                                                "hasText": false,
+                                                                "textLength": 0,
+                                                                "scrollable": false,
+                                                                "bounds": {
+                                                                    "left": 0,
+                                                                    "top": 129,
+                                                                    "right": 1440,
+                                                                    "bottom": 2760
+                                                                },
+                                                                "childCount": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "path": "0.0.1.0.0.0.0.1.0",
+                                                                        "className": "android.view.ViewGroup",
+                                                                        "viewId": "com.instagram.android:id/clips_single_media_component",
+                                                                        "hasContentDescription": false,
+                                                                        "contentDescriptionLength": 0,
+                                                                        "hasText": false,
+                                                                        "textLength": 0,
+                                                                        "scrollable": false,
+                                                                        "bounds": {
+                                                                            "left": 0,
+                                                                            "top": 129,
+                                                                            "right": 1440,
+                                                                            "bottom": 2760
+                                                                        },
+                                                                        "childCount": 1,
+                                                                        "children": [
+                                                                            {
+                                                                                "path": "0.0.1.0.0.0.0.1.0.0",
+                                                                                "className": "android.view.ViewGroup",
+                                                                                "hasContentDescription": false,
+                                                                                "contentDescriptionLength": 0,
+                                                                                "hasText": false,
+                                                                                "textLength": 0,
+                                                                                "scrollable": false,
+                                                                                "bounds": {
+                                                                                    "left": 0,
+                                                                                    "top": 129,
+                                                                                    "right": 1440,
+                                                                                    "bottom": 2760
+                                                                                },
+                                                                                "childCount": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "path": "0.0.1.0.0.0.0.1.0.0.0",
+                                                                                        "className": "android.widget.FrameLayout",
+                                                                                        "viewId": "com.instagram.android:id/clips_video_container",
+                                                                                        "hasContentDescription": true,
+                                                                                        "contentDescriptionLength": 46,
+                                                                                        "hasText": false,
+                                                                                        "textLength": 0,
+                                                                                        "scrollable": false,
+                                                                                        "bounds": {
+                                                                                            "left": 0,
+                                                                                            "top": 129,
+                                                                                            "right": 1440,
+                                                                                            "bottom": 2760
+                                                                                        },
+                                                                                        "childCount": 0,
+                                                                                        "children": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "path": "0.0.1.0.1",
+                                        "className": "android.widget.ImageView",
+                                        "hasContentDescription": true,
+                                        "contentDescriptionLength": 13,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": false,
+                                        "bounds": {
+                                            "left": 0,
+                                            "top": 162,
+                                            "right": 180,
+                                            "bottom": 339
+                                        },
+                                        "childCount": 0,
+                                        "children": []
+                                    },
+                                    {
+                                        "path": "0.0.1.0.2",
+                                        "className": "android.widget.HorizontalScrollView",
+                                        "viewId": "com.instagram.android:id/action_bar_tab_layout",
+                                        "hasContentDescription": false,
+                                        "contentDescriptionLength": 0,
+                                        "hasText": false,
+                                        "textLength": 0,
+                                        "scrollable": false,
+                                        "bounds": {
+                                            "left": 342,
+                                            "top": 187,
+                                            "right": 1164,
+                                            "bottom": 314
+                                        },
+                                        "collectionInfo": {
+                                            "rowCount": 1,
+                                            "columnCount": 2,
+                                            "hierarchical": false
+                                        },
+                                        "childCount": 2,
+                                        "children": [
+                                            {
+                                                "path": "0.0.1.0.2.0",
+                                                "className": "android.widget.LinearLayout",
+                                                "hasContentDescription": true,
+                                                "contentDescriptionLength": 5,
+                                                "hasText": false,
+                                                "textLength": 0,
+                                                "scrollable": false,
+                                                "bounds": {
+                                                    "left": 342,
+                                                    "top": 187,
+                                                    "right": 653,
+                                                    "bottom": 314
+                                                },
+                                                "collectionItemInfo": {
+                                                    "rowIndex": 0,
+                                                    "rowSpan": 1,
+                                                    "columnIndex": 0,
+                                                    "columnSpan": 1,
+                                                    "selected": true
+                                                },
+                                                "childCount": 1,
+                                                "children": [
+                                                    {
+                                                        "path": "0.0.1.0.2.0.0",
+                                                        "className": "android.widget.TextView",
+                                                        "viewId": "android:id/text1",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": true,
+                                                        "textLength": 5,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 350,
+                                                            "top": 187,
+                                                            "right": 578,
+                                                            "bottom": 314
+                                                        },
+                                                        "childCount": 0,
+                                                        "children": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "path": "0.0.1.0.2.1",
+                                                "className": "android.widget.LinearLayout",
+                                                "hasContentDescription": true,
+                                                "contentDescriptionLength": 7,
+                                                "hasText": false,
+                                                "textLength": 0,
+                                                "scrollable": false,
+                                                "bounds": {
+                                                    "left": 653,
+                                                    "top": 187,
+                                                    "right": 1164,
+                                                    "bottom": 314
+                                                },
+                                                "collectionItemInfo": {
+                                                    "rowIndex": 0,
+                                                    "rowSpan": 1,
+                                                    "columnIndex": 1,
+                                                    "columnSpan": 1,
+                                                    "selected": false
+                                                },
+                                                "childCount": 1,
+                                                "children": [
+                                                    {
+                                                        "path": "0.0.1.0.2.1.0",
+                                                        "className": "android.widget.TextView",
+                                                        "viewId": "android:id/text1",
+                                                        "hasContentDescription": false,
+                                                        "contentDescriptionLength": 0,
+                                                        "hasText": true,
+                                                        "textLength": 7,
+                                                        "scrollable": false,
+                                                        "bounds": {
+                                                            "left": 661,
+                                                            "top": 187,
+                                                            "right": 958,
+                                                            "bottom": 314
+                                                        },
+                                                        "childCount": 0,
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "path": "0.0.2",
+                        "className": "android.widget.FrameLayout",
+                        "hasContentDescription": false,
+                        "contentDescriptionLength": 0,
+                        "hasText": false,
+                        "textLength": 0,
+                        "scrollable": false,
+                        "bounds": {
+                            "left": 1440,
+                            "top": 129,
+                            "right": 1440,
+                            "bottom": 2760
+                        },
+                        "collectionItemInfo": {
+                            "rowIndex": 0,
+                            "rowSpan": 1,
+                            "columnIndex": 2,
+                            "columnSpan": 1,
+                            "selected": false
+                        },
+                        "childCount": 0,
+                        "children": []
+                    },
+                    {
+                        "path": "0.0.3",
+                        "className": "android.widget.FrameLayout",
+                        "hasContentDescription": false,
+                        "contentDescriptionLength": 0,
+                        "hasText": false,
+                        "textLength": 0,
+                        "scrollable": false,
+                        "bounds": {
+                            "left": 2880,
+                            "top": 129,
+                            "right": 1440,
+                            "bottom": 2760
+                        },
+                        "collectionItemInfo": {
+                            "rowIndex": 0,
+                            "rowSpan": 1,
+                            "columnIndex": 3,
+                            "columnSpan": 1,
+                            "selected": false
+                        },
+                        "childCount": 0,
+                        "children": []
+                    },
+                    {
+                        "path": "0.0.4",
+                        "className": "android.widget.FrameLayout",
+                        "hasContentDescription": false,
+                        "contentDescriptionLength": 0,
+                        "hasText": false,
+                        "textLength": 0,
+                        "scrollable": false,
+                        "bounds": {
+                            "left": 4320,
+                            "top": 129,
+                            "right": 1440,
+                            "bottom": 2760
+                        },
+                        "collectionItemInfo": {
+                            "rowIndex": 0,
+                            "rowSpan": 1,
+                            "columnIndex": 4,
+                            "columnSpan": 1,
+                            "selected": false
+                        },
+                        "childCount": 0,
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "path": "0.1",
+                "className": "android.view.View",
+                "viewId": "com.instagram.android:id/clips_expanded_touch_view",
+                "hasContentDescription": false,
+                "contentDescriptionLength": 0,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 0,
+                    "top": 2648,
+                    "right": 1440,
+                    "bottom": 2797
+                },
+                "childCount": 0,
+                "children": []
+            },
+            {
+                "path": "0.2",
+                "className": "android.widget.FrameLayout",
+                "viewId": "com.instagram.android:id/feed_tab",
+                "hasContentDescription": true,
+                "contentDescriptionLength": 4,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 0,
+                    "top": 2760,
+                    "right": 288,
+                    "bottom": 2940
+                },
+                "childCount": 0,
+                "children": []
+            },
+            {
+                "path": "0.3",
+                "className": "android.widget.FrameLayout",
+                "viewId": "com.instagram.android:id/clips_tab",
+                "hasContentDescription": true,
+                "contentDescriptionLength": 5,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 288,
+                    "top": 2760,
+                    "right": 576,
+                    "bottom": 2940
+                },
+                "childCount": 0,
+                "children": []
+            },
+            {
+                "path": "0.4",
+                "className": "android.widget.FrameLayout",
+                "viewId": "com.instagram.android:id/direct_tab",
+                "hasContentDescription": true,
+                "contentDescriptionLength": 7,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 576,
+                    "top": 2760,
+                    "right": 864,
+                    "bottom": 2940
+                },
+                "childCount": 0,
+                "children": []
+            },
+            {
+                "path": "0.5",
+                "className": "android.widget.FrameLayout",
+                "viewId": "com.instagram.android:id/search_tab",
+                "hasContentDescription": true,
+                "contentDescriptionLength": 18,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 864,
+                    "top": 2760,
+                    "right": 1152,
+                    "bottom": 2940
+                },
+                "childCount": 0,
+                "children": []
+            },
+            {
+                "path": "0.6",
+                "className": "android.widget.FrameLayout",
+                "viewId": "com.instagram.android:id/profile_tab",
+                "hasContentDescription": true,
+                "contentDescriptionLength": 7,
+                "hasText": false,
+                "textLength": 0,
+                "scrollable": false,
+                "bounds": {
+                    "left": 1152,
+                    "top": 2760,
+                    "right": 1440,
+                    "bottom": 2940
+                },
+                "childCount": 0,
+                "children": []
+            }
+        ]
+    }
+}

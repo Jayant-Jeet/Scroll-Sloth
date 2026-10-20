@@ -1,0 +1,119 @@
+{
+ "description": "Instagram: four flicks, all under 2 s, then the user leaves the reel screen.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000332,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000620,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000900,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000001162,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000001430,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000001817,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000002091,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000002100,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000002499,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000002700,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000003079,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000003383,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000003642,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000003914,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000004275,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 3
+  },
+  {
+   "timeMs": 1760000004600,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000004867,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000005178,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  }
+ ],
+ "expected": []
+}

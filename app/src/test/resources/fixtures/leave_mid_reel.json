@@ -1,0 +1,156 @@
+{
+ "description": "Instagram: leaving the reel screen mid-reel emits once; later screen off adds nothing.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000373,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000650,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001043,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001307,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001620,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001918,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002238,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002498,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002773,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003365,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003758,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004015,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004281,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004644,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004977,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005356,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005500,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000005801,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000006121,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000006486,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000006866,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000012252,
+   "reset": "SCREEN_OFF"
+  }
+ ],
+ "expected": [
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000003000,
+   "dwellMs": 2500
+  }
+ ]
+}

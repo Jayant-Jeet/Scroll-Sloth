@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 1,
+  "minDwellMs": 2000,
+  "maxDwellMs": 120000,
+  "apps": {
+    "com.instagram.android": {
+      "platform": "INSTAGRAM",
+      "reelScreenMatchers": [
+        {
+          "viewIdContains": "TODO_FROM_INSPECTOR",
+          "classNameEquals": "TODO_FROM_INSPECTOR"
+        }
+      ],
+      "strategy": "ITEM_CHANGED",
+      "pagerMatcher": {
+        "viewIdContains": "TODO_FROM_INSPECTOR",
+        "classNameEquals": "TODO_FROM_INSPECTOR"
+      },
+      "keyFields": []
+    },
+    "com.google.android.youtube": {
+      "platform": "YOUTUBE",
+      "reelScreenMatchers": [
+        {
+          "viewIdContains": "TODO_FROM_INSPECTOR",
+          "classNameEquals": "TODO_FROM_INSPECTOR"
+        }
+      ],
+      "strategy": "ITEM_CHANGED",
+      "pagerMatcher": {
+        "viewIdContains": "TODO_FROM_INSPECTOR",
+        "classNameEquals": "TODO_FROM_INSPECTOR"
+      },
+      "keyFields": []
+    },
+    "com.facebook.katana": {
+      "platform": "FACEBOOK",
+      "reelScreenMatchers": [
+        {
+          "viewIdContains": "TODO_FROM_INSPECTOR",
+          "classNameEquals": "TODO_FROM_INSPECTOR"
+        }
+      ],
+      "strategy": "KEY_CHANGED",
+      "pagerMatcher": {
+        "viewIdContains": "TODO_FROM_INSPECTOR",
+        "classNameEquals": "TODO_FROM_INSPECTOR"
+      },
+      "keyFields": [
+        "contentDescription"
+      ],
+      "keyMatchers": [
+        {
+          "classNameEquals": "TODO_FROM_INSPECTOR"
+        }
+      ]
+    }
+  }
+}

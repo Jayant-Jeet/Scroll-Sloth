@@ -1,0 +1,273 @@
+{
+ "description": "Instagram to YouTube and back: the switch closes the old reel, the new session starts fresh.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000372,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000751,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001064,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001447,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001763,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002156,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002457,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002821,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003356,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003637,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003987,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004350,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004680,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004948,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005259,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005618,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005886,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000006190,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000006517,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000006798,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000007000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000007343,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000007629,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000007943,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000008228,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000008597,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000008903,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000009177,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000009528,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000009902,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000010000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000010307,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000010598,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000010958,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000011339,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000011692,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012028,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012385,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012500,
+   "reset": "SCREEN_OFF"
+  }
+ ],
+ "expected": [
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000003000,
+   "dwellMs": 4000
+  },
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000007000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000010000,
+   "dwellMs": 2500
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Scroll Sloth</string>
+    <string name="accessibility_service_name">Scroll Sloth</string>
+    <string name="accessibility_service_description">Works only in Instagram, YouTube and Facebook. Reads the screen structure to notice when you move to the next reel. Only the time, the app and how long you watched are stored, never text, captions or usernames.</string>
+</resources>

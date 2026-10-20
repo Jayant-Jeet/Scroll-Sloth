@@ -1,0 +1,435 @@
+{
+ "description": "Instagram: up and down between the same reels counts each reel once.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000303,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000665,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000956,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001234,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001571,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001834,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002110,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002360,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002755,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003387,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003662,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004005,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004261,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004529,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004832,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005178,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005466,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005780,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000006000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000006343,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000006714,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000006995,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000007274,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000007648,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000008017,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000008389,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000008762,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000009000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000009271,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000009557,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000009833,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000010170,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000010487,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000010859,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000011150,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000011532,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000011787,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000012000,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012385,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000012727,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000013014,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000013403,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000013659,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000014044,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000014370,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000014500,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000014816,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000015198,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000015541,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000015833,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000016174,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000016481,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000016867,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000017255,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000017500,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000017834,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000018141,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000018440,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000018751,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000019103,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000019411,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000019712,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000020094,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000020470,
+   "packageName": "com.instagram.android",
+   "onReelScreen": true,
+   "pagerIndex": 2
+  },
+  {
+   "timeMs": 1760000020500,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000020757,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000021014,
+   "packageName": "com.instagram.android",
+   "onReelScreen": false
+  }
+ ],
+ "expected": [
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000003000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "INSTAGRAM",
+   "timestampMs": 1760000017500,
+   "dwellMs": 3000
+  }
+ ]
+}

@@ -1,0 +1,292 @@
+{
+ "description": "Facebook (key strategy): back and forth between two reels counts two.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000000370,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000000686,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000000985,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000001323,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000001687,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000002026,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000002369,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000002639,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000002945,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000003308,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000003678,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000003978,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000004314,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000004616,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000004989,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000005239,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000005611,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000005949,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000006000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000006280,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000006629,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000006930,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000007302,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000007597,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000007958,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000008293,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000008565,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000008916,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 11
+  },
+  {
+   "timeMs": 1760000009000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000009352,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000009623,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000009913,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000010206,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000010488,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000010745,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000011033,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000011402,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000011689,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000012060,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000012399,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000012688,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": true,
+   "reelKeyHash": 12
+  },
+  {
+   "timeMs": 1760000013000,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000013390,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": false
+  },
+  {
+   "timeMs": 1760000013673,
+   "packageName": "com.facebook.katana",
+   "onReelScreen": false
+  }
+ ],
+ "expected": [
+  {
+   "platform": "FACEBOOK",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "FACEBOOK",
+   "timestampMs": 1760000003000,
+   "dwellMs": 3000
+  }
+ ]
+}

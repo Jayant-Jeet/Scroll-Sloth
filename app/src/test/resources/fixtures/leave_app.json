@@ -1,0 +1,129 @@
+{
+ "description": "YouTube: going to another app mid-reel emits once; a later screen off adds nothing.",
+ "minDwellMs": 2000,
+ "maxDwellMs": 120000,
+ "steps": [
+  {
+   "timeMs": 1760000000000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000341,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000672,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000000945,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001288,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001542,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000001878,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002269,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002636,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000002998,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 0
+  },
+  {
+   "timeMs": 1760000003000,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003348,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000003682,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004064,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004389,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000004770,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005036,
+   "packageName": "com.google.android.youtube",
+   "onReelScreen": true,
+   "pagerIndex": 1
+  },
+  {
+   "timeMs": 1760000005200,
+   "reset": "APP_SWITCH"
+  },
+  {
+   "timeMs": 1760000009200,
+   "reset": "SCREEN_OFF"
+  }
+ ],
+ "expected": [
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000000000,
+   "dwellMs": 3000
+  },
+  {
+   "platform": "YOUTUBE",
+   "timestampMs": 1760000003000,
+   "dwellMs": 2200
+  }
+ ]
+}

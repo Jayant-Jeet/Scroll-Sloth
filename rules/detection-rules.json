@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2026102002,
+  "minDwellMs": 2000,
+  "maxDwellMs": 120000,
+  "apps": {
+    "com.instagram.android": {
+      "platform": "INSTAGRAM",
+      "reelScreenMatchers": [
+        {
+          "viewIdContains": "clips_viewer_view_pager",
+          "minWidthFraction": 0.9,
+          "minHeightFraction": 0.6
+        }
+      ],
+      "strategy": "ITEM_CHANGED",
+      "pagerMatcher": {
+        "viewIdContains": "clips_viewer_view_pager",
+        "minWidthFraction": 0.9,
+        "minHeightFraction": 0.6
+      },
+      "keyFields": []
+    },
+    "com.google.android.youtube": {
+      "platform": "YOUTUBE",
+      "reelScreenMatchers": [
+        {
+          "viewIdContains": "reel_recycler",
+          "minWidthFraction": 0.9,
+          "minHeightFraction": 0.6
+        }
+      ],
+      "strategy": "ITEM_CHANGED",
+      "pagerMatcher": {
+        "viewIdContains": "reel_recycler",
+        "minWidthFraction": 0.9,
+        "minHeightFraction": 0.6
+      },
+      "keyFields": []
+    },
+    "com.facebook.katana": {
+      "platform": "FACEBOOK",
+      "reelScreenMatchers": [
+        {
+          "viewIdContains": "com.facebook.katana:id/",
+          "classNameEquals": "androidx.recyclerview.widget.RecyclerView",
+          "scrollable": true,
+          "minWidthFraction": 0.9,
+          "minHeightFraction": 0.75
+        }
+      ],
+      "strategy": "KEY_CHANGED",
+      "pagerMatcher": {
+        "viewIdContains": "com.facebook.katana:id/",
+        "classNameEquals": "androidx.recyclerview.widget.RecyclerView",
+        "scrollable": true,
+        "minWidthFraction": 0.9,
+        "minHeightFraction": 0.75
+      },
+      "keyFields": [
+        "contentDescription"
+      ],
+      "keyMatchers": [
+        {
+          "minTopFraction": 0.7,
+          "maxRightFraction": 0.85
+        }
+      ]
+    }
+  }
+}
