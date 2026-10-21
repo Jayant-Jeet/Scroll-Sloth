@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Converted from the Figma handoff (34870.svg). White so it can be tinted. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="21dp"
+    android:height="21dp"
+    android:viewportWidth="21"
+    android:viewportHeight="21">
+    <path
+        android:pathData="M12.2498 14.8746H4.37561M12.2498 14.8746C12.2498 16.3242 13.425 17.4993 14.8746 17.4993C16.3242 17.4993 17.4993 16.3242 17.4993 14.8746C17.4993 13.425 16.3242 12.2498 14.8746 12.2498C13.425 12.2498 12.2498 13.425 12.2498 14.8746ZM16.6244 6.12544H8.75017M8.75017 6.12544C8.75017 7.57504 7.57504 8.75017 6.12544 8.75017C4.67584 8.75017 3.5007 7.57504 3.5007 6.12544C3.5007 4.67584 4.67584 3.5007 6.12544 3.5007C7.57504 3.5007 8.75017 4.67584 8.75017 6.12544Z"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

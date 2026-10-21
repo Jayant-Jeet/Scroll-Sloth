@@ -1,51 +1,51 @@
 package com.halfbloodcoder.scrollsloth.ui
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.work.WorkInfo
+import com.halfbloodcoder.scrollsloth.R
 import com.halfbloodcoder.scrollsloth.ai.ModelSpec
 import com.halfbloodcoder.scrollsloth.ai.ModelState
 import com.halfbloodcoder.scrollsloth.ai.Tone
+import com.halfbloodcoder.scrollsloth.data.ThemeMode
 import com.halfbloodcoder.scrollsloth.detect.AppStatus
 import com.halfbloodcoder.scrollsloth.detect.DetectorEvent
 import com.halfbloodcoder.scrollsloth.detect.LoadedRules
@@ -53,11 +53,14 @@ import com.halfbloodcoder.scrollsloth.detect.Platform
 import com.halfbloodcoder.scrollsloth.detect.RulesAddress
 import com.halfbloodcoder.scrollsloth.detect.RulesSource
 import com.halfbloodcoder.scrollsloth.score.ScoreConfig
+import com.halfbloodcoder.scrollsloth.ui.theme.SlothTheme
+import com.halfbloodcoder.scrollsloth.ui.theme.slothText
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.time.format.TextStyle
 import java.util.Locale
 
 /** Read-only values for the Settings screen. */
@@ -66,6 +69,7 @@ data class SettingsUiState(
     val trackingPaused: Boolean,
     val appStatuses: Map<Platform, AppStatus>,
     val tone: Tone,
+    val themeMode: ThemeMode,
     val weekStart: DayOfWeek,
     val modelSpec: ModelSpec,
     val modelState: ModelState,
@@ -90,6 +94,7 @@ data class SettingsActions(
     val onTrackingPausedChange: (Boolean) -> Unit,
     val onOpenAccessibilitySettings: () -> Unit,
     val onToneChange: (Tone) -> Unit,
+    val onThemeModeChange: (ThemeMode) -> Unit,
     val onWeekStartChange: (DayOfWeek) -> Unit,
     val onModelAllowMeteredChange: (Boolean) -> Unit,
     val onDownloadModel: () -> Unit,
@@ -107,81 +112,42 @@ data class SettingsActions(
     /** Null means "use the build default". */
     val onSaveRulesUrl: (String?) -> Unit,
     val onOpenCalibration: () -> Unit,
+    val onResetOnboarding: () -> Unit,
 )
 
 @Composable
-fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, modifier: Modifier = Modifier) {
+fun SettingsScreen(
+    state: SettingsUiState,
+    actions: SettingsActions,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
+) {
     var advancedExpanded by rememberSaveable { mutableStateOf(false) }
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        ScreenTitle("Settings")
-
-        TrackingCard(state, actions)
-        AppsCard(state.appStatuses, state.accessibilityServiceEnabled, actions.onOpenAccessibilitySettings)
-        ToneSetting(tone = state.tone, onToneChange = actions.onToneChange)
-        WeekStartSetting(weekStart = state.weekStart, onWeekStartChange = actions.onWeekStartChange)
-        ModelCard(
-            spec = state.modelSpec,
-            state = state.modelState,
-            allowMetered = state.modelAllowMetered,
-            onAllowMeteredChange = actions.onModelAllowMeteredChange,
-            onDownload = actions.onDownloadModel,
-            onDelete = actions.onDeleteModel,
-        )
-        RulesCard(state, actions.onCheckRules)
-        DataCard(state, actions.onExportCsv, onDeleteAll = { confirmDelete = true })
-
-        ListItem(
-            headlineContent = { Text("Advanced") },
-            supportingContent = { Text("Scoring thresholds, commentary and detection-rule tools") },
-            trailingContent = {
-                Icon(
-                    if (advancedExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                    contentDescription = null,
+    ScreenColumn(modifier, contentPadding) {
+        BrandHeader("Your settings.")
+        Section("Counting") { CountingCard(state, actions) }
+        Section("Your preferences") { PreferencesCard(state, actions) }
+        Section("On-device writer") {
+            ModelCard(
+                spec = state.modelSpec,
+                state = state.modelState,
+                onDownload = actions.onDownloadModel,
+                onDelete = actions.onDeleteModel,
+            )
+            SlothCard {
+                SwitchRow(
+                    title = "Allow mobile data",
+                    description = "Off means Wi-Fi only. Applies to the next download.",
+                    checked = state.modelAllowMetered,
+                    onCheckedChange = actions.onModelAllowMeteredChange,
                 )
-            },
-            modifier = Modifier
-                .heightIn(min = 48.dp)
-                .clickable(role = Role.Button, onClickLabel = if (advancedExpanded) "Hide" else "Show") {
-                    advancedExpanded = !advancedExpanded
-                },
-        )
-
-        if (advancedExpanded) {
-            HorizontalDivider()
-            ScoringSettings(config = state.scoreConfig, onSave = actions.onSaveScoreConfig, onReset = actions.onResetScoreConfig)
-            WriteNowItem(state = state.writeNowState, onWriteNow = actions.onWriteNow)
-            SwitchRow(
-                title = "Inspector mode",
-                body = "Shows a floating Capture button. Each tap saves the screen structure of Instagram, " +
-                    "YouTube, or Facebook, never the words on it." +
-                    if (state.accessibilityServiceEnabled) "" else " Needs the accessibility service on.",
-                checked = state.inspectorEnabled,
-                onCheckedChange = actions.onInspectorEnabledChange,
-            )
-            ClickRow("Rule Inspector captures", "Share or delete saved captures", actions.onOpenCaptures)
-            ClickRow(
-                "Calibration",
-                "Count reels by hand next to the detector and see how far apart you are",
-                actions.onOpenCalibration,
-            )
-            RulesAddressEditor(url = state.rulesUrl, isDefault = state.rulesUrlIsDefault, onSave = actions.onSaveRulesUrl)
-            ClickRow("Import detection rules", "Load a calibrated detection-rules.json from your files", actions.onImportRules)
-            if (state.rules.source != RulesSource.BUNDLED) {
-                ClickRow("Use bundled rules", "Forget the imported or downloaded rules file", actions.onResetRules)
             }
-            ListItem(
-                headlineContent = { Text("Live detector") },
-                supportingContent = { Text(state.liveEvent.describe()) },
-            )
         }
+        Section("Detection rules") { RulesCard(state, actions.onCheckRules) }
+        Section("Your data") { DataCard(state, actions.onExportCsv, onDeleteAll = { confirmDelete = true }) }
+        AdvancedCard(state, actions, advancedExpanded) { advancedExpanded = !advancedExpanded }
     }
 
     if (confirmDelete) {
@@ -200,7 +166,7 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, modifier: M
                         confirmDelete = false
                         actions.onDeleteAllData()
                     },
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                    colors = ButtonDefaults.textButtonColors(contentColor = SlothTheme.colors.destructive),
                 ) { Text("Delete everything") }
             },
             dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text("Keep it") } },
@@ -209,163 +175,339 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, modifier: M
 }
 
 @Composable
-private fun TrackingCard(state: SettingsUiState, actions: SettingsActions) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(vertical = 8.dp)) {
-            SectionTitle("Counting", modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-            SwitchRow(
-                title = "Pause counting",
-                body = if (state.trackingPaused) {
-                    "Paused. Nothing is counted until you switch this off."
-                } else {
-                    "Take a break from being judged. A reel already past two seconds still counts."
-                },
-                checked = state.trackingPaused,
-                onCheckedChange = actions.onTrackingPausedChange,
-            )
-            ListItem(
-                headlineContent = { Text("Accessibility service") },
-                supportingContent = {
-                    Text(
-                        if (state.accessibilityServiceEnabled) {
-                            "On. The sloth is watching, politely."
-                        } else {
-                            "Off. Turn it on so Scroll Sloth can notice reels."
-                        },
-                    )
-                },
-                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                trailingContent = {
-                    OutlinedButton(onClick = actions.onOpenAccessibilitySettings) {
-                        Text(if (state.accessibilityServiceEnabled) "Open" else "Turn on")
-                    }
-                },
+private fun CountingCard(state: SettingsUiState, actions: SettingsActions) {
+    val colors = SlothTheme.colors
+    SlothCard {
+        SwitchRow(
+            title = "Pause counting",
+            description = if (state.trackingPaused) {
+                "Paused. Nothing is counted until you switch this off."
+            } else {
+                "Take a break from being judged. A reel already past two seconds still counts."
+            },
+            checked = state.trackingPaused,
+            onCheckedChange = actions.onTrackingPausedChange,
+        )
+        SlothDivider()
+        SettingRow(
+            title = "Accessibility service",
+            status = if (state.accessibilityServiceEnabled) "On" else "Off",
+            statusColor = if (state.accessibilityServiceEnabled) colors.mintText else colors.destructive,
+            description = if (state.accessibilityServiceEnabled) {
+                "The sloth is watching, politely."
+            } else {
+                "Turn it on so Scroll Sloth can notice reels."
+            },
+        ) {
+            ActionPill(
+                if (state.accessibilityServiceEnabled) "Open" else "Turn on",
+                R.drawable.ic_external_link,
+                actions.onOpenAccessibilitySettings,
             )
         }
-    }
-}
-
-@Composable
-private fun AppsCard(statuses: Map<Platform, AppStatus>, serviceEnabled: Boolean, onOpenAccessibilitySettings: () -> Unit) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            SectionTitle("Apps")
+        SlothDivider()
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Apps", style = slothText(12.sp), color = colors.muted)
             Platform.entries.forEach { platform ->
-                val status = statuses[platform] ?: AppStatus.NEEDS_CALIBRATION
-                Row(
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(platform.label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                    StatusPill(status)
-                }
+                AppRow(platform, state.appStatuses[platform] ?: AppStatus.NEEDS_CALIBRATION)
             }
-            val statusValues = statuses.values
-            when {
-                AppStatus.NEEDS_CALIBRATION in statusValues -> Text(
+            if (AppStatus.NEEDS_CALIBRATION in state.appStatuses.values) {
+                Text(
                     "Needs calibration means this version has no detection rules for the app yet. " +
                         "Import calibrated rules under Advanced, or wait for a rules update.",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = slothText(12.sp, lineHeight = 1.5f),
+                    color = colors.muted,
                 )
-                !serviceEnabled -> TextButton(onClick = onOpenAccessibilitySettings) { Text("Grant the permission") }
             }
         }
     }
 }
 
 @Composable
-private fun StatusPill(status: AppStatus) {
-    val colors = MaterialTheme.colorScheme
-    val (label, container, content) = when (status) {
-        AppStatus.WORKING -> Triple("Working", colors.primaryContainer, colors.onPrimaryContainer)
-        AppStatus.NEEDS_CALIBRATION -> Triple("Needs calibration", colors.tertiaryContainer, colors.onTertiaryContainer)
-        AppStatus.PERMISSION_MISSING -> Triple("Permission missing", colors.errorContainer, colors.onErrorContainer)
+private fun AppRow(platform: Platform, status: AppStatus) {
+    val colors = SlothTheme.colors
+    val (label, color, icon) = when (status) {
+        AppStatus.WORKING -> Triple("Working", colors.mintText, R.drawable.ic_check)
+        AppStatus.NEEDS_CALIBRATION -> Triple("Needs calibration", colors.lavenderText, null)
+        AppStatus.PERMISSION_MISSING -> Triple("Permission missing", colors.destructive, null)
     }
-    Surface(shape = CircleShape, color = container, contentColor = content) {
-        Text(label, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
+    Row(
+        modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) {},
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        IconBox(platform.icon, platform.color(), boxSize = 32.dp, iconSize = 18.dp, corner = 10.dp)
+        Text(platform.label, style = slothText(13.sp), color = colors.text, modifier = Modifier.weight(1f))
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (icon != null) SlothIcon(icon, color, 12.dp)
+            Text(label, style = slothText(12.sp, FontWeight.Medium), color = color)
+        }
+    }
+}
+
+@Composable
+private fun PreferencesCard(state: SettingsUiState, actions: SettingsActions) {
+    SlothCard {
+        SettingRow(
+            title = "Appearance",
+            description = when (state.themeMode) {
+                ThemeMode.LIGHT -> "Cream and calm."
+                ThemeMode.DARK -> "Easy on late-night eyes."
+                ThemeMode.SYSTEM -> "Follows your phone."
+            },
+        ) {
+            PillToggle(
+                options = ThemeMode.entries,
+                selected = state.themeMode,
+                label = { mode ->
+                    when (mode) {
+                        ThemeMode.LIGHT -> "Light"
+                        ThemeMode.DARK -> "Dark"
+                        ThemeMode.SYSTEM -> "System"
+                    }
+                },
+                onSelect = actions.onThemeModeChange,
+                textSize = 11.sp,
+                horizontalPadding = 12.dp,
+                verticalPadding = 7.dp,
+                modifier = Modifier.semantics { contentDescription = "Appearance" },
+            )
+        }
+        SlothDivider()
+        SettingRow(
+            title = "Commentary tone",
+            description = if (state.tone == Tone.GENTLE) "Kind nudges." else "Cheeky, never cruel.",
+        ) {
+            ToneToggle(state.tone, actions.onToneChange, textSize = 11.sp, horizontalPadding = 12.dp, verticalPadding = 7.dp)
+        }
+        SlothDivider()
+        SettingRow(title = "Week starts on", description = "Used for the Week tab and weekly scores.") {
+            WeekStartPicker(state.weekStart, actions.onWeekStartChange)
+        }
+    }
+}
+
+@Composable
+private fun WeekStartPicker(weekStart: DayOfWeek, onWeekStartChange: (DayOfWeek) -> Unit) {
+    val colors = SlothTheme.colors
+    var open by remember { mutableStateOf(false) }
+    Box {
+        PressableBox(onClick = { open = true }, onClickLabel = "Change the first day of the week") { pressed ->
+            Row(
+                modifier = Modifier
+                    .alpha(if (pressed) 0.7f else 1f)
+                    .heightIn(min = 32.dp)
+                    .background(colors.cardRaised, CircleShape)
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                Text(weekStart.displayName(), style = slothText(12.sp, FontWeight.Medium), color = colors.mintText)
+                SlothIcon(R.drawable.ic_chevron_down, colors.mintText, 13.dp)
+            }
+        }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            DayOfWeek.entries.forEach { day ->
+                DropdownMenuItem(
+                    text = { Text(day.displayName(), style = slothText(14.sp)) },
+                    onClick = {
+                        open = false
+                        onWeekStartChange(day)
+                    },
+                )
+            }
+        }
     }
 }
 
 @Composable
 private fun RulesCard(state: SettingsUiState, onCheckRules: () -> Unit) {
+    val colors = SlothTheme.colors
     val rules = state.rules
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionTitle("Detection rules")
+    SlothCard(spacing = 12.dp) {
+        LabelValue("Version", rules.rules.rulesVersion.toString())
+        Text(
+            when (rules.source) {
+                RulesSource.BUNDLED -> "Bundled with the app."
+                RulesSource.OVERRIDE -> "Imported from a file."
+                RulesSource.DOWNLOADED -> "Downloaded from the rules server."
+            },
+            style = slothText(13.sp, lineHeight = 1.6f),
+            color = colors.muted,
+        )
+        if (state.rulesUrl.isNotBlank()) {
+            SlothDivider()
+            LabelValue("Last checked", state.rulesLastCheckedMs?.let(::formatDateTime) ?: "Not yet")
             Text(
-                "Version ${rules.rules.rulesVersion}, " + when (rules.source) {
-                    RulesSource.BUNDLED -> "bundled with the app."
-                    RulesSource.OVERRIDE -> "imported from a file."
-                    RulesSource.DOWNLOADED -> "downloaded from the rules server."
-                },
-                style = MaterialTheme.typography.bodyMedium,
+                "Checking downloads one public file. It sends nothing about you.",
+                style = slothText(12.sp, lineHeight = 1.5f),
+                color = colors.muted,
             )
-            if (state.rulesUrl.isNotBlank()) {
-                Text(
-                    state.rulesLastCheckedMs?.let { "Last checked ${formatDateTime(it)}." } ?: "Not checked yet.",
-                    style = MaterialTheme.typography.bodySmall,
-                )
-                Text(
-                    "Checking downloads one public file. It sends nothing about you.",
-                    style = MaterialTheme.typography.bodySmall,
-                )
-                Button(onClick = onCheckRules, enabled = !state.rulesChecking) {
-                    Text(if (state.rulesChecking) "Checking…" else "Check now")
-                }
-            } else {
-                Text(
-                    "Rule updates are off, so new rules come only from imported files. Set an address under Advanced.",
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
-            rules.warning?.let {
-                Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-            }
-            state.rulesMessage?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+            ActionPill(
+                if (state.rulesChecking) "Checking…" else "Check now",
+                R.drawable.ic_refresh,
+                onCheckRules,
+                enabled = !state.rulesChecking,
+            )
+        } else {
+            Text(
+                "Rule updates are off, so new rules come only from imported files. Set an address under Advanced.",
+                style = slothText(12.sp, lineHeight = 1.5f),
+                color = colors.muted,
+            )
         }
+        rules.warning?.let { Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.destructive) }
+        state.rulesMessage?.let { Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.text) }
+    }
+}
+
+@Composable
+private fun LabelValue(label: String, value: String) {
+    Row(modifier = Modifier.semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {
+        Text(label, style = slothText(13.sp), color = SlothTheme.colors.muted, modifier = Modifier.weight(1f))
+        Text(value, style = slothText(14.sp, FontWeight.Medium), color = SlothTheme.colors.text)
     }
 }
 
 @Composable
 private fun DataCard(state: SettingsUiState, onExport: () -> Unit, onDeleteAll: () -> Unit) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionTitle("Your data")
-            Text(
-                "Scroll Sloth stores only when a reel was watched, in which app, and for how long. It stays on this phone.",
-                style = MaterialTheme.typography.bodySmall,
-            )
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = onExport, enabled = !state.dataBusy) { Text("Export CSV") }
-                OutlinedButton(
-                    onClick = onDeleteAll,
-                    enabled = !state.dataBusy,
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
-                ) { Text("Delete all data") }
-            }
-            state.dataMessage?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+    val colors = SlothTheme.colors
+    SlothCard(spacing = 12.dp) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            SlothIcon(R.drawable.ic_shield, colors.mintText, 16.dp)
+            Text("On your phone. Only your phone.", style = slothText(13.sp, FontWeight.Medium), color = colors.mintText)
         }
+        Text(
+            "Stores only when a reel was watched, in which app, and for how long. It all stays on this phone.",
+            style = slothText(13.sp, lineHeight = 1.6f),
+            color = colors.muted,
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            ActionPill("Export CSV", R.drawable.ic_export, onExport, enabled = !state.dataBusy)
+            ActionPill("Delete all data", R.drawable.ic_trash, onDeleteAll, color = colors.destructive, enabled = !state.dataBusy)
+        }
+        state.dataMessage?.let { Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.text) }
     }
 }
 
 @Composable
-private fun SwitchRow(title: String, body: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
-    ListItem(
-        headlineContent = { Text(title) },
-        supportingContent = { Text(body) },
-        trailingContent = { Switch(checked = checked, onCheckedChange = null) },
-        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        modifier = Modifier.toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange),
-    )
+private fun AdvancedCard(state: SettingsUiState, actions: SettingsActions, expanded: Boolean, onToggle: () -> Unit) {
+    val colors = SlothTheme.colors
+    SlothCard(padding = PaddingValues(horizontal = 18.dp, vertical = 8.dp), spacing = 8.dp) {
+        PressableBox(
+            onClick = onToggle,
+            onClickLabel = if (expanded) "Hide" else "Show",
+            modifier = Modifier.fillMaxWidth(),
+        ) { pressed ->
+            Row(
+                modifier = Modifier.fillMaxWidth().alpha(if (pressed) 0.7f else 1f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("Advanced", style = slothText(14.sp, FontWeight.Medium), color = colors.text)
+                    Text(
+                        "Scoring thresholds, commentary and detection-rule tools.",
+                        style = slothText(12.sp, lineHeight = 1.5f),
+                        color = colors.muted,
+                    )
+                }
+                SlothIcon(
+                    R.drawable.ic_chevron_down,
+                    colors.muted,
+                    18.dp,
+                    modifier = Modifier.rotate(if (expanded) 180f else 0f),
+                )
+            }
+        }
+        if (expanded) {
+            Column(verticalArrangement = Arrangement.spacedBy(14.dp), modifier = Modifier.padding(bottom = 10.dp)) {
+                SlothDivider()
+                ScoringSettings(config = state.scoreConfig, onSave = actions.onSaveScoreConfig, onReset = actions.onResetScoreConfig)
+                WriteNowItem(state = state.writeNowState, onWriteNow = actions.onWriteNow)
+                SlothDivider()
+                SwitchRow(
+                    title = "Inspector mode",
+                    description = "Shows a floating Capture button. Each tap saves the screen structure of Instagram, " +
+                        "YouTube, or Facebook, never the words on it." +
+                        if (state.accessibilityServiceEnabled) "" else " Needs the accessibility service on.",
+                    checked = state.inspectorEnabled,
+                    onCheckedChange = actions.onInspectorEnabledChange,
+                )
+                ClickRow("Rule Inspector captures", "Share or delete saved captures", actions.onOpenCaptures)
+                ClickRow(
+                    "Calibration",
+                    "Count reels by hand next to the detector and see how far apart you are",
+                    actions.onOpenCalibration,
+                )
+                SlothDivider()
+                RulesAddressEditor(url = state.rulesUrl, isDefault = state.rulesUrlIsDefault, onSave = actions.onSaveRulesUrl)
+                ClickRow("Import detection rules", "Load a calibrated detection-rules.json from your files", actions.onImportRules)
+                if (state.rules.source != RulesSource.BUNDLED) {
+                    ClickRow("Use bundled rules", "Forget the imported or downloaded rules file", actions.onResetRules)
+                }
+                ClickRow("Review onboarding", "See the welcome screen and setup guide again", actions.onResetOnboarding)
+                SlothDivider()
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("Live detector", style = slothText(14.sp, FontWeight.Medium), color = colors.text)
+                    Text(state.liveEvent.describe(), style = slothText(12.sp, lineHeight = 1.5f), color = colors.muted)
+                }
+            }
+        }
+    }
+}
+
+/**
+ * A settings row: title (with an optional coloured status word), a description under it, and a
+ * control on the right.
+ */
+@Composable
+internal fun SettingRow(
+    title: String,
+    description: String?,
+    modifier: Modifier = Modifier,
+    status: String? = null,
+    statusColor: Color = SlothTheme.colors.mintText,
+    trailing: @Composable RowScope.() -> Unit = {},
+) {
+    val colors = SlothTheme.colors
+    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(title, style = slothText(14.sp, FontWeight.Medium), color = colors.text)
+                if (status != null) Text(status, style = slothText(11.sp, FontWeight.SemiBold), color = statusColor)
+            }
+            if (description != null) {
+                Text(description, style = slothText(13.sp, lineHeight = 1.6f), color = colors.muted)
+            }
+        }
+        Spacer(Modifier.width(12.dp))
+        trailing()
+    }
+}
+
+/** A whole-row toggle with the design's pill switch. */
+@Composable
+internal fun SwitchRow(title: String, description: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    SettingRow(
+        title = title,
+        description = description,
+        status = if (checked) "On" else "Off",
+        statusColor = if (checked) SlothTheme.colors.mintText else SlothTheme.colors.muted,
+        modifier = Modifier
+            .heightIn(min = 48.dp)
+            .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange),
+    ) {
+        PillSwitch(checked)
+    }
 }
 
 @Composable
-private fun ClickRow(title: String, body: String, onClick: () -> Unit) {
-    ListItem(
-        headlineContent = { Text(title) },
-        supportingContent = { Text(body) },
-        modifier = Modifier.clickable(role = Role.Button, onClick = onClick),
-    )
+private fun ClickRow(title: String, description: String, onClick: () -> Unit) {
+    PressableBox(onClick = onClick, modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) { pressed ->
+        SettingRow(title = title, description = description, modifier = Modifier.alpha(if (pressed) 0.7f else 1f)) {
+            SlothIcon(R.drawable.ic_chevron_right, SlothTheme.colors.muted, 16.dp)
+        }
+    }
 }
 
 /** Where rule updates come from. Validated as https before it is saved; blank turns updates off. */
@@ -373,11 +515,8 @@ private fun ClickRow(title: String, body: String, onClick: () -> Unit) {
 private fun RulesAddressEditor(url: String, isDefault: Boolean, onSave: (String?) -> Unit) {
     var text by rememberSaveable(url) { mutableStateOf(url) }
     val problem = RulesAddress.problem(text)
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Text("Rules update address", style = MaterialTheme.typography.titleSmall)
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text("Rules update address", style = slothText(14.sp, FontWeight.Medium), color = SlothTheme.colors.text)
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
@@ -396,14 +535,14 @@ private fun RulesAddressEditor(url: String, isDefault: Boolean, onSave: (String?
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
             modifier = Modifier.fillMaxWidth(),
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            OutlinedButton(onClick = { onSave(text.trim()) }, enabled = problem == null && text.trim() != url) {
-                Text("Save address")
-            }
-            if (!isDefault) TextButton(onClick = { onSave(null) }) { Text("Use default") }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            ActionPill("Save address", null, { onSave(text.trim()) }, enabled = problem == null && text.trim() != url)
+            if (!isDefault) ActionPill("Use default", null, { onSave(null) })
         }
     }
 }
+
+private fun DayOfWeek.displayName(): String = getDisplayName(TextStyle.FULL, Locale.getDefault())
 
 private fun formatDateTime(ms: Long): String =
     DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)

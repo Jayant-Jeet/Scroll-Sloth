@@ -140,6 +140,36 @@ class SettingsStoreTest {
         assertEquals(listOf("Fully awake", "Casual scroller", "Sofa sloth", "Reel hibernator", "Rock"), config.bandLabels)
         assertEquals(DayOfWeek.MONDAY, settingsStore.weekStart.first())
     }
+
+    @Test
+    fun themeModeDefaultsToSystemAndIsStored() = runTest {
+        val settingsStore = SettingsStore(InMemoryPreferencesDataStore())
+
+        settingsStore.themeMode.test {
+            assertEquals(ThemeMode.SYSTEM, awaitItem())
+            settingsStore.setThemeMode(ThemeMode.DARK)
+            assertEquals(ThemeMode.DARK, awaitItem())
+            settingsStore.setThemeMode(ThemeMode.LIGHT)
+            assertEquals(ThemeMode.LIGHT, awaitItem())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun unknownStoredThemeModeFallsBackToSystem() = runTest {
+        val dataStore = InMemoryPreferencesDataStore()
+        dataStore.edit { it[stringPreferencesKey("theme_mode")] = "SEPIA" }
+
+        assertEquals(ThemeMode.SYSTEM, SettingsStore(dataStore).themeMode.first())
+    }
+
+    @Test
+    fun resolveDarkThemeFollowsTheSettingThenThePhone() {
+        assertEquals(false, resolveDarkTheme(ThemeMode.LIGHT, systemDark = true))
+        assertEquals(true, resolveDarkTheme(ThemeMode.DARK, systemDark = false))
+        assertEquals(true, resolveDarkTheme(ThemeMode.SYSTEM, systemDark = true))
+        assertEquals(false, resolveDarkTheme(ThemeMode.SYSTEM, systemDark = false))
+    }
 }
 
 private class InMemoryPreferencesDataStore : DataStore<Preferences> {

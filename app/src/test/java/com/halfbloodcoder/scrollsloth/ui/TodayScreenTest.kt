@@ -95,7 +95,7 @@ class TodayScreenTest {
         compose.onNodeWithTag(Tags.PERMISSION_BANNER).assertDoesNotExist()
         compose.onNodeWithTag(Tags.COUNT, useUnmergedTree = true).assertIsDisplayed()
         compose.onNodeWithTag(Tags.EMPTY_STATE).assertIsDisplayed()
-        compose.onNodeWithText("The sloth is awake and counting", substring = true).assertIsDisplayed()
+        compose.onNodeWithText("The sloth is awake and counting", substring = true).performScrollTo().assertIsDisplayed()
         compose.onNodeWithTag(Tags.score(ScoreKind.LAZINESS)).assertDoesNotExist()
         compose.onNodeWithTag(Tags.PLATFORM_SPLIT).assertDoesNotExist()
         compose.onNodeWithText("The first verdict arrives", substring = true).performScrollTo().assertIsDisplayed()
@@ -132,7 +132,8 @@ class TodayScreenTest {
         compose.onNodeWithText("Laziness =", substring = true).performScrollTo().assertIsDisplayed()
 
         compose.onNodeWithTag(Tags.PLATFORM_SPLIT).performScrollTo().assertIsDisplayed()
-        compose.onNodeWithText("80 · 67%", useUnmergedTree = true).assertExists()
+        compose.onNodeWithText("80 reels", useUnmergedTree = true).assertExists()
+        compose.onNodeWithText("67%", useUnmergedTree = true).assertExists()
 
         compose.onNodeWithTag(Tags.COMMENTARY_BADGE).performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("Gemma", useUnmergedTree = true).assertExists()

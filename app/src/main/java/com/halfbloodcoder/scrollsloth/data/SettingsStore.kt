@@ -38,6 +38,15 @@ class SettingsStore(private val dataStore: DataStore<Preferences>) {
         .map { preferences -> Tone.entries.firstOrNull { it.name == preferences[COMMENTARY_TONE] } ?: Tone.GENTLE }
         .distinctUntilChanged()
 
+    /** Light, Dark, or follow the phone. System unless changed. */
+    val themeMode: Flow<ThemeMode> = dataStore.data
+        .map { preferences -> ThemeMode.entries.firstOrNull { it.name == preferences[THEME_MODE] } ?: ThemeMode.SYSTEM }
+        .distinctUntilChanged()
+
+    suspend fun setThemeMode(mode: ThemeMode) {
+        dataStore.edit { preferences -> preferences[THEME_MODE] = mode.name }
+    }
+
     /** True while the user has paused counting. */
     val trackingPaused: Flow<Boolean> = dataStore.data.map { it[TRACKING_PAUSED] ?: false }.distinctUntilChanged()
 
@@ -148,6 +157,7 @@ class SettingsStore(private val dataStore: DataStore<Preferences>) {
         val SESSION_HEAVY = intPreferencesKey("score_session_heavy")
         val LATE_SHARE_HEAVY = doublePreferencesKey("score_late_share_heavy")
         val COMMENTARY_TONE = stringPreferencesKey("commentary_tone")
+        val THEME_MODE = stringPreferencesKey("theme_mode")
         val MODEL_WANTED = booleanPreferencesKey("model_wanted")
         val MODEL_DOWNLOAD_ID = longPreferencesKey("model_download_id")
         val MODEL_ALLOW_METERED = booleanPreferencesKey("model_allow_metered")

@@ -1,7 +1,6 @@
 package com.halfbloodcoder.scrollsloth.ui
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,9 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -27,34 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.halfbloodcoder.scrollsloth.score.ScoreBands
 import com.halfbloodcoder.scrollsloth.score.ScoreConfig
 import com.halfbloodcoder.scrollsloth.score.ScoreConfigInput
-import java.time.DayOfWeek
-import java.time.format.TextStyle
-import java.util.Locale
-
-@Composable
-fun WeekStartSetting(weekStart: DayOfWeek, onWeekStartChange: (DayOfWeek) -> Unit) {
-    var open by remember { mutableStateOf(false) }
-    ListItem(
-        headlineContent = { Text("Week starts on") },
-        supportingContent = { Text("Used for the Week tab and weekly scores") },
-        trailingContent = {
-            Box {
-                OutlinedButton(onClick = { open = true }) { Text(weekStart.displayName()) }
-                DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-                    DayOfWeek.entries.forEach { day ->
-                        DropdownMenuItem(
-                            text = { Text(day.displayName()) },
-                            onClick = {
-                                open = false
-                                onWeekStartChange(day)
-                            },
-                        )
-                    }
-                }
-            }
-        },
-    )
-}
 
 /** Editor for [ScoreConfig]. Nothing is saved until the values parse. */
 @Composable
@@ -122,4 +90,3 @@ private fun NumberField(label: String, value: String, decimal: Boolean = false, 
     )
 }
 
-private fun DayOfWeek.displayName(): String = getDisplayName(TextStyle.FULL, Locale.getDefault())

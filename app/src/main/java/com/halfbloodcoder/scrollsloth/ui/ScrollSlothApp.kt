@@ -7,14 +7,22 @@ import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,17 +34,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import com.halfbloodcoder.scrollsloth.AppContainer
 import com.halfbloodcoder.scrollsloth.BuildConfig
+import com.halfbloodcoder.scrollsloth.R
+import com.halfbloodcoder.scrollsloth.data.ThemeMode
 import com.halfbloodcoder.scrollsloth.data.UserData
+import com.halfbloodcoder.scrollsloth.ui.theme.SlothTheme
+import com.halfbloodcoder.scrollsloth.ui.theme.slothText
 import com.halfbloodcoder.scrollsloth.debug.CalibrationActions
 import com.halfbloodcoder.scrollsloth.debug.CalibrationScreen
 import com.halfbloodcoder.scrollsloth.debug.CalibrationState
@@ -66,11 +81,11 @@ import kotlinx.coroutines.withContext
 
 private enum class SettingsPage { MAIN, CAPTURES, CALIBRATION }
 
-private enum class Destination(val label: String, val icon: ImageVector) {
-    TODAY("Today", Icons.Filled.Home),
-    WEEK("Week", BarsIcon),
-    MONTH("Month", Icons.Filled.DateRange),
-    SETTINGS("Settings", Icons.Filled.Settings),
+private enum class Destination(val label: String, @DrawableRes val icon: Int) {
+    TODAY("Today", R.drawable.ic_nav_today),
+    WEEK("Week", R.drawable.ic_nav_week),
+    MONTH("Month", R.drawable.ic_nav_month),
+    SETTINGS("Settings", R.drawable.ic_nav_settings),
 }
 
 @Composable
@@ -84,19 +99,12 @@ fun ScrollSlothApp(
     var settingsPage by rememberSaveable { mutableStateOf(SettingsPage.MAIN) }
 
     Scaffold(
+        containerColor = SlothTheme.colors.background,
+        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal),
         bottomBar = {
-            NavigationBar {
-                Destination.entries.forEach { destination ->
-                    NavigationBarItem(
-                        selected = selectedDestination == destination,
-                        onClick = {
-                            selectedDestination = destination
-                            settingsPage = SettingsPage.MAIN
-                        },
-                        icon = { Icon(destination.icon, contentDescription = null) },
-                        label = { Text(destination.label) },
-                    )
-                }
+            SlothBottomNav(selectedDestination) { destination ->
+                selectedDestination = destination
+                settingsPage = SettingsPage.MAIN
             }
         },
     ) { contentPadding ->
@@ -118,6 +126,51 @@ fun ScrollSlothApp(
                     onOpenCalibration = { settingsPage = SettingsPage.CALIBRATION },
                     modifier = modifier,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SlothBottomNav(selected: Destination, onSelect: (Destination) -> Unit) {
+    val colors = SlothTheme.colors
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(colors.nav)
+            .testTag(Tags.BOTTOM_NAV),
+    ) {
+        SlothDivider()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .selectableGroup()
+                .navigationBarsPadding()
+                .padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Destination.entries.forEach { destination ->
+                val isSelected = destination == selected
+                val tint = if (isSelected) colors.mintText else colors.muted
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(if (isSelected) colors.cardRaised else Color.Transparent)
+                        .selectable(selected = isSelected, role = Role.Tab, onClick = { onSelect(destination) })
+                        .heightIn(min = 48.dp)
+                        .padding(vertical = 7.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterVertically),
+                ) {
+                    SlothIcon(destination.icon, tint, 21.dp)
+                    Text(
+                        destination.label,
+                        style = slothText(11.sp, if (isSelected) FontWeight.SemiBold else FontWeight.Medium),
+                        color = tint,
+                        maxLines = 1,
+                    )
+                }
             }
         }
     }
@@ -230,6 +283,7 @@ private fun SettingsRoute(
     val weekStart by settings.weekStart.collectAsState(initial = DayOfWeek.MONDAY)
     val scoreConfig by settings.scoreConfig.collectAsState(initial = ScoreConfig())
     val tone by settings.commentaryTone.collectAsState(initial = Tone.GENTLE)
+    val themeMode by settings.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
     val modelState by container.modelDownloader.state.collectAsState()
     val allowMetered by settings.modelAllowMetered.collectAsState(initial = false)
     val rulesLastChecked by settings.rulesLastCheckedMs.collectAsState(initial = null)
@@ -272,6 +326,7 @@ private fun SettingsRoute(
             trackingPaused = paused,
             appStatuses = AppStatuses.of(rules, accessibilityServiceEnabled),
             tone = tone,
+            themeMode = themeMode,
             weekStart = weekStart,
             modelSpec = container.modelDownloader.spec,
             modelState = modelState,
@@ -293,6 +348,7 @@ private fun SettingsRoute(
             onTrackingPausedChange = { scope.launch { settings.setTrackingPaused(it) } },
             onOpenAccessibilitySettings = onOpenAccessibilitySettings,
             onToneChange = { scope.launch { settings.setCommentaryTone(it) } },
+            onThemeModeChange = { scope.launch { settings.setThemeMode(it) } },
             onWeekStartChange = { scope.launch { settings.setWeekStart(it) } },
             onModelAllowMeteredChange = { scope.launch { settings.setModelAllowMetered(it) } },
             // App scope: the download must not be cancelled when the user leaves Settings.
@@ -349,6 +405,7 @@ private fun SettingsRoute(
                 }
             },
             onOpenCalibration = onOpenCalibration,
+            onResetOnboarding = { scope.launch { settings.setOnboardingComplete(false) } },
         ),
         modifier = modifier,
     )
@@ -371,17 +428,6 @@ private fun shareCsv(context: Context, file: File, title: String) {
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
     context.startActivity(Intent.createChooser(intent, title))
-}
-
-/** Three rising bars, for the Week tab. */
-private val BarsIcon: ImageVector by lazy {
-    ImageVector.Builder(name = "Bars", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f)
-        .path(fill = SolidColor(Color.Black)) {
-            moveTo(4f, 13f); lineTo(8f, 13f); lineTo(8f, 20f); lineTo(4f, 20f); close()
-            moveTo(10f, 8f); lineTo(14f, 8f); lineTo(14f, 20f); lineTo(10f, 20f); close()
-            moveTo(16f, 4f); lineTo(20f, 4f); lineTo(20f, 20f); lineTo(16f, 20f); close()
-        }
-        .build()
 }
 
 /** Reads at most [limit] bytes; returns null if the stream is longer. */

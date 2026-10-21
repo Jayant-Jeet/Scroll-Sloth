@@ -105,7 +105,7 @@ class RulesUpdaterTest {
     @Test
     fun addressValidation() {
         assertEquals(null, RulesAddress.problem(""))
-        assertEquals(null, RulesAddress.problem("https://jayant-jeet.github.io/Scroll-Sloth/detection-rules.json"))
+        assertEquals(null, RulesAddress.problem("https://jayant-jeet.github.io/Scroll-Sloth/site/detection-rules.json"))
         assertEquals(null, RulesAddress.problem("  HTTPS://example.com/r.json  "))
         assertTrue(RulesAddress.problem("http://example.com/r.json") != null)
         assertTrue(RulesAddress.problem("ftp://example.com/r.json") != null)
