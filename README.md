@@ -145,7 +145,7 @@ A downloaded file is kept only if all of these hold:
 
 It is written atomically: a temporary file is synced, then moved over the old one. The rules it replaces are kept as a last-good copy. If the current file is ever unreadable, the app falls back to the last-good copy and then to the bundled rules. Any network or validation error leaves the current rules untouched. Settings shows the version, its source (bundled, imported or downloaded) and when the server last answered.
 
-The default address is `https://jayant-jeet.github.io/Scroll-Sloth/site/detection-rules.json`. The `pages.yml` workflow publishes [`site/detection-rules.json`](site/detection-rules.json) there, and also at the older `/docs/detection-rules.json` address used by builds from before the first release. To ship new rules, update that file and raise its `rulesVersion` (see [Contributing detection rules](#contributing-detection-rules)).
+The default address is `https://jayant-jeet.github.io/Scroll-Sloth/detection-rules.json`. The `pages.yml` workflow publishes [`site/detection-rules.json`](site/detection-rules.json) there, with compatibility copies at `/site/detection-rules.json` for v1.0.0 and `/docs/detection-rules.json` for earlier builds. To ship new rules, update that file and raise its `rulesVersion` (see [Contributing detection rules](#contributing-detection-rules)).
 
 - **Settings > Advanced > Rules update address** changes the address. It must be `https://` with no user name or password. Leave it empty to turn updates off, or tap **Use default** to restore the build default. The weekly worker is scheduled or cancelled to match.
 - **At build time**, `-PrulesUrl=https://...` changes the default, and `-PrulesUrl=` builds with updates off.

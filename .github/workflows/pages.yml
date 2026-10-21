@@ -30,10 +30,12 @@ jobs:
         uses: actions/checkout@v7
       - name: Assemble site
         run: |
-          mkdir -p _site/docs
+          mkdir -p _site/docs _site/site
           cp -R site/. _site/
           # Builds before v1 fetch the rules from /docs/; keep that address working.
           cp site/detection-rules.json _site/docs/detection-rules.json
+          # v1.0.0 fetches the rules from /site/.
+          cp site/detection-rules.json _site/site/detection-rules.json
       - name: Configure Pages
         uses: actions/configure-pages@v6
       - name: Upload site

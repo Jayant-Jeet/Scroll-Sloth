@@ -24,7 +24,7 @@ android {
         // Override with -PrulesUrl=https://... or -PrulesUrl= (empty) to build without updates.
         // Users can also change it in Settings > Advanced.
         val rulesUrl = (project.findProperty("rulesUrl") as String?)
-            ?: "https://jayant-jeet.github.io/Scroll-Sloth/site/detection-rules.json"
+            ?: "https://jayant-jeet.github.io/Scroll-Sloth/detection-rules.json"
         buildConfigField("String", "RULES_URL", "\"$rulesUrl\"")
     }
 
@@ -86,4 +86,3 @@ dependencies {
     testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.compose.ui.test.junit4)
 }
-
