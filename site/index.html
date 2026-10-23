@@ -239,7 +239,7 @@
     <p>The accessibility service is limited by Android to exactly three apps: Instagram, YouTube and Facebook. It cannot see any other app. The app makes only two kinds of network request, and neither sends anything about you:</p>
     <ul>
       <li>an optional one-time download of the on-device language model, and</li>
-      <li>a weekly fetch of the public <a href="detection-rules.json">detection rules</a> file, which tells it how to recognise a reel screen.</li>
+      <li>a weekly update using two small HTTPS GETs of public files: the <a href="detection-rules.json">detection rules</a> and their detached signature. Official rules must pass signature verification before use; imported and custom rules are labelled Unverified and require confirmation.</li>
     </ul>
     <p style="margin:0">Your data never leaves the phone unless you export it yourself. <strong>Delete all data</strong> in Settings removes it.</p>
   </div>

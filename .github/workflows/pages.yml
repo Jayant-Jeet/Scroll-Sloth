@@ -9,6 +9,8 @@ on:
     paths:
       - "site/**"
       - ".github/workflows/pages.yml"
+      - "app/src/main/assets/rules-pubkey-*.der"
+      - "tools/sign-rules.sh"
   workflow_dispatch:
 
 permissions:
@@ -28,14 +30,18 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+      - name: Verify official rules signature and embedded public keys
+        run: bash tools/sign-rules.sh --verify
       - name: Assemble site
         run: |
           mkdir -p _site/docs _site/site
           cp -R site/. _site/
           # Builds before v1 fetch the rules from /docs/; keep that address working.
           cp site/detection-rules.json _site/docs/detection-rules.json
+          cp site/detection-rules.json.sig _site/docs/detection-rules.json.sig
           # v1.0.0 fetches the rules from /site/.
           cp site/detection-rules.json _site/site/detection-rules.json
+          cp site/detection-rules.json.sig _site/site/detection-rules.json.sig
       - name: Configure Pages
         uses: actions/configure-pages@v6
       - name: Upload site

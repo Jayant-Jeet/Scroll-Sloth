@@ -53,6 +53,12 @@ class SettingsStore(private val dataStore: DataStore<Preferences>) {
     /** When the app last asked the rules server for an update (epoch ms), whatever the answer. */
     val rulesLastCheckedMs: Flow<Long?> = dataStore.data.map { it[RULES_LAST_CHECKED] }.distinctUntilChanged()
 
+    val rulesUpdateStatus: Flow<String?> = dataStore.data.map { it[RULES_UPDATE_STATUS] }.distinctUntilChanged()
+
+    suspend fun setRulesUpdateStatus(status: String) {
+        dataStore.edit { it[RULES_UPDATE_STATUS] = status }
+    }
+
     suspend fun setTrackingPaused(paused: Boolean) {
         dataStore.edit { preferences -> preferences[TRACKING_PAUSED] = paused }
     }
@@ -164,6 +170,7 @@ class SettingsStore(private val dataStore: DataStore<Preferences>) {
         val TRACKING_PAUSED = booleanPreferencesKey("tracking_paused")
         val RULES_LAST_CHECKED = longPreferencesKey("rules_last_checked_ms")
         val RULES_URL = stringPreferencesKey("rules_url")
+        val RULES_UPDATE_STATUS = stringPreferencesKey("rules_update_status")
         val BAND_LABELS = (0 until ScoreBands.COUNT).map { stringPreferencesKey("score_band_label_$it") }
     }
 }

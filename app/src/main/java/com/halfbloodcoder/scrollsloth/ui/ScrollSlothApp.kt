@@ -287,9 +287,11 @@ private fun SettingsRoute(
     val modelState by container.modelDownloader.state.collectAsState()
     val allowMetered by settings.modelAllowMetered.collectAsState(initial = false)
     val rulesLastChecked by settings.rulesLastCheckedMs.collectAsState(initial = null)
+    val persistedRulesMessage by settings.rulesUpdateStatus.collectAsState(initial = null)
     val writeNowState by remember { NightlyCommentaryWorker.runNowState(context) }.collectAsState(initial = null)
     var rulesMessage by remember { mutableStateOf<String?>(null) }
     var rulesChecking by remember { mutableStateOf(false) }
+    var pendingUnverified by remember { mutableStateOf<(() -> Unit)?>(null) }
     var dataMessage by remember { mutableStateOf<String?>(null) }
     var dataBusy by remember { mutableStateOf(false) }
 
@@ -310,11 +312,16 @@ private fun SettingsRoute(
                     null
                 }
             }
-            rulesMessage = when {
-                text == null -> "Could not read that file, or it is too big to be a rules file."
-                else -> when (val result = repository.importOverride(text)) {
-                    is RulesRepository.ImportResult.Imported -> "Imported rules version ${result.rules.rules.rulesVersion}."
-                    is RulesRepository.ImportResult.Rejected -> result.reason
+            if (text == null) {
+                rulesMessage = "Could not read that file, or it is too big to be a rules file."
+            } else {
+                pendingUnverified = {
+                    scope.launch {
+                        rulesMessage = when (val result = repository.importOverride(text)) {
+                            is RulesRepository.ImportResult.Imported -> "Unverified · Imported rules version ${result.rules.rules.rulesVersion}."
+                            is RulesRepository.ImportResult.Rejected -> result.reason
+                        }
+                    }
                 }
             }
         }
@@ -337,6 +344,7 @@ private fun SettingsRoute(
             rulesLastCheckedMs = rulesLastChecked,
             rulesChecking = rulesChecking,
             rulesMessage = rulesMessage,
+            rulesUpdateStatus = persistedRulesMessage,
             dataMessage = dataMessage,
             dataBusy = dataBusy,
             scoreConfig = scoreConfig,
@@ -355,12 +363,21 @@ private fun SettingsRoute(
             onDownloadModel = { container.appScope.launch { container.modelDownloader.download() } },
             onDeleteModel = { container.appScope.launch { container.modelDownloader.delete() } },
             onCheckRules = {
-                rulesChecking = true
-                scope.launch {
-                    val result = container.appScope.async { container.rulesUpdater.check() }.await()
-                    rulesMessage = result.message()
-                    rulesChecking = false
+                val check: () -> Unit = {
+                    rulesChecking = true
+                    scope.launch {
+                        try {
+                            val result = container.appScope.async {
+                                container.rulesUpdater.check(allowUnverified = rulesUrl != RulesUpdater.OFFICIAL_URL)
+                            }.await()
+                            rulesMessage = result.message()
+                        } finally {
+                            rulesChecking = false
+                        }
+                    }
                 }
+                if (rulesUrl.isNotBlank() && rulesUrl != RulesUpdater.OFFICIAL_URL) pendingUnverified = check
+                else check()
             },
             onExportCsv = {
                 dataBusy = true
@@ -409,6 +426,16 @@ private fun SettingsRoute(
         ),
         modifier = modifier,
     )
+    if (pendingUnverified != null) {
+        UnverifiedRulesDialog(
+            onConfirm = {
+                val apply = pendingUnverified
+                pendingUnverified = null
+                apply?.invoke()
+            },
+            onDismiss = { pendingUnverified = null },
+        )
+    }
 }
 
 private fun RulesUpdater.CheckResult.message(): String = when (this) {
@@ -416,6 +443,7 @@ private fun RulesUpdater.CheckResult.message(): String = when (this) {
     is RulesUpdater.CheckResult.UpToDate -> "Already up to date (version $version)."
     is RulesUpdater.CheckResult.Updated -> "Updated to rules version $version."
     is RulesUpdater.CheckResult.Failed -> reason
+    RulesUpdater.CheckResult.ConfirmationRequired -> "Unverified rules need confirmation in Settings."
 }
 
 /** Hands the CSV to the share sheet. Nothing leaves the phone unless the user picks a target. */

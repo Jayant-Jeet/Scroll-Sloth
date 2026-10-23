@@ -73,6 +73,18 @@ class SettingsStoreTest {
     }
 
     @Test
+    fun rulesUpdateStatusSurvivesStoreRecreation() = runTest {
+        val dataStore = InMemoryPreferencesDataStore()
+        val settings = SettingsStore(dataStore)
+        assertEquals(null, settings.rulesUpdateStatus.first())
+        settings.setRulesUpdateStatus("Signature check failed: invalid signature or public key.")
+        assertEquals(
+            "Signature check failed: invalid signature or public key.",
+            SettingsStore(dataStore).rulesUpdateStatus.first(),
+        )
+    }
+
+    @Test
     fun inspectorModeDefaultsToOffAndCanBeToggled() = runTest {
         // In-memory store: file-backed DataStore cannot overwrite its file on Windows hosts.
         val settingsStore = SettingsStore(InMemoryPreferencesDataStore())

@@ -87,6 +87,7 @@ data class SettingsUiState(
     val writeNowState: WorkInfo.State?,
     val inspectorEnabled: Boolean,
     val liveEvent: DetectorEvent?,
+    val rulesUpdateStatus: String? = null,
 )
 
 /** Everything the Settings screen can ask for. */
@@ -329,8 +330,9 @@ private fun RulesCard(state: SettingsUiState, onCheckRules: () -> Unit) {
         Text(
             when (rules.source) {
                 RulesSource.BUNDLED -> "Bundled with the app."
-                RulesSource.OVERRIDE -> "Imported from a file."
-                RulesSource.DOWNLOADED -> "Downloaded from the rules server."
+                RulesSource.OVERRIDE -> "Unverified · Imported from a file."
+                RulesSource.DOWNLOADED -> "Unverified · Downloaded from a custom rules server."
+                RulesSource.OFFICIAL -> "Official · Signature verified."
             },
             style = slothText(13.sp, lineHeight = 1.6f),
             color = colors.muted,
@@ -339,7 +341,7 @@ private fun RulesCard(state: SettingsUiState, onCheckRules: () -> Unit) {
             SlothDivider()
             LabelValue("Last checked", state.rulesLastCheckedMs?.let(::formatDateTime) ?: "Not yet")
             Text(
-                "Checking downloads one public file. It sends nothing about you.",
+                "Official updates fetch two public files: rules and their signature. Neither sends anything about you.",
                 style = slothText(12.sp, lineHeight = 1.5f),
                 color = colors.muted,
             )
@@ -357,7 +359,10 @@ private fun RulesCard(state: SettingsUiState, onCheckRules: () -> Unit) {
             )
         }
         rules.warning?.let { Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.destructive) }
-        state.rulesMessage?.let { Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.text) }
+        state.rulesUpdateStatus?.let { Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.text) }
+        state.rulesMessage?.takeIf { it != state.rulesUpdateStatus }?.let {
+            Text(it, style = slothText(12.sp, lineHeight = 1.5f), color = colors.text)
+        }
     }
 }
 
@@ -508,6 +513,17 @@ private fun ClickRow(title: String, description: String, onClick: () -> Unit) {
             SlothIcon(R.drawable.ic_chevron_right, SlothTheme.colors.muted, 16.dp)
         }
     }
+}
+
+@Composable
+internal fun UnverifiedRulesDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Apply unverified rules?") },
+        text = { Text("These rules are not verified as Official. They can change which reels are counted. Only continue if you trust their source.") },
+        confirmButton = { TextButton(onClick = onConfirm) { Text("Apply unverified rules") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
+    )
 }
 
 /** Where rule updates come from. Validated as https before it is saved; blank turns updates off. */

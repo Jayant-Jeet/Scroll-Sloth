@@ -47,7 +47,7 @@ flowchart LR
         updater["RulesUpdateWorker"] --> rules
         downloader["ModelDownloader"] --> gemma
     end
-    pages["GitHub Pages: site/detection-rules.json"] -. "weekly GET, no user data" .-> updater
+    pages["GitHub Pages: rules + detached signature"] -. "weekly public GETs, no user data" .-> updater
     hf["Hugging Face: Gemma model file"] -. "one-time download" .-> downloader
 ```
 
@@ -55,7 +55,9 @@ The language model only writes words. Every number comes from `StatsEngine` and 
 
 ## Privacy statement
 
-All app data is stored on the device. The only network requests are the optional one-time model download and the detection-rules fetch described below; both are plain downloads of public files and send no user data; the app includes no analytics or crash-reporting SDK. It never stores captions, usernames, video URLs, screen text, or reel content.
+All app data is stored on the device. The only network operations are the optional one-time model download and the detection-rules update described below. Official rules updates use two small HTTPS GETs of public files: `detection-rules.json` and `detection-rules.json.sig` on the same host. They use fixed, non-identifying headers, follow no redirects, and send no user data. The app includes no analytics or crash-reporting SDK. It never stores captions, usernames, video URLs, screen text, or reel content.
+
+Only rules from the official address whose signature verifies against an embedded public key are labelled **Official**. Imported rules and custom update addresses are labelled **Unverified** and require confirmation before applying; this label describes authenticity, not access to personal data.
 
 The accessibility service is limited in its XML configuration to exactly `com.instagram.android`, `com.google.android.youtube`, and `com.facebook.katana`, so Android never delivers events or window content from other apps. For detection, the service reads only structure from those windows: whether a reel screen is shown, the pager position, and (for Facebook) a hash of selected labels. That hash is kept in memory only, for at most the last 10 reels per app, and is never written to disk. Each counted reel is stored as a timestamp, a platform id, and a dwell time — nothing else. Rule Inspector captures contain structure only (see below); they stay in app-private storage until you choose to share them.
 
@@ -139,16 +141,51 @@ The imported file overrides the bundled one until you choose **Use bundled rules
 
 A downloaded file is kept only if all of these hold:
 
+- for the official address, its detached DER ECDSA P-256 signature verifies over the raw file bytes using SHA256withECDSA and either of up to two embedded X.509 DER public keys, **before JSON parsing**;
 - it parses against the schema (`schemaVersion` 1, all fields present and well typed, valid dwell limits);
 - its `rulesVersion` is higher than the current rules;
 - at least one app in it is calibrated. An app whose rule still has a `TODO_FROM_INSPECTOR` value is only disabled.
 
 It is written atomically: a temporary file is synced, then moved over the old one. The rules it replaces are kept as a last-good copy. If the current file is ever unreadable, the app falls back to the last-good copy and then to the bundled rules. Any network or validation error leaves the current rules untouched. Settings shows the version, its source (bundled, imported or downloaded) and when the server last answered.
 
+A missing, malformed, oversized (over 1 KB), or invalid signature keeps the current rules and records **Signature check failed** in Settings, including for background checks. Cached files that are out of sync fail verification and can be retried at the next check. Saved official rules and their last-good copy are verified again when loaded.
+
 The default address is `https://jayant-jeet.github.io/Scroll-Sloth/detection-rules.json`. The `pages.yml` workflow publishes [`site/detection-rules.json`](site/detection-rules.json) there, with compatibility copies at `/site/detection-rules.json` for v1.0.0 and `/docs/detection-rules.json` for earlier builds. To ship new rules, update that file and raise its `rulesVersion` (see [Contributing detection rules](#contributing-detection-rules)).
 
 - **Settings > Advanced > Rules update address** changes the address. It must be `https://` with no user name or password. Leave it empty to turn updates off, or tap **Use default** to restore the build default. The weekly worker is scheduled or cancelled to match.
 - **At build time**, `-PrulesUrl=https://...` changes the default, and `-PrulesUrl=` builds with updates off.
+
+Custom addresses (including build-time overrides) are never labelled Official, even if they serve a valid signature. They download only the JSON and require confirmation for each manual check before applying. Background checks do not apply unverified updates; Settings explains that confirmation is required. File imports also require confirmation. The bundled APK rules retain the separate **Bundled** label.
+
+### Signing rules
+
+The private signing keys stay offline and **must never be committed, copied into the app, or uploaded to CI**. The maintainer generates and manages them locally; no production private key or example private key is included here.
+
+1. On an offline machine, generate a P-256 key outside the repository with OpenSSL:
+   ```sh
+   openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out /secure/offline/rules-private.pem
+   ```
+2. Export only the public key to both formats (create `site/keys` first):
+   ```sh
+   openssl pkey -in /secure/offline/rules-private.pem -pubout -out site/keys/rules-pubkey-primary.pem
+   openssl pkey -in /secure/offline/rules-private.pem -pubout -outform DER -out app/src/main/assets/rules-pubkey-primary.der
+   ```
+   Optionally repeat with a separate offline backup key, using `rules-pubkey-backup.pem` and `rules-pubkey-backup.der`. The app accepts signatures from either embedded key. Distribute a new APK with a replacement key before switching signers.
+3. After changing `site/detection-rules.json` and increasing `rulesVersion`, sign its exact bytes offline:
+   ```sh
+   bash tools/sign-rules.sh /secure/offline/rules-private.pem
+   ```
+   This runs `openssl dgst -sha256 -sign` and writes the binary DER signature to `site/detection-rules.json.sig`, then verifies it against the committed public keys.
+4. Verify without a private key:
+   ```sh
+   bash tools/sign-rules.sh --verify
+   # Equivalent signature check for the primary key:
+   openssl dgst -sha256 -verify site/keys/rules-pubkey-primary.pem \
+     -signature site/detection-rules.json.sig site/detection-rules.json
+   ```
+5. Commit the JSON, its new `.sig`, and public keys only. **Every change to the JSON, including whitespace, requires a new `.sig`.** Git preserves the JSON's raw bytes and treats signatures and DER keys as binary.
+
+The PR **Validate rules** check validates schema only so contributors can propose unsigned changes. A maintainer signs the final rules before deployment. **Deploy site** fails closed if the signature or public key is missing, invalid, not P-256, or its PEM/embedded DER copies disagree. It publishes the rules and signature together at the root URL and both compatibility paths. Until the maintainer supplies the public keys and signature, official downloads fail verification and deployment is blocked; bundled, confirmed custom, and imported rules remain usable.
 
 ## Calibration
 

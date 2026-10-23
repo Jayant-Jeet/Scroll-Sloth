@@ -4,7 +4,7 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 
 /** Where the active rules came from: the APK, a file the user imported, or the rules server. */
-enum class RulesSource { BUNDLED, OVERRIDE, DOWNLOADED }
+enum class RulesSource { BUNDLED, OVERRIDE, DOWNLOADED, OFFICIAL }
 
 enum class RuleState { READY, NEEDS_CALIBRATION }
 

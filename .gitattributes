@@ -1,0 +1,7 @@
+# Rules signatures cover raw bytes: never convert line endings on checkout.
+site/detection-rules.json -text
+*.sig binary
+*.der binary
+tools/*.sh text eol=lf
+site/detection-rules.json -text
+site/detection-rules.json.sig binary

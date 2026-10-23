@@ -5,3 +5,18 @@ local.properties
 **/build/
 *.iml
 .captures/
+
+# Offline signing material must never enter the repository.
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.pem
+*.der
+!site/keys/rules-pubkey-primary.pem
+!site/keys/rules-pubkey-backup.pem
+!app/src/main/assets/rules-pubkey-primary.der
+!app/src/main/assets/rules-pubkey-backup.der
+*private*.key
+rules-signing/

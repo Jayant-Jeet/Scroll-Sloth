@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "rulesVersion": 2026102002,
+  "rulesVersion": 2026102301,
   "minDwellMs": 2000,
   "maxDwellMs": 120000,
   "apps": {

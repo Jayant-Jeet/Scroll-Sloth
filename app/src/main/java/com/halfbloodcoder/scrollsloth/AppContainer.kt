@@ -62,12 +62,21 @@ class AppContainer(context: Context) {
             .build()
     }
 
+    private val rulesSignatureVerifier = com.halfbloodcoder.scrollsloth.detect.RulesSignatureVerifier {
+        listOf("rules-pubkey-primary.der", "rules-pubkey-backup.der").mapNotNull { name ->
+            if (name in appContext.assets.list("").orEmpty()) {
+                appContext.assets.open(name).use { it.readBytes() }
+            } else null
+        }
+    }
+
     val rulesRepository by lazy {
         RulesRepository(
             bundledRules = {
                 appContext.assets.open(RulesRepository.FILE_NAME).bufferedReader().use { it.readText() }
             },
             overrideFile = File(appContext.filesDir, RulesRepository.FILE_NAME),
+            signatureVerifier = rulesSignatureVerifier,
         )
     }
 
@@ -81,6 +90,8 @@ class AppContainer(context: Context) {
             repository = rulesRepository,
             onServerAnswered = settingsStore::setRulesLastCheckedMs,
             clock = Clock.System,
+            signatureVerifier = rulesSignatureVerifier,
+            onStatus = settingsStore::setRulesUpdateStatus,
         )
     }
 

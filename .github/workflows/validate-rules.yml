@@ -3,6 +3,8 @@ name: Validate rules
 # Fails if site/detection-rules.json would not be accepted by the app, or has a publishing
 # mistake the app would silently tolerate (misspelt key, unknown app, broken rule, version not
 # above the bundled rules). Uses the app's own parser, so the schema has a single definition.
+# Schema only: contributors do not need access to the offline signing key.
+# Signature verification is a separate, required Pages deployment gate.
 # See app/src/test/java/com/halfbloodcoder/scrollsloth/detect/PublishedRulesCheck.kt.
 
 on:

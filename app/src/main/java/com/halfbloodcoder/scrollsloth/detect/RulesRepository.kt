@@ -11,6 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 /**
@@ -23,6 +25,7 @@ class RulesRepository(
     private val bundledRules: () -> String,
     private val overrideFile: File,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val signatureVerifier: RulesSignatureVerifier = RulesSignatureVerifier { emptyList() },
 ) {
     sealed interface ImportResult {
         data class Imported(val rules: LoadedRules) : ImportResult
@@ -42,55 +45,72 @@ class RulesRepository(
     private val lastGoodFile = File(overrideFile.parentFile, "${overrideFile.name}.lastgood")
     private val lastGoodDownloadedMarker = File(overrideFile.parentFile, "${lastGoodFile.name}.downloaded")
 
+    private val mutex = Mutex()
     private val state = MutableStateFlow(loadNow())
     val rules: StateFlow<LoadedRules> = state.asStateFlow()
 
-    suspend fun reload(): LoadedRules = withContext(ioDispatcher) { loadNow() }.also { state.value = it }
+    suspend fun reload(): LoadedRules = mutex.withLock {
+        withContext(ioDispatcher) { loadNow() }.also { state.value = it }
+    }
 
     /** Validates [text] and, only if it parses, saves it as the override. */
-    suspend fun importOverride(text: String): ImportResult = withContext(ioDispatcher) {
-        val loaded = try {
-            DetectionRulesLoader.load(text, RulesSource.OVERRIDE)
-        } catch (e: RulesFormatException) {
-            return@withContext ImportResult.Rejected(e.message ?: "Not a valid rules file.")
+    suspend fun importOverride(text: String): ImportResult = mutex.withLock {
+        withContext(ioDispatcher) {
+            val loaded = try {
+                DetectionRulesLoader.load(text, RulesSource.OVERRIDE)
+            } catch (e: RulesFormatException) {
+                return@withContext ImportResult.Rejected(e.message ?: "Not a valid rules file.")
+            }
+            try {
+                replaceOverride(text.toByteArray(Charsets.UTF_8), downloaded = false)
+            } catch (e: IOException) {
+                return@withContext ImportResult.Rejected("Could not save the rules: ${e.message}")
+            }
+            state.value = loaded
+            ImportResult.Imported(loaded)
         }
-        try {
-            replaceOverride(text, downloaded = false)
-        } catch (e: IOException) {
-            return@withContext ImportResult.Rejected("Could not save the rules: ${e.message}")
-        }
-        state.value = loaded
-        ImportResult.Imported(loaded)
     }
 
     /**
      * Saves downloaded rules only when they parse, enable at least one app, and are newer than the
      * active ones, so an older or placeholder server file never replaces working rules.
      */
-    suspend fun applyDownloaded(text: String): UpdateResult = withContext(ioDispatcher) {
-        val loaded = try {
-            DetectionRulesLoader.load(text, RulesSource.DOWNLOADED)
-        } catch (e: RulesFormatException) {
-            return@withContext UpdateResult.Rejected(e.message ?: "Not a valid rules file.")
+    suspend fun applyDownloaded(text: String): UpdateResult = applyDownloaded(text.toByteArray(Charsets.UTF_8))
+
+    suspend fun applyDownloaded(bytes: ByteArray, signature: ByteArray? = null): UpdateResult = mutex.withLock {
+        withContext(ioDispatcher) {
+            if (signature != null && !signatureVerifier.verify(bytes, signature)) {
+                return@withContext UpdateResult.Rejected("Signature check failed.")
+            }
+            val loaded = try {
+                DetectionRulesLoader.load(
+                    bytes.toString(Charsets.UTF_8),
+                    if (signature != null) RulesSource.OFFICIAL else RulesSource.DOWNLOADED,
+                )
+            } catch (e: RulesFormatException) {
+                return@withContext UpdateResult.Rejected(e.message ?: "Not a valid rules file.")
+            }
+            val current = state.value.rules.rulesVersion
+            if (loaded.rules.rulesVersion <= current) return@withContext UpdateResult.UpToDate(current)
+            if (loaded.enabledApps.isEmpty()) {
+                return@withContext UpdateResult.Rejected("No app in them is calibrated yet.")
+            }
+            try {
+                replaceOverride(bytes, downloaded = true, signature = signature)
+            } catch (e: IOException) {
+                return@withContext UpdateResult.Rejected("Could not save the rules: ${e.message}")
+            }
+            state.value = loaded
+            UpdateResult.Updated(loaded)
         }
-        val current = state.value.rules.rulesVersion
-        if (loaded.rules.rulesVersion <= current) return@withContext UpdateResult.UpToDate(current)
-        if (loaded.enabledApps.isEmpty()) {
-            return@withContext UpdateResult.Rejected("No app in them is calibrated yet.")
-        }
-        try {
-            replaceOverride(text, downloaded = true)
-        } catch (e: IOException) {
-            return@withContext UpdateResult.Rejected("Could not save the rules: ${e.message}")
-        }
-        state.value = loaded
-        UpdateResult.Updated(loaded)
     }
 
-    suspend fun resetToBundled(): LoadedRules = withContext(ioDispatcher) {
-        listOf(overrideFile, downloadedMarker, lastGoodFile, lastGoodDownloadedMarker).forEach { it.delete() }
-        loadNow()
-    }.also { state.value = it }
+    suspend fun resetToBundled(): LoadedRules = mutex.withLock {
+        withContext(ioDispatcher) {
+            listOf(overrideFile, downloadedMarker, lastGoodFile, lastGoodDownloadedMarker).forEach { it.delete() }
+            loadNow()
+        }.also { state.value = it }
+    }
 
     private fun loadNow(): LoadedRules {
         var warning: String? = null
@@ -115,34 +135,39 @@ class RulesRepository(
     }
 
     private fun tryLoad(file: File, marker: File): Attempt = try {
-        val source = if (marker.exists()) RulesSource.DOWNLOADED else RulesSource.OVERRIDE
-        Attempt.Loaded(DetectionRulesLoader.load(file.readText(), source))
+        val bytes = file.readBytes()
+        val proof = marker.takeIf { it.exists() }?.readBytes()
+        val source = when {
+            proof == null -> RulesSource.OVERRIDE
+            proof.isEmpty() -> RulesSource.DOWNLOADED
+            signatureVerifier.verify(bytes, proof) -> RulesSource.OFFICIAL
+            else -> throw RulesFormatException("signature check failed")
+        }
+        Attempt.Loaded(DetectionRulesLoader.load(bytes.toString(Charsets.UTF_8), source))
     } catch (e: RulesFormatException) {
         Attempt.Failed(e.message)
     } catch (e: IOException) {
         Attempt.Failed("could not be read (${e.message})")
     }
 
-    /** Keeps the current override (if it still loads) as last-good, then swaps in [text]. */
-    private fun replaceOverride(text: String, downloaded: Boolean) {
+    /** Keeps the current override (if it still loads) as last-good, then swaps in [bytes]. */
+    private fun replaceOverride(bytes: ByteArray, downloaded: Boolean, signature: ByteArray? = null) {
         overrideFile.parentFile?.mkdirs()
         if (overrideFile.exists() && tryLoad(overrideFile, downloadedMarker) is Attempt.Loaded) {
-            writeAtomically(lastGoodFile, overrideFile.readText())
-            setMarker(lastGoodDownloadedMarker, downloadedMarker.exists())
+            writeAtomically(lastGoodFile, overrideFile.readBytes())
+            if (downloadedMarker.exists()) writeAtomically(lastGoodDownloadedMarker, downloadedMarker.readBytes())
+            else lastGoodDownloadedMarker.delete()
         }
-        writeAtomically(overrideFile, text)
-        setMarker(downloadedMarker, downloaded)
-    }
-
-    private fun setMarker(marker: File, present: Boolean) {
-        if (present) marker.createNewFile() else marker.delete()
+        if (downloaded) writeAtomically(downloadedMarker, signature ?: byteArrayOf())
+        else downloadedMarker.delete()
+        writeAtomically(overrideFile, bytes)
     }
 
     /** Writes and syncs a temp file, then renames it over [target], so readers see old or new, never half. */
-    private fun writeAtomically(target: File, text: String) {
+    private fun writeAtomically(target: File, bytes: ByteArray) {
         val temp = File(target.parentFile, "${target.name}.tmp")
         FileOutputStream(temp).use { out ->
-            out.write(text.toByteArray(Charsets.UTF_8))
+            out.write(bytes)
             out.fd.sync()
         }
         try {
