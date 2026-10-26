@@ -58,6 +58,9 @@ class PromptBuilder {
         NumberGuard.Problem.Empty -> "it was empty"
         is NumberGuard.Problem.TooLong -> "it was longer than ${NumberGuard.MAX_LENGTH} characters"
         is NumberGuard.Problem.InventedNumbers -> "it used numbers that are not in the facts: ${tokens.joinToString(", ")}"
+        is NumberGuard.Problem.WrongUnit -> "number attached to the wrong unit: ${tokens.joinToString(", ")}"
+        is NumberGuard.Problem.ContradictoryDirection -> "direction contradicts the facts: ${words.joinToString(", ")}"
+        is NumberGuard.Problem.MultiplierClaims -> "multiplier claim without a ratio in the facts: ${tokens.joinToString(", ")}"
         is NumberGuard.Problem.BannedPhrase -> "it used a phrase that is not allowed: \"$phrase\""
         is NumberGuard.Problem.ForeignScript -> "it contained characters that are not English: $characters"
     }

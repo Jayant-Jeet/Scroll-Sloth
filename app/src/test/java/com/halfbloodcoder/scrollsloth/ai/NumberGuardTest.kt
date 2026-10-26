@@ -12,6 +12,92 @@ class NumberGuardTest {
     private val facts = StatsFacts(
         reels = 120, minutes = 45, band = "Sofa sloth", bandIndex = 2, lateNightReels = 30, previousPeriodReels = 80,
     )
+    private val rising = StatsFacts(45, 12, "Sofa sloth", 2, lateNightReels = 9, previousPeriodReels = 37)
+
+    private fun assertRejected(text: String, facts: StatsFacts = rising) {
+        assertTrue(text, NumberGuard.validate(text, facts) is Verdict.Rejected)
+    }
+
+    @Test
+    fun `rising counts reject downward comparisons and accept upward comparisons`() {
+        listOf("down 20% from yesterday", "fewer reels than yesterday").forEach { assertRejected(it) }
+        listOf(
+            "45 reels in 12 minutes, up from yesterday",
+            "more reels than yesterday",
+            "an overall busy day",
+            "A download for the upper floor.",
+        ).forEach { assertEquals(it, Verdict.Valid, NumberGuard.validate(it, rising)) }
+    }
+
+    @Test
+    fun `every comparison word is checked case insensitively in both directions`() {
+        val up = listOf("more", "higher", "up", "increase", "increased", "rose", "grew", "climbed", "jumped", "above", "worse")
+        val down = listOf("fewer", "less", "lower", "down", "drop", "dropped", "decreased", "fell", "dipped", "below", "better")
+        val falling = rising.copy(previousPeriodReels = 60)
+        up.forEach {
+            assertEquals(it, Verdict.Valid, NumberGuard.validate(it.uppercase(), rising))
+            assertRejected(it.uppercase(), falling)
+        }
+        down.forEach {
+            assertEquals(it, Verdict.Valid, NumberGuard.validate(it.uppercase(), falling))
+            assertRejected(it.uppercase())
+        }
+        assertRejected("up 20%", falling)
+        assertEquals(Verdict.Valid, NumberGuard.validate("down from yesterday", falling))
+        assertRejected("up overall, but down yesterday")
+    }
+
+    @Test
+    fun `same and missing previous periods reject all comparison classes`() {
+        for (previous in listOf(null, rising.reels)) {
+            val facts = rising.copy(previousPeriodReels = previous)
+            listOf("more than yesterday", "lower than yesterday", "worse", "better").forEach { assertRejected(it, facts) }
+            assertEquals(Verdict.Valid, NumberGuard.validate("an overall busy day", facts))
+        }
+        assertEquals(Verdict.Valid, NumberGuard.validate("up from yesterday", rising.copy(previousPeriodReels = 0)))
+    }
+
+    @Test
+    fun `multipliers require an explicit ratio fact not a coincidentally allowed number`() {
+        listOf("twice as many reels", "double the reels", "triple the reels", "half as many reels", "12 times", "twelve times")
+            .forEach { assertRejected(it) }
+        assertRejected("twice as many reels", rising.copy(reels = 74))
+        assertEquals(Verdict.Valid, NumberGuard.validate("A halftime doublecheck.", rising))
+    }
+
+    @Test
+    fun `numbers bind to reel time and percentage units within two words`() {
+        listOf("12 reels in 45 minutes", "twelve reels", "12 watched videos", "45 total min", "45 hr", "45 %", "12 percent")
+            .forEach { assertRejected(it) }
+        listOf(
+            "45 reels in 12 minutes", "45 watched videos", "37 shorts", "9 late reels", "8 reels",
+            "12 min", "0.2 hours", "0 hr", "20 %", "20 percent", "twenty per cent",
+            "12, with 45.", "45. Minutes of reflection.", "45; minutes later.",
+        ).forEach { assertEquals(it, Verdict.Valid, NumberGuard.validate(it, rising)) }
+    }
+
+    @Test
+    fun `all recognized unit spellings use the right allow list`() {
+        for (unit in listOf("reel", "reels", "video", "videos", "short", "shorts")) {
+            assertEquals(Verdict.Valid, NumberGuard.validate("45 $unit", rising))
+            assertRejected("12 total ${unit.uppercase()}")
+        }
+        for (unit in listOf("min", "minute", "minutes", "hour", "hours", "hr")) {
+            assertEquals(Verdict.Valid, NumberGuard.validate("12 $unit", rising))
+            assertRejected("45 total ${unit.uppercase()}")
+        }
+        assertRejected("12 total percent")
+        assertEquals(Verdict.Valid, NumberGuard.validate("20 total percent", rising))
+        assertRejected("twelve total percent")
+    }
+
+    @Test
+    fun `rejection identifies contradictions and wrong units even when every number is globally allowed`() {
+        val direction = NumberGuard.validate("down 20%", rising) as Verdict.Rejected
+        assertEquals(listOf(Problem.ContradictoryDirection(listOf("down"))), direction.problems)
+        val swapped = NumberGuard.validate("12 reels in 45 minutes", rising) as Verdict.Rejected
+        assertEquals(listOf(Problem.WrongUnit(listOf("12", "45"))), swapped.problems)
+    }
 
     private fun invented(text: String, facts: StatsFacts = this.facts): List<String> =
         (NumberGuard.validate(text, facts) as Verdict.Rejected).problems
@@ -32,7 +118,7 @@ class NumberGuardTest {
     @Test
     fun `letters from other scripts are rejected but accents, emoji and a renamed band pass`() {
         val rejected = NumberGuard.validate("It looks like you watchedヒル closely, 120 times!", facts) as Verdict.Rejected
-        assertEquals(listOf<Problem>(Problem.ForeignScript("ヒル")), rejected.problems)
+        assertTrue(rejected.problems.contains(Problem.ForeignScript("ヒル")))
         assertEquals("сервер", NumberGuard.foreignScript("Wow сервер", "Sofa sloth"))
         assertEquals(Verdict.Valid, NumberGuard.validate("A naïve café crawl — 120 reels 🦥, “cheeky”.", facts))
         assertNull(NumberGuard.foreignScript("Вы ленивец", "Вы ленивец"))

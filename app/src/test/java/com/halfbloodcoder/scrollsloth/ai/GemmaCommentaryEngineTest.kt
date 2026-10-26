@@ -68,6 +68,38 @@ class GemmaCommentaryEngineTest {
     }
 
     @Test
+    fun `direction rejection retries once with the reason and can recover`() = runTest {
+        val request = request.copy(facts = StatsFacts(45, 12, "Sofa sloth", 2, 9, 37))
+        val model = FakeModel(replies = listOf("down 20% from yesterday", "45 reels in 12 minutes, up from yesterday"))
+        val result = engine(model).write(request)
+        assertEquals(CommentarySource.GEMMA, result.source)
+        assertEquals(1, result.retries)
+        assertTrue(model.sent[1], model.sent[1].contains("direction contradicts the facts"))
+        assertEquals(2, model.sent.size)
+    }
+
+    @Test
+    fun `wrong units then multiplier falls back after one retry`() = runTest {
+        val request = request.copy(facts = StatsFacts(45, 12, "Sofa sloth", 2, 9, 37))
+        val model = FakeModel(replies = listOf("12 reels in 45 minutes", "twice as many reels"))
+        val result = engine(model).write(request)
+        assertEquals(CommentarySource.TEMPLATE, result.source)
+        assertEquals(1, result.retries)
+        assertTrue(model.sent[1], model.sent[1].contains("number attached to the wrong unit"))
+        assertEquals(2, model.sent.size)
+        assertEquals(NumberGuard.Verdict.Valid, NumberGuard.validate(result.text, request.facts))
+    }
+
+    @Test
+    fun `multiplier rejection names its reason before fallback`() = runTest {
+        val model = FakeModel(replies = listOf("twice as many reels"))
+        val result = engine(model).write(request)
+        assertEquals(CommentarySource.TEMPLATE, result.source)
+        assertEquals(1, result.retries)
+        assertTrue(model.sent[1], model.sent[1].contains("multiplier claim"))
+    }
+
+    @Test
     fun `missing model uses the template without loading anything`() = runTest {
         val model = FakeModel(available = false)
         assertEquals(CommentaryResult(templates.render(request), CommentarySource.TEMPLATE, 0), engine(model).write(request))

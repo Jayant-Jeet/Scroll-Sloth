@@ -15,8 +15,8 @@ android {
         minSdk = 26
         targetSdk = 37
         // The release workflow passes these from the git tag (v1.2.3 -> 1.2.3 / 10203).
-        versionCode = (project.findProperty("versionCode") as String?)?.toInt() ?: 2
-        versionName = (project.findProperty("versionName") as String?) ?: "1.1"
+        versionCode = (project.findProperty("versionCode") as String?)?.toInt() ?: 3
+        versionName = (project.findProperty("versionName") as String?) ?: "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
